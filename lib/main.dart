@@ -1,4 +1,4 @@
-import 'package:fitness_app/screens/home_screen/home_screen.dart';
+import 'package:fitness_app/screens/app_layout/app_layout.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,11 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Fitness Tracker App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const AppLayoutPage(),
     );
   }
 }
