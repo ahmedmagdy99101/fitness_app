@@ -7,4 +7,3 @@ class MealState extends MyFavouritesState {}
 
 class WorkOutState extends MyFavouritesState {}
 
-
