@@ -1,16 +1,10 @@
-import 'package:fitness_app/screens/app_layout/app_layout.dart';
-import 'package:fitness_app/screens/myFavorites_screen/myFavotites_cubit/myFavorites_cubit.dart';
+import 'package:fitness_app/screens/training_screen/training_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'shared/app_colors.dart';
 
 void main() {
-  runApp(MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context ) =>MyFavouritesCubit())
-      ],
-  child: const MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -27,7 +21,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Montserrat",
         useMaterial3: true,
       ),
-      home: const AppLayoutPage(),
+      home: const TrainingScreen(),
     );
   }
 }
