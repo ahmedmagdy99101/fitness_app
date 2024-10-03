@@ -25,7 +25,7 @@ class SplashFitnessScreen extends StatelessWidget {
                   Positioned(
                     top: 80,
                     child: Image.asset(
-                      'images/girl-doing-biceps-with-dumbbells-model-with-ginger-hair-black-sportwear-bright-gym-fitness-balls-besides_prev_ui 1.png',
+                      'images/girl.png',
                       // Add your asset path here
                       width: 250,
                       height: 400,

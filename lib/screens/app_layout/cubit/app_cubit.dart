@@ -31,3 +31,4 @@ class AppCubit extends Cubit<AppStates> {
     emit(ChangeBottomNavbarState());
   }
 }
+var scaffoldKey = GlobalKey<ScaffoldState>();

@@ -3,6 +3,8 @@ import 'package:fitness_app/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../app_layout/cubit/app_cubit.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -37,24 +39,47 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/icons/menu_icon.png',
-                          width: 24,
-                          height: 24,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CircleAvatar(
-                          radius: 25,
-                          backgroundImage: const AssetImage(
-                            'assets/images/avatar.png',
+                    GestureDetector(
+                      onTap: () {
+                        scaffoldKey.currentState!.openDrawer();
+                      },
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/icons/menu_icon.png',
+                            width: 24,
+                            height: 24,
+                            color: Colors.white,
                           ),
-                        )
-                      ],
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const CircleAvatar(
+                            radius: 25,
+                            backgroundImage: AssetImage(
+                              'assets/images/avatar.png',
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Welcome back ,",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                              Text(
+                                "Salma",
+                                style: TextStyle(
+                                    color: Colors.grey[100], fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     IconButton(
                       onPressed: () {},
@@ -84,16 +109,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text("SELECT YOUR GOAL",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text("Select your Goal".toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: "Bebas",
+                      )),
                   BlocBuilder<HomeCubit, HomeState>(
                     builder: (context, state) {
                       final cubit = HomeCubit.get(context);
                       return SizedBox(
-                        height: 85,
+                        height: 70,
                         child: ListView.separated(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return InkWell(
@@ -115,10 +143,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Text(
                                   cubit.goalsLabels[index],
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
                                     color: cubit.selectedGoal == index
                                         ? Colors.white
-                                        : Colors.grey[800]!,
+                                        : Color(0xFF303841),
                                   ),
                                 ),
                               ),
@@ -134,13 +163,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   ),
-                  const Row(
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("CATEGORIES",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text("See all",
+                      Text("Category".toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: "Bebas",
+                          )),
+                      const Text("See all",
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
@@ -151,6 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 110,
                     child: ListView.separated(
+                      physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Column(
@@ -166,7 +202,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-                            const Text("Cycling"),
+                            const Text(
+                              "Yoga",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ],
                         );
                       },
@@ -179,13 +221,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   Divider(
                     color: Colors.grey[300],
                   ),
-                  const Row(
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Popular Exercise",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text("See all",
+                      Text("Popular Exercise".toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: "Bebas",
+                          )),
+                      const Text("See all",
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
@@ -193,6 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListView.builder(
                     itemCount: 2,
                     shrinkWrap: true,
+                    padding: const EdgeInsets.only(top: 15),
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
@@ -200,11 +249,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.asset(
-                              'assets/images/popular_exercise1.png',
-                              width: double.infinity,
-                              height: 190,
-                              fit: BoxFit.fill,
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Image.asset(
+                                'assets/images/popular_exercise1.png',
+                                width: double.infinity,
+                                height: 190,
+                                fit: BoxFit.fill,
+                              ),
                             ),
                             const SizedBox(
                               height: 10,
@@ -214,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w700),
+                                  fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
                               height: 5,
@@ -250,13 +304,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   Divider(
                     color: Colors.grey[300],
                   ),
-                  const Row(
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Meal Plans",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text("See all",
+                      Text("Meal Plans".toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: "Bebas",
+                          )),
+                      const Text("See all",
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
@@ -265,6 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: 2,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 15),
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         margin: const EdgeInsets.only(bottom: 15),
@@ -285,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w700),
+                                  fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
                               height: 3,
@@ -293,7 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             const Text(
                               "150 kcal",
                               style: TextStyle(
-                                  color: Color(0xFF303841),
+                                  color: Color(0xFF3A4750),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400),
                             ),
@@ -305,13 +366,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   Divider(
                     color: Colors.grey[300],
                   ),
-                  const Row(
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Additional Exercise",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text("See all",
+                      Text("Additional Exercise".toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: "Bebas",
+                          )),
+                      const Text("See all",
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
@@ -319,13 +386,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
+                    padding: const EdgeInsets.only(top: 15),
                     itemBuilder: (context, index) {
                       return Row(
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.asset(
-                              'assets/images/popular_exercise1.png',
+                              'assets/images/additional_exercise1.png',
                               width: 90,
                               height: 90,
                               fit: BoxFit.cover,
@@ -340,7 +408,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 maxLines: 2,
                                 style: TextStyle(
                                   fontSize: 14,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               const SizedBox(height: 5),
@@ -352,6 +420,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   const Text(
                                     ' 135 kcal  |  ',
+                                    style: TextStyle(
+                                        color: Color(0xFF3A4750),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
                                   ),
                                   Image.asset(
                                     'assets/icons/clock.png',
@@ -359,12 +431,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   const Text(
                                     ' 5 min',
+                                    style: TextStyle(
+                                        color: Color(0xFF3A4750),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 5),
                               const Text(
                                 'Beginner',
+                                style: TextStyle(
+                                    color: Color(0xFF3A4750),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400),
                               ),
                             ],
                           ),

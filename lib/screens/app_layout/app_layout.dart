@@ -10,6 +10,7 @@ import 'package:fitness_app/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../drawer/my_drawer.dart';
 import 'cubit/app_cubit.dart';
 import 'cubit/app_states.dart';
 
@@ -19,12 +20,15 @@ class AppLayoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
       create: (context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
         builder: (context, state) {
           return Scaffold(
+            key: scaffoldKey,
             //  backgroundColor: Colors.white,
+            drawer: const MyDrawer(),
             body: AppCubit.get(context).bottomNavPages[AppCubit.get(context).bottomNavIndex],
             bottomNavigationBar: CustomNavigationBar(
               backgroundColor: const Color(0xFFF7F7F7),

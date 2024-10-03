@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
-
-
 class WelcomeCrossfitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,7 +25,8 @@ class WelcomeCrossfitScreen extends StatelessWidget {
               backgroundColor: Color(0xFFA2D05D), // Green background
               child: CircleAvatar(
                 radius: 140,
-                backgroundImage: AssetImage('images/horizontal-shot-satisfied-motivated-sportswoman-has-regular-training-raises-arms-with-dumbbells-does-exercises-muscles-dressed-sportswear-smiles-toothily-isolated-pink-wall-sport-concept-removebg-prev 1.png'), // Replace with your asset
+                backgroundImage: AssetImage(
+                    'images/horizontal.png'), // Replace with your asset
               ),
             ),
 
@@ -85,11 +82,14 @@ class WelcomeCrossfitScreen extends StatelessWidget {
                   // Indicator
                   const Row(
                     children: [
-                      Icon(Icons.circle, size: 12, color: Color(0xFFA2D05D)), // Active dot
+                      Icon(Icons.circle, size: 12, color: Color(0xFFA2D05D)),
+                      // Active dot
                       SizedBox(width: 6),
-                      Icon(Icons.circle, size: 12, color: Colors.black38), // Inactive dot
+                      Icon(Icons.circle, size: 12, color: Colors.black38),
+                      // Inactive dot
                       SizedBox(width: 6),
-                      Icon(Icons.circle, size: 12, color: Colors.black38), // Inactive dot
+                      Icon(Icons.circle, size: 12, color: Colors.black38),
+                      // Inactive dot
                     ],
                   ),
 
