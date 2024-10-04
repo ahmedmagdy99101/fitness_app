@@ -1,3 +1,5 @@
+import 'package:fitness_app/screens/meal_plan_screens/_meal_plan.dart';
+import 'package:fitness_app/screens/profile_screens/_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,9 +23,9 @@ class AppCubit extends Cubit<AppStates> {
 
   List<Widget> bottomNavPages = [
     const HomeScreen(),
+    const MealPlanScreen(),
     Container(),
-    Container(),
-    Container(),
+    const ProfileScreen(),
   ];
 
   void changeBottomNavbar(index) {
