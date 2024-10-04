@@ -4,7 +4,11 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
 <<<<<<< HEAD
+<<<<<<< HEAD
   file_selector_windows
+=======
+  firebase_core
+>>>>>>> origin/main
 =======
   firebase_core
 >>>>>>> origin/main
