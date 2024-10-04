@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 
 class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +30,9 @@ class LoginScreen extends StatelessWidget {
                               onPressed: () {
                                 // Handle back button action
                               },
-                              icon: Icon(Icons.arrow_back),
+                              icon: const Icon(Icons.arrow_back),
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             const Text(
                               'WELCOME TO PRO FITNESS!',
                               style: TextStyle(
@@ -63,11 +65,11 @@ class LoginScreen extends StatelessWidget {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                suffixIcon: Icon(Icons.check_circle),
+                                suffixIcon: const Icon(Icons.check_circle),
                               ),
                               keyboardType: TextInputType.emailAddress,
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
 
                             // Password TextField
                             TextField(
@@ -77,10 +79,10 @@ class LoginScreen extends StatelessWidget {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                suffixIcon: Icon(Icons.visibility_off),
+                                suffixIcon: const Icon(Icons.visibility_off),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
 
                             // Forgot Password
                             Align(
@@ -98,11 +100,11 @@ class LoginScreen extends StatelessWidget {
                             // Login Button
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFA2D05D), // Green button color
+                                backgroundColor: const Color(0xFFA2D05D), // Green button color
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                padding: EdgeInsets.symmetric(vertical: 15),
+                                padding: const EdgeInsets.symmetric(vertical: 15),
                               ),
                               onPressed: () {
                                 // Login Action
@@ -113,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
 
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
 
                             // Or Login With
                             const Row(
@@ -141,7 +143,7 @@ class LoginScreen extends StatelessWidget {
                               ],
                             ),
 
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
 
                             // Social Login Buttons
                             SocialLoginButton(
@@ -153,11 +155,11 @@ class LoginScreen extends StatelessWidget {
                                 // Google login action
                               },
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             SocialLoginButton(
                               icon: Icons.facebook,
                               text: 'Connect With Facebook',
-                              backgroundColor: Color(0xFF1877F2),
+                              backgroundColor: const Color(0xFF1877F2),
                               textColor: Colors.white,
                               onPressed: () {
                                 // Facebook login action
@@ -167,7 +169,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
 
-                      Spacer(),
+                      const Spacer(),
 
                       // Register Section
                       Padding(
@@ -212,13 +214,13 @@ class SocialLoginButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const SocialLoginButton({
-    Key? key,
+    super.key,
     required this.icon,
     required this.text,
     required this.backgroundColor,
     required this.textColor,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +228,7 @@ class SocialLoginButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         foregroundColor: textColor,
-        padding: EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(color: Colors.grey[300]!),
@@ -236,7 +238,7 @@ class SocialLoginButton extends StatelessWidget {
       icon: Icon(icon),
       label: Text(
         text,
-        style: TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 16),
       ),
     );
   }

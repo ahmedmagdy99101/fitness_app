@@ -20,7 +20,7 @@ class NotificationsScreen extends StatelessWidget {
       ),
       body: ListView.builder(
         itemCount: 5,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             title: const Text(

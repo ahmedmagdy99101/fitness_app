@@ -1,5 +1,4 @@
 
-import 'package:flutter/material.dart';
 
 abstract class AppStates{}
 class InitialState extends AppStates{}

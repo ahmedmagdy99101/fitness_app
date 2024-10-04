@@ -27,12 +27,12 @@ class PopularTrainingWidget extends StatelessWidget {
                   width: double.infinity,
                   fit: BoxFit.fill,
                 )),
-            Text(
+            const Text(
               'Green beans, tomatoes, eggs',
-              style: const TextStyle(
+              style: TextStyle(
                   color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            Row(
+            const Row(
               children: [
                 Icon(
                   Icons.local_fire_department_outlined,
@@ -41,7 +41,7 @@ class PopularTrainingWidget extends StatelessWidget {
                 ),
                 Text(
                   '135 kcal',
-                  style: const TextStyle(color: Colors.grey, fontSize: 16),
+                  style: TextStyle(color: Colors.grey, fontSize: 16),
                 ),
                 Text('  |  '),
                 Icon(
@@ -51,7 +51,7 @@ class PopularTrainingWidget extends StatelessWidget {
                 ),
                 Text(
                   ' 30 min',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.grey,
                     fontSize: 16,
                   ),

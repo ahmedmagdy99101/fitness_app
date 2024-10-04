@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SplashFitnessScreen extends StatelessWidget {
+  const SplashFitnessScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +90,7 @@ class SplashFitnessScreen extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
             // Subtitle: "We train your body to be great and fit."
             const Text(
@@ -99,7 +101,7 @@ class SplashFitnessScreen extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
             // Start Button
             Padding(
@@ -128,7 +130,7 @@ class SplashFitnessScreen extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
           ],
         ),
       ),
@@ -138,7 +140,7 @@ class SplashFitnessScreen extends StatelessWidget {
   // Reusable function to build the badge with optional icons and subtitles
   Widget _buildBadge(String title, [String? subtitle, IconData? icon]) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),

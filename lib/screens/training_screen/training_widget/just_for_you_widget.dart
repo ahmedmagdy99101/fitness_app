@@ -5,7 +5,7 @@ class JustForYouWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -31,14 +31,14 @@ class JustForYouWidget extends StatelessWidget {
                       width:100,
                       fit: BoxFit.fill,
                     )),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Be Free',
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold),
                       ),
                       Row(
@@ -50,7 +50,7 @@ class JustForYouWidget extends StatelessWidget {
                           ),
                           Text(
                             ' 30 min',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.black,
                               fontSize: 10,
                             ),

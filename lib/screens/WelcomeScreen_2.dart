@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class WelcomeCrossfitScreen extends StatelessWidget {
+  const WelcomeCrossfitScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +59,7 @@ class WelcomeCrossfitScreen extends StatelessWidget {
               ),
             ),
 
-            Spacer(),
+            const Spacer(),
 
             // Bottom Navigation: SKIP, Indicator, NEXT
             Padding(

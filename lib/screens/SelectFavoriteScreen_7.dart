@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SelectFavoriteScreen extends StatelessWidget {
+  const SelectFavoriteScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -17,12 +19,12 @@ class SelectFavoriteScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
-                    Text(
+                    const Text(
                       'Step 1 of 8',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
@@ -30,7 +32,7 @@ class SelectFavoriteScreen extends StatelessWidget {
                       onPressed: () {
                         // Handle Skip action
                       },
-                      child: Text(
+                      child: const Text(
                         'Skip',
                         style: TextStyle(color: Colors.black),
                       ),
@@ -38,7 +40,7 @@ class SelectFavoriteScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: size.height * 0.02),
-                Text(
+                const Text(
                   'SELECT YOUR FAVORITE',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
@@ -46,8 +48,8 @@ class SelectFavoriteScreen extends StatelessWidget {
                 // GridView for the options
                 GridView(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
@@ -67,13 +69,13 @@ class SelectFavoriteScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF9ACD32), // Light green color
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: const Color(0xFF9ACD32), // Light green color
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     onPressed: () {
                       // Handle Next Steps action
                     },
-                    child: Text(
+                    child: const Text(
                       'NEXT STEPS',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
@@ -102,7 +104,7 @@ class SelectFavoriteScreen extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           label,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ],
     );

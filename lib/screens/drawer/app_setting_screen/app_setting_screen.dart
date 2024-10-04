@@ -29,7 +29,7 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         children: [
           ListTile(
             title: const Text(
@@ -134,7 +134,7 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
               width: 25,
               height: 25,
             ),
-            trailing: Text(
+            trailing: const Text(
               "English",
               style: TextStyle(color: Color(0xFF3A4750), fontSize: 12),
             ),
@@ -143,20 +143,20 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
           Divider(
             color: Colors.grey.shade300,
           ),
-          SizedBox(
+          const SizedBox(
             height: 60,
           ),
           ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
-                  padding: WidgetStatePropertyAll(
+                  padding: const WidgetStatePropertyAll(
                       EdgeInsets.symmetric(vertical: 15)),
                   backgroundColor:
-                      WidgetStatePropertyAll(AppColors.primaryColor),
+                      const WidgetStatePropertyAll(AppColors.primaryColor),
                   shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ))),
-              child: Text(
+              child: const Text(
                 "Logout",
                 style: TextStyle(color: Colors.white),
               )),

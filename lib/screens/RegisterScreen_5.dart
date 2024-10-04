@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -17,7 +19,7 @@ class SignupScreen extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -73,8 +75,8 @@ class SignupScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF9ACD32), // Light green color
-                      padding: EdgeInsets.symmetric(vertical: 15),
+                      backgroundColor: const Color(0xFF9ACD32), // Light green color
+                      padding: const EdgeInsets.symmetric(vertical: 15),
                     ),
                     onPressed: () {
                       // Handle sign up action
@@ -102,8 +104,8 @@ class SignupScreen extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          side: BorderSide(color: Colors.grey),
-                          padding: EdgeInsets.symmetric(vertical: 12),
+                          side: const BorderSide(color: Colors.grey),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -134,8 +136,8 @@ class SignupScreen extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          side: BorderSide(color: Colors.grey),
-                          padding: EdgeInsets.symmetric(vertical: 12),
+                          side: const BorderSide(color: Colors.grey),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,

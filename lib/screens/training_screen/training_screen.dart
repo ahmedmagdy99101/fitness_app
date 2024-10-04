@@ -16,7 +16,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'TRAINING',
           style: TextStyle(
             color: Colors.black,
@@ -42,7 +42,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         });
                       },
                       style: TextButton.styleFrom(
-                          fixedSize: Size(38, 60),
+                          fixedSize: const Size(38, 60),
                           backgroundColor: selectedCategory == 'Beginner'
                               ? Colors.black
                               : Colors.white70,
@@ -71,7 +71,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                           });
                         },
                         style: TextButton.styleFrom(
-                            fixedSize: Size(38, 60),
+                            fixedSize: const Size(38, 60),
                             backgroundColor: selectedCategory == 'Intermediate'
                                 ? Colors.black
                                 : Colors.white70,
@@ -97,7 +97,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         });
                       },
                       style: TextButton.styleFrom(
-                          fixedSize: Size(38, 60),
+                          fixedSize: const Size(38, 60),
                           backgroundColor: selectedCategory == 'Advanced'
                               ? Colors.black
                               : Colors.white70,
@@ -117,8 +117,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
+            const Padding(
+              padding: EdgeInsets.symmetric(
                 vertical: 8
               ),
               child: Text(
@@ -131,9 +131,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 ),
               ),
             ),
-            PopularTrainingWidget(),
-            Padding(
-              padding: const EdgeInsets.symmetric(
+            const PopularTrainingWidget(),
+            const Padding(
+              padding: EdgeInsets.symmetric(
                 vertical: 8
               ),
               child: Text(
@@ -146,7 +146,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 ),
               ),
             ),
-            JustForYouWidget()
+            const JustForYouWidget()
           ],
         ),
       ),

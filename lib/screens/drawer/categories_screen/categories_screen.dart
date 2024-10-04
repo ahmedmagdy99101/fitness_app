@@ -9,7 +9,7 @@ class CategoriesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Categories".toUpperCase(),
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.black,
               fontSize: 22,
               letterSpacing: 1,
@@ -20,7 +20,7 @@ class CategoriesScreen extends StatelessWidget {
       ),
       body: GridView.builder(
         itemCount: 10,
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {

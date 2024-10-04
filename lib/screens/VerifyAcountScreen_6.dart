@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class VerifyAccountScreen extends StatelessWidget {
+  const VerifyAccountScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -76,8 +78,8 @@ class VerifyAccountScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF9ACD32), // Light green color
-                      padding: EdgeInsets.symmetric(vertical: 15),
+                      backgroundColor: const Color(0xFF9ACD32), // Light green color
+                      padding: const EdgeInsets.symmetric(vertical: 15),
                     ),
                     onPressed: () {
                       // Handle Reset Password Action

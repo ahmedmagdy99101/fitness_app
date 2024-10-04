@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 
 class WelcomefitScreen extends StatelessWidget {
+  const WelcomefitScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +62,7 @@ class WelcomefitScreen extends StatelessWidget {
             ),
           //Shot Strong Timeless
             // Woman Training
-            Spacer(),
+            const Spacer(),
 
             // Bottom Navigation: SKIP, Indicator, NEXT
             Padding(
