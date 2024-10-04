@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.w500,
                                     color: cubit.selectedGoal == index
                                         ? Colors.white
-                                        : Color(0xFF303841),
+                                        : const Color(0xFF303841),
                                   ),
                                 ),
                               ),
@@ -205,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 110,
                     child: ListView.separated(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Column(
@@ -236,6 +236,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       itemCount: 5,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   Divider(
                     color: Colors.grey[300],
