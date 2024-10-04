@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../app_layout/cubit/app_cubit.dart';
 import '../drawer/categories_screen/categories_screen.dart';
+import '../notifications_screen/notifications_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -83,7 +84,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const NotificationsScreen(),
+                          ),
+                        );
+                      },
                       icon: const Icon(
                         Icons.notifications_none,
                         color: Colors.white,
