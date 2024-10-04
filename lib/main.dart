@@ -1,4 +1,4 @@
-import 'package:fitness_app/screens/training_screen/training_screen.dart';
+import 'package:fitness_app/screens/app_layout/app_layout.dart';
 import 'package:flutter/material.dart';
 
 import 'shared/app_colors.dart';
@@ -19,9 +19,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
         fontFamily: "Montserrat",
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
-      home: const TrainingScreen(),
+      home: const AppLayoutPage(),
     );
   }
 }

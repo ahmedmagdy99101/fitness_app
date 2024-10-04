@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../shared/app_colors.dart';
+import '../myFavorites_screen/myFavorites_screen.dart';
+import '../training_screen/training_screen.dart';
+import 'categories_screen/categories_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -53,13 +56,22 @@ class MyDrawer extends StatelessWidget {
           BuildDrawerItemWidget(
             itemName: 'Training',
             itemIcon: 'assets/icons/training.png',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => const TrainingScreen()));
+            },
           ),
           const Divider(),
           BuildDrawerItemWidget(
             itemName: 'Categories',
             itemIcon: 'assets/icons/categories.png',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const CategoriesScreen(),
+                ),
+              );
+            },
           ),
           const Divider(),
           BuildDrawerItemWidget(
@@ -71,7 +83,11 @@ class MyDrawer extends StatelessWidget {
           BuildDrawerItemWidget(
             itemName: 'My Favorites',
             itemIcon: 'assets/icons/my_favorites.png',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      const MyFavouritesScreen()));
+            },
           ),
           const Divider(),
           BuildDrawerItemWidget(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../app_layout/cubit/app_cubit.dart';
+import '../drawer/categories_screen/categories_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -175,9 +176,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.normal,
                             fontFamily: "Bebas",
                           )),
-                      const Text("See all",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold)),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const CategoriesScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text("See all",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold)),
+                      ),
                     ],
                   ),
                   const SizedBox(
