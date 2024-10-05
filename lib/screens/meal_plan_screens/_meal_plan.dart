@@ -30,7 +30,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
-                    fontFamily: 'Montserrat',
+                  fontFamily: 'Montserrat',
                 ),
               ),
             ),
@@ -45,15 +45,15 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   AppBar buildAppBar() {
     return AppBar(
       title: const Text(
-          'MEAL PLAN',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w400,
-            fontFamily: 'Bebas',
-          ),
+        'MEAL PLAN',
+        style: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w400,
+          fontFamily: 'Bebas',
+        ),
       ),
-        centerTitle: true,
-      leading: const Icon(Icons.arrow_back),
+      centerTitle: true,
+      // leading: const Icon(Icons.arrow_back),
       actions: const [
         Icon(Icons.lightbulb_outline),
         SizedBox(width: 16),
@@ -93,12 +93,10 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Text(
-              text,
-            style: const TextStyle(
+          child: Text(text,
+              style: const TextStyle(
                 fontFamily: 'Montserrat',
-            )
-          ),
+              )),
         ),
       ),
     );
@@ -108,181 +106,184 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   Widget buildMealList() {
     return Expanded(
       child: ListView(
-     children: [
-      GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const MealPlanDetails(),
-            ),
-          );
-        },
-        child: Stack(
-          children: [
-            buildMealItem(
-            'assets/images/meal1.png',
-              'Green beans, tomatoes, eggs',
-              '133 kcal',
-              '30 min',
-            ),
-            Positioned(
-              top: 20,
-              right: 20,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isFavorite = !isFavorite;
-                  });
-                },
-                child: Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.white,
-                  ),
-                  child: Icon(
-                    isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? Colors.red : Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          top: 8,
-          bottom: 16,
-        ),
-        child: Divider(
-          color: Colors.grey.withOpacity(.5),
-          height: 4,
-        ),
-      ),
-      Stack(
         children: [
-          buildMealItem(
-            'assets/images/meal2.png',
-            'Healthy balanced vegetarian food',
-            '215 kcal',
-            '40 min',
-          ),
-          Positioned(
-            top: 20,
-            right: 20,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  isFavorite = !isFavorite;
-                });
-              },
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MealPlanDetails(),
                 ),
-                child: Icon(
-                  isFavorite ? Icons.lock_open : Icons.lock,
-                  color: isFavorite ? Colors.red : Colors.black,
+              );
+            },
+            child: Stack(
+              children: [
+                buildMealItem(
+                  'assets/images/meal1.png',
+                  'Green beans, tomatoes, eggs',
+                  '133 kcal',
+                  '30 min',
+                ),
+                Positioned(
+                  top: 20,
+                  right: 20,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isFavorite = !isFavorite;
+                      });
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                      ),
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 8,
+              bottom: 16,
+            ),
+            child: Divider(
+              color: Colors.grey.withOpacity(.5),
+              height: 4,
+            ),
+          ),
+          Stack(
+            children: [
+              buildMealItem(
+                'assets/images/meal2.png',
+                'Healthy balanced vegetarian food',
+                '215 kcal',
+                '40 min',
+              ),
+              Positioned(
+                top: 20,
+                right: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isFavorite = !isFavorite;
+                    });
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                    ),
+                    child: Icon(
+                      isFavorite ? Icons.lock_open : Icons.lock,
+                      color: isFavorite ? Colors.red : Colors.black,
+                    ),
+                  ),
                 ),
               ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 8,
+              bottom: 16,
+            ),
+            child: Divider(
+              color: Colors.grey.withOpacity(.5),
+              height: 4,
+            ),
+          ),
+          Stack(
+            children: [
+              buildMealItem(
+                'assets/images/meal3.png',
+                'Fresh egg salad',
+                '280 kcal',
+                '25 min',
+              ),
+              Positioned(
+                top: 20,
+                right: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isFavorite = !isFavorite;
+                    });
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                    ),
+                    child: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? Colors.red : Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 8,
+              bottom: 16,
+            ),
+            child: Divider(
+              color: Colors.grey.withOpacity(.5),
+              height: 4,
             ),
           ),
         ],
-      ),
-       Padding(
-         padding: const EdgeInsets.only(
-           left: 16,
-           right: 16,
-           top: 8,
-           bottom: 16,
-         ),
-         child: Divider(
-           color: Colors.grey.withOpacity(.5),
-           height: 4,
-         ),
-       ),
-      Stack(
-        children: [
-          buildMealItem(
-            'assets/images/meal3.png',
-            'Fresh egg salad',
-            '280 kcal',
-            '25 min',
-          ),
-          Positioned(
-            top: 20,
-            right: 20,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  isFavorite = !isFavorite;
-                });
-              },
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                ),
-                child: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? Colors.red : Colors.black,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-       Padding(
-         padding: const EdgeInsets.only(
-           left: 16,
-           right: 16,
-           top: 8,
-           bottom: 16,
-         ),
-         child: Divider(
-           color: Colors.grey.withOpacity(.5),
-           height: 4,
-         ),
-       ),
-     ],
       ),
     );
   }
 
   // Meal Item Widget
-  Widget buildMealItem (
-      String imagePath,
-      String title,
-      String calories,
-      String duration,
-      ) {
+  Widget buildMealItem(
+    String imagePath,
+    String title,
+    String calories,
+    String duration,
+  ) {
     return Container(
       margin: const EdgeInsets.all(8.0),
-      child: Column (
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(imagePath),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column (
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16,fontFamily: 'Montserrat'),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      fontFamily: 'Montserrat'),
                 ),
                 const SizedBox(height: 4),
                 Row(
@@ -305,7 +306,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   }
 }
 
-  // Bottom Navigation Bar
+// Bottom Navigation Bar
 //   Widget buildBottomNavigationBar() {
 //     return BottomNavigationBar(
 //       backgroundColor: Colors.grey,

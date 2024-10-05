@@ -9,6 +9,7 @@ class MealPlanDetails extends StatefulWidget {
 
 class _MealPlanDetailsState extends State<MealPlanDetails> {
   bool isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +34,8 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
                       });
                     },
                     child: Container(
-                      height: 30,
-                      width: 30,
+                      height: 40,
+                      width: 40,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(5),
@@ -47,6 +48,28 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
                     ),
                   ),
                 ),
+                Positioned(
+                  top: 30,
+                  left: 20,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                      ),
+                      child: Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
             // Title and Nutritional Info
@@ -55,41 +78,39 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          child: const Row(
-                            children: [
-                              Icon(Icons.local_fire_department),
-                              SizedBox(width: 4),
-                              Text('135 kcal'),
-                            ],
-                          ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        const SizedBox(width: 10),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          child: const Row(
-                            children: [
-                              Icon(Icons.timer),
-                              SizedBox(width: 4),
-                              Text('5 min'),
-                            ],
-                          ),
+                        padding: const EdgeInsets.all(8),
+                        child: const Row(
+                          children: [
+                            Icon(Icons.local_fire_department),
+                            SizedBox(width: 4),
+                            Text('135 kcal'),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.all(8),
+                        child: const Row(
+                          children: [
+                            Icon(Icons.timer),
+                            SizedBox(width: 4),
+                            Text('5 min'),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -114,7 +135,6 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
                     style: TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: 16),
-
                 ],
               ),
             ),
@@ -126,21 +146,24 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
               children: const [
                 MealPlanItem(
                   title: 'Tortilla wrap with falafel and fresh salad',
-                  imageUrl: 'assets/images/meal1.png', // Add your image here
+                  imageUrl: 'assets/images/meal1.png',
+                  // Add your image here
                   fat: '1.5 g',
                   protein: '10.9 g',
                   carbs: '13.5 g',
                 ),
                 MealPlanItem(
                   title: 'Healthy vegan salad of vegetables',
-                  imageUrl: 'assets/images/meal2.png', // Add your image here
+                  imageUrl: 'assets/images/meal2.png',
+                  // Add your image here
                   fat: '1.5 g',
                   protein: '10.9 g',
                   carbs: '13.5 g',
                 ),
                 MealPlanItem(
                   title: 'Ketogenic/paleo diet. fried eggs, salmon',
-                  imageUrl: 'assets/images/meal3.png', // Add your image here
+                  imageUrl: 'assets/images/meal3.png',
+                  // Add your image here
                   fat: '1.5 g',
                   protein: '10.9 g',
                   carbs: '13.5 g',
@@ -184,7 +207,8 @@ class MealPlanItem extends StatelessWidget {
   final String protein;
   final String carbs;
 
-  const MealPlanItem({super.key, 
+  const MealPlanItem({
+    super.key,
     required this.title,
     required this.imageUrl,
     required this.fat,
