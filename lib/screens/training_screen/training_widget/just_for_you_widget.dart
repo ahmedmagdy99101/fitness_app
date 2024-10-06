@@ -6,7 +6,7 @@ class JustForYouWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150,
+      height: 140,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) => justForYouCard(),
@@ -27,7 +27,7 @@ class JustForYouWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     child: Image.asset(
                       "assets/images/workout.png",
-                      height: 150,
+                      height: 140,
                       width:100,
                       fit: BoxFit.fill,
                     )),

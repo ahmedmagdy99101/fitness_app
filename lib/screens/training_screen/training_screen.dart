@@ -20,7 +20,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
           'TRAINING',
           style: TextStyle(
             color: Colors.black,
-            fontSize: 35,
+            fontSize: 38,
             fontWeight: FontWeight.w400,
             fontFamily: 'Bebas',
           ),
@@ -54,7 +54,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                           color: selectedCategory == 'Beginner'
                               ? Colors.white
                               : Colors.black,
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w700,
                         ),
                       )),
@@ -109,7 +109,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                           color: selectedCategory == 'Advanced'
                               ? Colors.white
                               : Colors.black,
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w700,
                         ),
                       )),
@@ -125,7 +125,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 'Popular Training',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 25,
+                  fontSize: 22,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Montserrat',
                 ),
@@ -134,13 +134,13 @@ class _TrainingScreenState extends State<TrainingScreen> {
             const PopularTrainingWidget(),
             const Padding(
               padding: EdgeInsets.symmetric(
-                vertical: 8
+                vertical: 4
               ),
               child: Text(
                 'Just for you',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 25,
+                  fontSize: 22,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Montserrat',
                 ),
