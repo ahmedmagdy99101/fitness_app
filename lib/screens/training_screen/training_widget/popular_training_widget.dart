@@ -23,7 +23,7 @@ class PopularTrainingWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 child: Image.asset(
                   "assets/images/workout.png",
-                  height: 180,
+                  height: 200,
                   width: double.infinity,
                   fit: BoxFit.fill,
                 )),
