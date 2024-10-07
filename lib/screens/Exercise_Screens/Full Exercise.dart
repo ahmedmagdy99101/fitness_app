@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fitness_app/screens/Exercise_Screens/ExerciseDetails.dart';
 
-class FullExercise_Screen extends StatefulWidget {
-  const FullExercise_Screen({super.key});
+class ExerciseScreen extends StatefulWidget {
+  const ExerciseScreen({super.key});
 
   @override
-  State<FullExercise_Screen> createState() => _MealPlanScreenState();
+  State<ExerciseScreen> createState() => _MealPlanScreenState();
 }
 
-class _MealPlanScreenState extends State<FullExercise_Screen> {
+class _MealPlanScreenState extends State<ExerciseScreen> {
   bool isFavorite = false;
 
   @override
@@ -57,22 +56,23 @@ class _MealPlanScreenState extends State<FullExercise_Screen> {
             label: 'Profile',
           ),
         ],
-        currentIndex: 2, // Set "Exercise" tab as active
+        currentIndex: 2,
+        // Set "Exercise" tab as active
         onTap: (index) {},
       ),
     );
   }
 }
 
-class Exercise_Card  extends StatelessWidget {
-
+class Exercise_Card extends StatelessWidget {
   final String title;
   final String image;
   final int calories;
   final int time;
   final String level;
 
-  const Exercise_Card (this.image, this.title, this.calories, this.time, this.level);
+  const Exercise_Card(
+      this.image, this.title, this.calories, this.time, this.level);
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,9 @@ class Exercise_Card  extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   child: Image(image: AssetImage(image)),
                 ),
-                SizedBox(width: 5,),
+                SizedBox(
+                  width: 5,
+                ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,32 +98,40 @@ class Exercise_Card  extends StatelessWidget {
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.topLeft,
-                        child: Text(title,
+                        child: Text(
+                          title,
                           maxLines: 2,
                           overflow: TextOverflow.visible,
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       FittedBox(
                         alignment: Alignment.centerLeft,
                         child: Row(
                           children: [
                             Icon(Icons.local_fire_department),
                             Text("$calories KCL"),
-                            SizedBox(width: 5,),
+                            SizedBox(
+                              width: 5,
+                            ),
                             Text('|'),
-                            SizedBox(width: 5,),
+                            SizedBox(
+                              width: 5,
+                            ),
                             Icon(Icons.timer),
                             Text("$time min")
-
                           ],
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       FittedBox(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(level))
+                          alignment: Alignment.bottomLeft, child: Text(level))
                     ],
                   ),
                 )
@@ -133,7 +143,6 @@ class Exercise_Card  extends StatelessWidget {
     );
   }
 }
-
 
 AppBar buildAppBar() {
   return AppBar(
@@ -150,7 +159,6 @@ AppBar buildAppBar() {
     leading: IconButton(onPressed: () => {}, icon: Icon(Icons.arrow_back_ios)),
   );
 }
-
 
 Widget buildButton(String text, bool isSelected) {
   return Expanded(
@@ -172,23 +180,13 @@ Widget buildButton(String text, bool isSelected) {
   );
 }
 
-
 Widget buildExerciseList() {
   return Expanded(
-      child: ListView(
-          children: [
-            GestureDetector(
-              onTap: () {
-              },
-              child: Exercise_Card(
-                  'images/exercises_1.png',
-                  "Exercises With Sitting Dumbbells",
-                  125,
-                  5,
-                  "Beginner"
-              ),
-            ),
-          ]
-      )
-  );
+      child: ListView(children: [
+    GestureDetector(
+      onTap: () {},
+      child: Exercise_Card('images/exercises_1.png',
+          "Exercises With Sitting Dumbbells", 125, 5, "Beginner"),
+    ),
+  ]));
 }

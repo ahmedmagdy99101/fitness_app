@@ -13,8 +13,6 @@ class MyFavouritesScreen extends StatefulWidget {
 }
 
 class _MyFavouritesScreenState extends State<MyFavouritesScreen> {
-  String selectedCategory = 'Meal';
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -24,11 +22,11 @@ class _MyFavouritesScreenState extends State<MyFavouritesScreen> {
           title: const Text(
             'MY FAVOURITES',
             style: TextStyle(
-              color: Colors.black,
-              fontSize: 35,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'Bebas',
-            ),
+                color: Colors.black,
+                fontSize: 22,
+                letterSpacing: 1,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Bebas'),
           ),
           centerTitle: true,
         ),
@@ -46,17 +44,23 @@ class _MyFavouritesScreenState extends State<MyFavouritesScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextButton(
                             onPressed: () {
-                              setState(() {
-                                selectedCategory = 'Meal';
-                              });
+                              // setState(() {
+                              //   selectedCategory = 'Meal';
+                              // });
                               context
                                   .read<MyFavouritesCubit>()
-                                  .buildMyFavourites('Meal');
+                                  .changeSelectedCategory('Meal');
+                              // context
+                              //     .read<MyFavouritesCubit>()
+                              //     .buildMyFavourites('Meal');
                               // MyFavouritesCubit.get(context)
                               //     .buildMyFavourites('Meal');
                             },
                             style: TextButton.styleFrom(
-                                backgroundColor: selectedCategory == 'Meal'
+                                backgroundColor: context
+                                            .read<MyFavouritesCubit>()
+                                            .selectedCategory ==
+                                        'Meal'
                                     ? Colors.black
                                     : Colors.white70,
                                 shape: RoundedRectangleBorder(
@@ -64,7 +68,10 @@ class _MyFavouritesScreenState extends State<MyFavouritesScreen> {
                             child: Text(
                               'Meal',
                               style: TextStyle(
-                                color: selectedCategory == 'Meal'
+                                color: context
+                                            .read<MyFavouritesCubit>()
+                                            .selectedCategory ==
+                                        'Meal'
                                     ? Colors.white
                                     : Colors.black,
                                 fontSize: 20,
@@ -78,15 +85,21 @@ class _MyFavouritesScreenState extends State<MyFavouritesScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextButton(
                             onPressed: () {
-                              setState(() {
-                                selectedCategory = 'Workout';
-                              });
+                              // setState(() {
+                              //   selectedCategory = 'Workout';
+                              // });
                               context
                                   .read<MyFavouritesCubit>()
-                                  .buildMyFavourites('Workout');
+                                  .changeSelectedCategory('Workout');
+                              // context
+                              //     .read<MyFavouritesCubit>()
+                              //     .buildMyFavourites('Workout');
                             },
                             style: TextButton.styleFrom(
-                                backgroundColor: selectedCategory == 'Workout'
+                                backgroundColor: context
+                                            .read<MyFavouritesCubit>()
+                                            .selectedCategory ==
+                                        'Workout'
                                     ? Colors.black
                                     : Colors.white70,
                                 shape: RoundedRectangleBorder(
@@ -94,7 +107,10 @@ class _MyFavouritesScreenState extends State<MyFavouritesScreen> {
                             child: Text(
                               'Workout',
                               style: TextStyle(
-                                color: selectedCategory == 'Workout'
+                                color: context
+                                            .read<MyFavouritesCubit>()
+                                            .selectedCategory ==
+                                        'Workout'
                                     ? Colors.white
                                     : Colors.black,
                                 fontSize: 20,
@@ -107,7 +123,8 @@ class _MyFavouritesScreenState extends State<MyFavouritesScreen> {
                 ),
                 BlocBuilder<MyFavouritesCubit, MyFavouritesState>(
                   builder: (context, state) {
-                    if (state is WorkOutState) {
+                    if (context.read<MyFavouritesCubit>().selectedCategory ==
+                        'Workout') {
                       return const WorkoutWidget();
                     } else {
                       return const MealWidget();
