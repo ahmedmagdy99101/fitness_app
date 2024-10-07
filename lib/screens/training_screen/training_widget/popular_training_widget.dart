@@ -7,8 +7,7 @@ class PopularTrainingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemBuilder: (BuildContext context, int index) =>
-            popularTrainingCard(),
+        itemBuilder: (BuildContext context, int index) => popularTrainingCard(),
         itemCount: 10,
       ),
     );
@@ -30,37 +29,40 @@ class PopularTrainingWidget extends StatelessWidget {
             const Text(
               'Green beans, tomatoes, eggs',
               style: TextStyle(
-                  color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600),
             ),
             const Row(
               children: [
                 Icon(
                   Icons.local_fire_department_outlined,
                   color: Colors.blueAccent,
-                  size: 20,
+                  size: 14,
                 ),
                 Text(
                   '135 kcal',
-                  style: TextStyle(color: Colors.grey, fontSize: 16),
+                  style: TextStyle(
+                      color: Color(0xFF303841),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400),
                 ),
                 Text('  |  '),
                 Icon(
                   Icons.access_time,
                   color: Colors.blueAccent,
-                  size: 20,
+                  size: 14,
                 ),
                 Text(
                   ' 30 min',
                   style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                  ),
+                      color: Color(0xFF303841),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400),
                 ),
               ],
             ),
-
           ],
         ),
       );
-
 }
