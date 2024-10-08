@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(MaterialApp(
-    home: ExerciseDetails_Screen(),
-  ));
-}
-
 class ExerciseDetails_Screen extends StatefulWidget {
   const ExerciseDetails_Screen({super.key});
 

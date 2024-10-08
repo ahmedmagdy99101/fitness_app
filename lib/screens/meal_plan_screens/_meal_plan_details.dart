@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(
-    MaterialApp(
-      home: MealPlanDetails(),
-    )
-  );
-}
-
 class MealPlanDetails extends StatefulWidget {
   const MealPlanDetails({super.key});
 
