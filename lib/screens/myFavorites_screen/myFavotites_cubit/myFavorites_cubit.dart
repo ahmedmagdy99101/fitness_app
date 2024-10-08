@@ -6,11 +6,18 @@ class MyFavouritesCubit extends Cubit<MyFavouritesState> {
 
   // static MyFavouritesCubit get(context) => BlocProvider.of(context);
 
-  void buildMyFavourites(String category) {
-    if (category == 'Workout') {
-      emit(WorkOutState());
-    } else if (category == 'Meal') {
-      emit(MealState());
-    }
+  String selectedCategory = 'Meal';
+
+  void changeSelectedCategory(String category) {
+    selectedCategory = category;
+    emit(ChangeSelectedCategoryState());
   }
+
+// void buildMyFavourites(String category) {
+//   if (category == 'Workout') {
+//     emit(WorkOutState());
+//   } else if (category == 'Meal') {
+//     emit(MealState());
+//   }
+// }
 }

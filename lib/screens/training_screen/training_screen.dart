@@ -16,14 +16,14 @@ class _TrainingScreenState extends State<TrainingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'TRAINING',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 38,
-            fontWeight: FontWeight.w400,
-            fontFamily: 'Bebas',
-          ),
+        title: Text(
+          "TRAINING".toUpperCase(),
+          style: const TextStyle(
+              color: Colors.black,
+              fontSize: 22,
+              letterSpacing: 1,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Bebas'),
         ),
         centerTitle: true,
       ),
@@ -61,9 +61,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 2
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 2),
                     child: TextButton(
                         onPressed: () {
                           setState(() {
@@ -114,34 +112,29 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         ),
                       )),
                 ),
-
               ],
             ),
             const Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 8
-              ),
+              padding: EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 'Popular Training',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                   fontFamily: 'Montserrat',
                 ),
               ),
             ),
             const PopularTrainingWidget(),
             const Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 4
-              ),
+              padding: EdgeInsets.symmetric(vertical: 4),
               child: Text(
                 'Just for you',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                   fontFamily: 'Montserrat',
                 ),
               ),

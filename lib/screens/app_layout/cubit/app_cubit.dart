@@ -3,6 +3,7 @@ import 'package:fitness_app/screens/profile_screens/_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Exercise_Screens/Full Exercise.dart';
 import '../../home_screen/home_screen.dart';
 import 'app_states.dart';
 
@@ -24,7 +25,7 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> bottomNavPages = [
     const HomeScreen(),
     const MealPlanScreen(),
-    Container(),
+    const ExerciseScreen(),
     const ProfileScreen(),
   ];
 
@@ -33,4 +34,5 @@ class AppCubit extends Cubit<AppStates> {
     emit(ChangeBottomNavbarState());
   }
 }
+
 var scaffoldKey = GlobalKey<ScaffoldState>();
