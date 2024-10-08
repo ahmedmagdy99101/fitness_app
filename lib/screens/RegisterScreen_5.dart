@@ -218,6 +218,7 @@ class SignupScreen extends StatelessWidget {
     );
   }
 
+
   void showSnackBarMessage(BuildContext context , String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(
