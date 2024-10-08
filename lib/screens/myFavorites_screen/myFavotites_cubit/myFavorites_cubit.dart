@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MyFavouritesCubit extends Cubit<MyFavouritesState> {
   MyFavouritesCubit() : super(MyFavouritesInitial());
 
-  // static MyFavouritesCubit get(context) => BlocProvider.of(context);
+  static MyFavouritesCubit get(context) => BlocProvider.of(context);
 
   String selectedCategory = 'Meal';
 
