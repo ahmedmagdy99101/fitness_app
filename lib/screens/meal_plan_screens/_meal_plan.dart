@@ -22,7 +22,7 @@ class MealPlanScreenState extends State<MealPlanScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildDateSelector(),
-            // DefaultTabController(length: 3, child:)
+            DefaultTabController(length: 3, child:)
             // buildMealCategorySelector(),
             // const Padding(
             //   padding: EdgeInsets.all(8.0),
