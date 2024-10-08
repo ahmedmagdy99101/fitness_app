@@ -2,21 +2,14 @@ import 'package:fitness_app/screens/meal_plan_screens/_meal_plan_details.dart';
 import 'package:fitness_app/screens/meal_plan_screens/calender.dart';
 import 'package:flutter/material.dart';
 
-
-void main(){
-  runApp(MaterialApp(
-    home: MealPlanScreen(),
-  ));
-}
-
 class MealPlanScreen extends StatefulWidget {
   const MealPlanScreen({super.key});
 
   @override
-  State<MealPlanScreen> createState() => _MealPlanScreenState();
+  State<MealPlanScreen> createState() => MealPlanScreenState();
 }
 
-class _MealPlanScreenState extends State<MealPlanScreen> {
+class MealPlanScreenState extends State<MealPlanScreen> {
   bool isFavorite = false;
 
   @override
@@ -29,19 +22,20 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildDateSelector(),
-            buildMealCategorySelector(),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                '15 Meals',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Montserrat',
-                ),
-              ),
-            ),
-            buildMealList(),
+            DefaultTabController(length: 3, child:)
+            // buildMealCategorySelector(),
+            // const Padding(
+            //   padding: EdgeInsets.all(8.0),
+            //   child: Text(
+            //     '15 Meals',
+            //     style: TextStyle(
+            //       fontSize: 20,
+            //       fontWeight: FontWeight.w700,
+            //       fontFamily: 'Montserrat',
+            //     ),
+            //   ),
+            // ),
+            // buildMealList(),
           ],
         ),
       ),
@@ -268,12 +262,10 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   }
 
   // Meal Item Widget
-  Widget buildMealItem(
-    String imagePath,
-    String title,
-    String calories,
-    String duration,
-  ) {
+  Widget buildMealItem(String imagePath,
+      String title,
+      String calories,
+      String duration,) {
     return Container(
       margin: const EdgeInsets.all(8.0),
       child: Column(
