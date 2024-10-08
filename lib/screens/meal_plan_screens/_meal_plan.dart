@@ -2,6 +2,13 @@ import 'package:fitness_app/screens/meal_plan_screens/_meal_plan_details.dart';
 import 'package:fitness_app/screens/meal_plan_screens/calender.dart';
 import 'package:flutter/material.dart';
 
+
+void main(){
+  runApp(MaterialApp(
+    home: MealPlanScreen(),
+  ));
+}
+
 class MealPlanScreen extends StatefulWidget {
   const MealPlanScreen({super.key});
 
@@ -88,7 +95,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
         padding: const EdgeInsets.only(right: 8.0),
         child: MaterialButton(
           onPressed: () {},
-          color: isSelected ? Colors.green : Colors.grey[200],
+          color: isSelected ? Colors.black : Colors.white,
           textColor: isSelected ? Colors.white : Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),

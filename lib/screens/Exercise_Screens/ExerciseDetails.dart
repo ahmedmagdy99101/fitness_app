@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+void main(){
+  runApp(MaterialApp(
+    home: ExerciseDetails_Screen(),
+  ));
+}
+
 class ExerciseDetails_Screen extends StatefulWidget {
   const ExerciseDetails_Screen({super.key});
 
@@ -18,7 +24,7 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
             Stack(
               children: [
                 Image.asset(
-                  'images/exercises_3.png',
+                  'assets/images/img.png',
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.cover,
@@ -87,6 +93,14 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                     style: TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: 10),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("3 Weeks - 20 Exercise", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                      scheduleButton("Schedule")
+                    ],
+                  ),
+                  const SizedBox(height: 10),
                   const Text("Exercise Program", textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                   SizedBox(height: 5,),
                   Container(
@@ -106,19 +120,19 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: const [
                       Exercise_Card(
-                          'images/exercises_1.png',
+                          'assets/images/89694286_XS-removebg-preview 1.png',
                           "Exercises With Sitting Dumbbells",
                           125,
                           5,
                           "Beginner"),
                       Exercise_Card(
-                          'images/exercises_1.png',
+                          'assets/images/image 6.png',
                           "Exercises With Sitting Dumbbells",
                           125,
                           5,
                           "Beginner"),
                       Exercise_Card(
-                          'images/exercises_1.png',
+                          'assets/images/images-removebg-preview 1.png',
                           "Exercises With Sitting Dumbbells",
                           125,
                           5,
@@ -128,11 +142,46 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                 ],
               ),
             ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF9ACD32), // Light green color
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                onPressed: () {
+                  // Handle Next Steps action
+                },
+                child: const Text(
+                  'Start Now',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+
+Widget scheduleButton(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(right: 8.0),
+    child: MaterialButton(
+      onPressed: () {},
+      color:  Colors.black,
+      textColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Text(text,
+          style: const TextStyle(
+            fontFamily: 'Montserrat',
+          )),
+    ),
+  );
 }
 
 Widget buildButton(String text, bool isSelected) {
