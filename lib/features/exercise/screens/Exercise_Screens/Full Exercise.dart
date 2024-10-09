@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+void main(){
+  runApp(
+    MaterialApp(
+      home: ExerciseScreen(),
+    )
+  );
+}
+
 class ExerciseScreen extends StatefulWidget {
   const ExerciseScreen({super.key});
 
@@ -8,7 +16,6 @@ class ExerciseScreen extends StatefulWidget {
 }
 
 class _MealPlanScreenState extends State<ExerciseScreen> {
-  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,31 +42,6 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.greenAccent,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant),
-            label: 'Meal Plans',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            label: 'Exercise',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: 2,
-        // Set "Exercise" tab as active
-        onTap: (index) {},
-      ),
     );
   }
 }
@@ -85,10 +67,10 @@ class Exercise_Card extends StatelessWidget {
                 Container(
                   height: 150,
                   width: 150,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Image(image: AssetImage(image)),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Expanded(
@@ -102,32 +84,32 @@ class Exercise_Card extends StatelessWidget {
                           title,
                           maxLines: 2,
                           overflow: TextOverflow.visible,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       FittedBox(
                         alignment: Alignment.centerLeft,
                         child: Row(
                           children: [
-                            Icon(Icons.local_fire_department),
+                            const Icon(Icons.local_fire_department),
                             Text("$calories KCL"),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
-                            Text('|'),
-                            SizedBox(
+                            const Text('|'),
+                            const SizedBox(
                               width: 5,
                             ),
-                            Icon(Icons.timer),
+                            const Icon(Icons.timer),
                             Text("$time min")
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       FittedBox(
@@ -156,7 +138,7 @@ AppBar buildAppBar() {
     ),
     centerTitle: true,
     // leading: const Icon(Icons.arrow_back),
-    leading: IconButton(onPressed: () => {}, icon: Icon(Icons.arrow_back_ios)),
+    leading: IconButton(onPressed: () => {}, icon: const Icon(Icons.arrow_back_ios)),
   );
 }
 
@@ -183,9 +165,9 @@ Widget buildButton(String text, bool isSelected) {
 Widget buildExerciseList() {
   return Expanded(
       child: ListView(children: [
-    GestureDetector(
-      onTap: () {},
-      child: Exercise_Card('images/exercises_1.png',
+       GestureDetector(
+         onTap: (){},
+         child: const Exercise_Card('assets/images/images-removebg-preview 1.png',
           "Exercises With Sitting Dumbbells", 125, 5, "Beginner"),
     ),
   ]));
