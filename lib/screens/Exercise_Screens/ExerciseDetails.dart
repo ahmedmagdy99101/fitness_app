@@ -96,8 +96,8 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                   ),
                   const SizedBox(height: 10),
                   const Text("Exercise Program", textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                  SizedBox(height: 5,),
-                  Container(
+                  const SizedBox(height: 5,),
+                  SizedBox(
                     height: 50,
                     width: double.infinity,
                     child: Row(
