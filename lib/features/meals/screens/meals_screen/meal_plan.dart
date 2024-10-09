@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitness_app/screens/meal_plan_screens/_meal_plan_details.dart';
-import 'package:fitness_app/screens/meal_plan_screens/calender.dart';
+import 'package:fitness_app/features/meals/widgets/calender.dart';
 import 'package:fitness_app/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -83,57 +82,58 @@ class MealPlanScreenState extends State<MealPlanScreen> {
                                   itemCount: meals.length,
                                   shrinkWrap: true,
                                   physics:
-                                      const AlwaysScrollableScrollPhysics(),
+                                  const AlwaysScrollableScrollPhysics(),
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     final meal = meals[index].data()
-                                        as Map<String, dynamic>;
+                                    as Map<String, dynamic>;
 
                                     return Container(
                                       margin: const EdgeInsets.only(bottom: 15),
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           // CachedNetworkImage with Shimmer placeholder
                                           CachedNetworkImage(
                                             imageUrl: meal['image'],
                                             imageBuilder:
                                                 (context, imageProvider) =>
-                                                    Container(
-                                              width: double.infinity,
-                                              height: 190,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 190,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
                                                     BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.fill,
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
                                             placeholder: (context, url) =>
                                                 Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: 190,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                              ),
-                                            ),
-                                            errorWidget: (context, url,
-                                                    error) =>
-                                                const SizedBox(
-                                                    height: 190,
+                                                  baseColor: Colors.grey[300]!,
+                                                  highlightColor: Colors
+                                                      .grey[100]!,
+                                                  child: Container(
                                                     width: double.infinity,
-                                                    child: Center(
-                                                        child:
-                                                            Icon(Icons.error))),
+                                                    height: 190,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                      BorderRadius.circular(10),
+                                                    ),
+                                                  ),
+                                                ),
+                                            errorWidget: (context, url,
+                                                error) =>
+                                            const SizedBox(
+                                                height: 190,
+                                                width: double.infinity,
+                                                child: Center(
+                                                    child:
+                                                    Icon(Icons.error))),
                                           ),
                                           const SizedBox(height: 10),
                                           Text(
@@ -212,51 +212,52 @@ class MealPlanScreenState extends State<MealPlanScreen> {
                                   itemCount: meals.length,
                                   shrinkWrap: true,
                                   physics:
-                                      const AlwaysScrollableScrollPhysics(),
+                                  const AlwaysScrollableScrollPhysics(),
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     final meal = meals[index].data()
-                                        as Map<String, dynamic>;
+                                    as Map<String, dynamic>;
 
                                     return Container(
                                       margin: const EdgeInsets.only(bottom: 15),
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           CachedNetworkImage(
                                             imageUrl: meal['image'],
                                             imageBuilder:
                                                 (context, imageProvider) =>
-                                                    Container(
-                                              width: double.infinity,
-                                              height: 190,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 190,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
                                                     BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.fill,
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
                                             placeholder: (context, url) =>
                                                 Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: 190,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
+                                                  baseColor: Colors.grey[300]!,
+                                                  highlightColor: Colors
+                                                      .grey[100]!,
+                                                  child: Container(
+                                                    width: double.infinity,
+                                                    height: 190,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
                                                       BorderRadius.circular(10),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
                                             errorWidget:
                                                 (context, url, error) =>
-                                                    const Icon(Icons.error),
+                                            const Icon(Icons.error),
                                           ),
                                           const SizedBox(height: 10),
                                           Text(
@@ -335,51 +336,52 @@ class MealPlanScreenState extends State<MealPlanScreen> {
                                   itemCount: meals.length,
                                   shrinkWrap: true,
                                   physics:
-                                      const AlwaysScrollableScrollPhysics(),
+                                  const AlwaysScrollableScrollPhysics(),
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     final meal = meals[index].data()
-                                        as Map<String, dynamic>;
+                                    as Map<String, dynamic>;
 
                                     return Container(
                                       margin: const EdgeInsets.only(bottom: 15),
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           CachedNetworkImage(
                                             imageUrl: meal['image'],
                                             imageBuilder:
                                                 (context, imageProvider) =>
-                                                    Container(
-                                              width: double.infinity,
-                                              height: 190,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 190,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
                                                     BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.fill,
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
                                             placeholder: (context, url) =>
                                                 Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: 190,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
+                                                  baseColor: Colors.grey[300]!,
+                                                  highlightColor: Colors
+                                                      .grey[100]!,
+                                                  child: Container(
+                                                    width: double.infinity,
+                                                    height: 190,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
                                                       BorderRadius.circular(10),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
                                             errorWidget:
                                                 (context, url, error) =>
-                                                    const Icon(Icons.error),
+                                            const Icon(Icons.error),
                                           ),
                                           const SizedBox(height: 10),
                                           Text(
@@ -485,256 +487,6 @@ class MealPlanScreenState extends State<MealPlanScreen> {
     );
   }
 
-  // Meal Category Selector (Breakfast, Lunch, Dinner)
-  Widget buildMealCategorySelector() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: [
-          buildMealButton('Breakfast', true),
-          buildMealButton('Lunch', false),
-          buildMealButton('Dinner', false),
-        ],
-      ),
-    );
-  }
-
-  Widget buildMealButton(String text, bool isSelected) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(right: 8.0),
-        child: MaterialButton(
-          onPressed: () {},
-          color: isSelected ? Colors.black : Colors.white,
-          textColor: isSelected ? Colors.white : Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Text(text,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
-              )),
-        ),
-      ),
-    );
-  }
-
-  // Meal List
-  Widget buildMealList() {
-    return Expanded(
-      child: ListView(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MealPlanDetails(),
-                ),
-              );
-            },
-            child: Stack(
-              children: [
-                buildMealItem(
-                  'assets/images/meal1.png',
-                  'Green beans, tomatoes, eggs',
-                  '133 kcal',
-                  '30 min',
-                ),
-                Positioned(
-                  top: 20,
-                  right: 20,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isFavorite = !isFavorite;
-                      });
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white,
-                      ),
-                      child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? Colors.red : Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 8,
-              bottom: 16,
-            ),
-            child: Divider(
-              color: Colors.grey.withOpacity(.5),
-              height: 4,
-            ),
-          ),
-          Stack(
-            children: [
-              buildMealItem(
-                'assets/images/meal2.png',
-                'Healthy balanced vegetarian food',
-                '215 kcal',
-                '40 min',
-              ),
-              Positioned(
-                top: 20,
-                right: 20,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isFavorite = !isFavorite;
-                    });
-                  },
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                    ),
-                    child: Icon(
-                      isFavorite ? Icons.lock_open : Icons.lock,
-                      color: isFavorite ? Colors.red : Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 8,
-              bottom: 16,
-            ),
-            child: Divider(
-              color: Colors.grey.withOpacity(.5),
-              height: 4,
-            ),
-          ),
-          Stack(
-            children: [
-              buildMealItem(
-                'assets/images/meal3.png',
-                'Fresh egg salad',
-                '280 kcal',
-                '25 min',
-              ),
-              Positioned(
-                top: 20,
-                right: 20,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isFavorite = !isFavorite;
-                    });
-                  },
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                    ),
-                    child: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: isFavorite ? Colors.red : Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 8,
-              bottom: 16,
-            ),
-            child: Divider(
-              color: Colors.grey.withOpacity(.5),
-              height: 4,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Meal Item Widget
-  Widget buildMealItem(
-    String imagePath,
-    String title,
-    String calories,
-    String duration,
-  ) {
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(imagePath),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      fontFamily: 'Montserrat'),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    const Icon(Icons.local_fire_department, size: 16),
-                    const SizedBox(width: 4),
-                    Text(calories),
-                    const SizedBox(width: 16),
-                    const Icon(Icons.access_time, size: 16),
-                    const SizedBox(width: 4),
-                    Text(duration),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
-// Bottom Navigation Bar
-//   Widget buildBottomNavigationBar() {
-//     return BottomNavigationBar(
-//       backgroundColor: Colors.grey,
-//       currentIndex: 1, // Selects the 'Meal Plans' tab
-//       items: [
-//         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-//         BottomNavigationBarItem(
-//             icon: Icon(Icons.restaurant_menu), label: 'Meal Plans'),
-//         BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'Exercise'),
-//         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-//       ],
-//     );
-//   }
-// }
+

@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitness_app/screens/home_screen/home_cubit/home_cubit.dart';
 import 'package:fitness_app/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../app_layout/cubit/app_cubit.dart';
-import '../drawer/categories_screen/categories_screen.dart';
+import '../../../app/cubit/app_cubit/app_cubit.dart';
+import '../../../app/screens/drawer/categories_screen/categories_screen.dart';
+import '../../cubit/home_cubit/home_cubit.dart';
 import '../notifications_screen/notifications_screen.dart';
 
 class HomeScreen extends StatefulWidget {

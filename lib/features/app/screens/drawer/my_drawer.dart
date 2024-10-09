@@ -1,7 +1,10 @@
+import 'package:fitness_app/features/app/screens/drawer/training_screen/training_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../shared/app_colors.dart';
 import 'app_setting_screen/app_setting_screen.dart';
 import 'categories_screen/categories_screen.dart';
+import 'favorites_screen/favorites_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});

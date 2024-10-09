@@ -3,9 +3,9 @@ import 'package:fitness_app/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../cubit/app_cubit/app_cubit.dart';
+import '../../cubit/app_cubit/app_states.dart';
 import '../drawer/my_drawer.dart';
-import 'cubit/app_cubit.dart';
-import 'cubit/app_states.dart';
 
 class AppLayoutPage extends StatelessWidget {
   const AppLayoutPage({super.key});

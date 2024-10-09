@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../meal_plan_screens/calender.dart';
+
+import '../../../meals/widgets/calender.dart';
 
 final time = TimeOfDay.now();
 
@@ -13,7 +14,6 @@ class Schedule extends StatefulWidget {
 DateTime dateTime = DateTime.now();
 
 class _ScheduleState extends State<Schedule> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,8 @@ class _ScheduleState extends State<Schedule> {
                     ),
                   ],
                 ),
-                Padding(padding: const EdgeInsets.all(16.0),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -41,21 +42,36 @@ class _ScheduleState extends State<Schedule> {
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("SCHEDULE EXERCISE", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                              Icon(Icons.close,size: 30,)
+                              Text(
+                                "SCHEDULE EXERCISE",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.close,
+                                size: 30,
+                              )
                             ],
                           ),
                         ),
-
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                           child: const Row(
                             children: [
-                              Icon(Icons.calendar_month, size: 30,),
-                              SizedBox(width: 4,),
-                              Text("Date" , style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)
+                              Icon(
+                                Icons.calendar_month,
+                                size: 30,
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                "Date",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              )
                             ],
                           ),
                         ),
@@ -70,20 +86,31 @@ class _ScheduleState extends State<Schedule> {
                               child: Container(
                                 child: const Row(
                                   children: [
-                                    Icon(Icons.access_time_outlined, size: 30,),
-                                    SizedBox(width: 4,),
-                                    Text("Time" , style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)
+                                    Icon(
+                                      Icons.access_time_outlined,
+                                      size: 30,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      "Time",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    )
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: ElevatedButton(
-                                  onPressed: (){
-                                    showTime(context);
-                                  }, child: Text("${time.hour} : ${time.minute}"))
-                            )
+                                padding: const EdgeInsets.all(10.0),
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      showTime(context);
+                                    },
+                                    child:
+                                        Text("${time.hour} : ${time.minute}")))
                           ],
                         ),
                       ),
@@ -97,8 +124,15 @@ class _ScheduleState extends State<Schedule> {
                                   Row(
                                     children: [
                                       Icon(Icons.add_alert_rounded),
-                                      SizedBox(height: 6,),
-                                      Text("Set Reminder", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),)
+                                      SizedBox(
+                                        height: 6,
+                                      ),
+                                      Text(
+                                        "Set Reminder",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      )
                                     ],
                                   )
                                 ],
@@ -114,7 +148,8 @@ class _ScheduleState extends State<Schedule> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF9ACD32), // Light green color
+                      backgroundColor: const Color(0xFF9ACD32),
+                      // Light green color
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     onPressed: () {
@@ -122,14 +157,13 @@ class _ScheduleState extends State<Schedule> {
                     },
                     child: const Text(
                       'DONE',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
               ],
-            )
-        )
-    );
+            )));
   }
 }
 
@@ -140,9 +174,6 @@ Widget buildDateSelector() {
   );
 }
 
-
- showTime(context) {
-  showTimePicker(
-      context: context,
-      initialTime: time);
+showTime(context) {
+  showTimePicker(context: context, initialTime: time);
 }

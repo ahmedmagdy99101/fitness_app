@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitness_app/screens/app_layout/app_layout.dart';
-import 'package:fitness_app/screens/app_layout/cubit/app_cubit.dart';
-import 'package:fitness_app/screens/app_layout/cubit/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'features/app/cubit/app_cubit/app_cubit.dart';
+import 'features/app/cubit/app_cubit/app_states.dart';
+import 'features/app/screens/app_layout/app_layout.dart';
 import 'firebase_options.dart';
 import 'shared/app_colors.dart';
 

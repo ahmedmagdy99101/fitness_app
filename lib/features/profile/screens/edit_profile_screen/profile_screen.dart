@@ -1,4 +1,4 @@
-import 'package:fitness_app/screens/profile_screens/_edit_profile.dart';
+import 'package:fitness_app/features/profile/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -9,18 +9,17 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            'PROFILE',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'Bebas',
-            ),
+          'PROFILE',
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Bebas',
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -36,11 +35,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: const Icon(Icons.edit, color: Colors.black),
             onPressed: () {
               Navigator.push(
-                context,
-              MaterialPageRoute(
-                builder: (context) => const EditProfileScreen(),
-              )
-              );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const EditProfileScreen(),
+                  ));
             },
           ),
         ],
@@ -52,7 +50,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // Profile image and info
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/profile_image.png'), // Replace with your image
+              backgroundImage: AssetImage(
+                  'assets/profile_image.png'), // Replace with your image
             ),
             SizedBox(height: 16),
             Text(
@@ -103,8 +102,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       GoalItem(imageUrl: 'assets/yoga.png', label: 'Yoga'),
                       GoalItem(imageUrl: 'assets/gym.png', label: 'Gym'),
                       GoalItem(imageUrl: 'assets/cardio.png', label: 'Cardio'),
-                      GoalItem(imageUrl: 'assets/stretch.png', label: 'Stretch'),
-                      GoalItem(imageUrl: 'ass ets/full_body.png', label: 'Full Body'),
+                      GoalItem(
+                          imageUrl: 'assets/stretch.png', label: 'Stretch'),
+                      GoalItem(
+                          imageUrl: 'ass ets/full_body.png',
+                          label: 'Full Body'),
                     ],
                   ),
                 ],
@@ -121,10 +123,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Text(
                     'MACRONUTRIENT GOALS',
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Bebas'
-                    ),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Bebas'),
                   ),
                   SizedBox(height: 16),
                   Row(
@@ -220,7 +221,8 @@ class NutrientGoalItem extends StatelessWidget {
   final String amountNumber;
   final String amount;
 
-  const NutrientGoalItem({super.key, 
+  const NutrientGoalItem({
+    super.key,
     required this.imageUrl,
     required this.label,
     required this.amountNumber,

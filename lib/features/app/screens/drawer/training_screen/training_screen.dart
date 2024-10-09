@@ -1,6 +1,7 @@
-import 'package:fitness_app/screens/training_screen/training_widget/just_for_you_widget.dart';
-import 'package:fitness_app/screens/training_screen/training_widget/popular_training_widget.dart';
 import 'package:flutter/material.dart';
+
+import '../../../widgets/training_widget/just_for_you_widget.dart';
+import '../../../widgets/training_widget/popular_training_widget.dart';
 
 class TrainingScreen extends StatefulWidget {
   const TrainingScreen({super.key});

@@ -1,9 +1,10 @@
-import 'package:fitness_app/screens/myFavorites_screen/myFavorites_widgets/meal_widget.dart';
-import 'package:fitness_app/screens/myFavorites_screen/myFavorites_widgets/workout_widget.dart';
-import 'package:fitness_app/screens/myFavorites_screen/myFavotites_cubit/myFavorites_cubit.dart';
-import 'package:fitness_app/screens/myFavorites_screen/myFavotites_cubit/myFavorites_states.dart';
+import 'package:fitness_app/features/app/widgets/favorites_widget/meal_widget.dart';
+import 'package:fitness_app/features/app/widgets/favorites_widget/workout_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../cubit/favorites_cubit/favorites_cubit.dart';
+import '../../../cubit/favorites_cubit/favorites_states.dart';
 
 class MyFavouritesScreen extends StatefulWidget {
   const MyFavouritesScreen({super.key});

@@ -1,10 +1,10 @@
-import 'package:fitness_app/screens/meal_plan_screens/_meal_plan.dart';
-import 'package:fitness_app/screens/profile_screens/_profile.dart';
+import 'package:fitness_app/features/meals/screens/meals_screen/meal_plan.dart';
+import 'package:fitness_app/features/profile/screens/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../Exercise_Screens/Full Exercise.dart';
-import '../../home_screen/home_screen.dart';
+import '../../../exercise/screens/Exercise_Screens/Full Exercise.dart';
+import '../../../home/screens/home_screen/home_screen.dart';
 import 'app_states.dart';
 
 class AppCubit extends Cubit<AppStates> {
