@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../shared/app_colors.dart';
-import '../myFavorites_screen/myFavorites_screen.dart';
-import '../training_screen/training_screen.dart';
 import 'app_setting_screen/app_setting_screen.dart';
 import 'categories_screen/categories_screen.dart';
 

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'firebase_options.dart';
-import 'screens/RegisterScreen_5.dart';
 import 'shared/app_colors.dart';
 
 void main() async {
@@ -39,7 +38,7 @@ class MyApp extends StatelessWidget {
               scaffoldBackgroundColor: Colors.white,
               useMaterial3: true,
             ),
-            home:  SignupScreen(),
+            home: AppLayoutPage(),
           );
         },
       ),

@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness_app/screens/home_screen/home_cubit/home_cubit.dart';
 import 'package:fitness_app/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../app_layout/cubit/app_cubit.dart';
 import '../drawer/categories_screen/categories_screen.dart';
@@ -203,40 +205,119 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
-                    height: 110,
-                    child: ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            ClipOval(
-                              child: Image.asset(
-                                width: 80,
-                                height: 80,
-                                fit: BoxFit.cover,
-                                'assets/images/category1.png',
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              "Yoga",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ],
+                  FutureBuilder<QuerySnapshot>(
+                    future: FirebaseFirestore.instance
+                        .collection('categories')
+                        .get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // Shimmer loading placeholder while data is being fetched
+                        return SizedBox(
+                          height: 110,
+                          child: ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 5,
+                            // Example number of shimmer items
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      width: 80,
+                                      height: 80,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      width: 60,
+                                      height: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(width: 10);
+                            },
+                          ),
                         );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(width: 10);
-                      },
-                      itemCount: 5,
-                    ),
+                      }
+                      if (snapshot.hasError) {
+                        return const Center(
+                            child: Text('Error loading categories'));
+                      }
+                      if (snapshot.hasData && snapshot.data != null) {
+                        final categories = snapshot.data!.docs;
+
+                        return SizedBox(
+                          height: 110,
+                          child: ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 5,
+                            itemBuilder: (context, index) {
+                              final category = categories[index].data()
+                                  as Map<String, dynamic>;
+                              final categoryName = category['categoryName'];
+                              final categoryImage = category['categoryImage'];
+
+                              return Column(
+                                children: [
+                                  ClipOval(
+                                    child: CachedNetworkImage(
+                                      imageUrl: categoryImage,
+                                      width: 80,
+                                      height: 80,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error, size: 80),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    categoryName,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(width: 10);
+                            },
+                          ),
+                        );
+                      } else {
+                        return const Center(child: Text('No categories found'));
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 10,
@@ -267,7 +348,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
+                        // Show shimmer effect while waiting for data
+                        return ListView.builder(
+                          itemCount: 3, // Placeholder item count
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 15),
+                                height: 200,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            );
+                          },
+                        );
                       }
 
                       if (snapshot.hasError) {
@@ -291,31 +391,46 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    width: double.infinity,
-                                    height: 190,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                        image: NetworkImage(exercise['image']),
-                                        fit: BoxFit.fill,
+                                  // Use CachedNetworkImage with shimmer placeholder
+                                  CachedNetworkImage(
+                                    imageUrl: exercise['image'],
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      width: double.infinity,
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
-                                    // child: Image.network(
-                                    //   exercise['image'],
-                                    //   // Load image from Firestore
-                                    //   width: double.infinity,
-                                    //   height: 190,
-                                    //   fit: BoxFit.fill,
-                                    // ),
+                                    placeholder: (context, url) =>
+                                        Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 190,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
                                     exercise['title'], // Exercise title
                                     style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600),
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   const SizedBox(height: 5),
                                   Row(
@@ -324,9 +439,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         "${exercise['level']}  |  ",
                                         // Exercise level
                                         style: const TextStyle(
-                                            color: Color(0xFF303841),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400),
+                                          color: Color(0xFF303841),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                       const Icon(
                                         Icons.timer_outlined,
@@ -334,11 +450,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Color(0xFF00ADB5),
                                       ),
                                       Text(
-                                        " ${exercise['duration']}", // Duration
+                                        " ${exercise['duration']}",
+                                        // Exercise duration
                                         style: const TextStyle(
-                                            color: Color(0xFF303841),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400),
+                                          color: Color(0xFF303841),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -441,7 +559,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
+                        // Show a shimmer loading effect while waiting for the data
+                        return ListView.builder(
+                          itemCount: 3,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 15),
+                                height: 200,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            );
+                          },
+                        );
                       }
 
                       if (snapshot.hasError) {
@@ -465,35 +602,58 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    width: double.infinity,
-                                    height: 190,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                        image: NetworkImage(meal['image']),
-                                        fit: BoxFit.fill,
+                                  // Use CachedNetworkImage for image loading with caching
+                                  CachedNetworkImage(
+                                    imageUrl: meal['image'],
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      width: double.infinity,
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
+                                    placeholder: (context, url) =>
+                                        Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 190,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
-                                    meal['title'], // Exercise title
+                                    meal['title'], // Meal title
                                     style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600),
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       Text(
                                         "${meal['category']}  |  ",
-                                        // Exercise level
+                                        // Meal category
                                         style: const TextStyle(
-                                            color: Color(0xFF303841),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400),
+                                          color: Color(0xFF303841),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                       const Icon(
                                         Icons.local_fire_department,
@@ -501,11 +661,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Color(0xFF00ADB5),
                                       ),
                                       Text(
-                                        " ${meal['calories']}", // Duration
+                                        " ${meal['calories']} kcal",
+                                        // Calories info
                                         style: const TextStyle(
-                                            color: Color(0xFF303841),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400),
+                                          color: Color(0xFF303841),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -519,6 +681,90 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     },
                   ),
+                  // FutureBuilder<QuerySnapshot>(
+                  //   future:
+                  //       FirebaseFirestore.instance.collection('meals').get(),
+                  //   builder: (BuildContext context,
+                  //       AsyncSnapshot<QuerySnapshot> snapshot) {
+                  //     if (snapshot.connectionState == ConnectionState.waiting) {
+                  //       return const Center(child: CircularProgressIndicator());
+                  //     }
+                  //
+                  //     if (snapshot.hasError) {
+                  //       return const Center(child: Text("Error loading data"));
+                  //     }
+                  //
+                  //     if (snapshot.hasData) {
+                  //       final meals = snapshot.data!.docs;
+                  //
+                  //       return ListView.builder(
+                  //         itemCount: 3,
+                  //         shrinkWrap: true,
+                  //         padding: const EdgeInsets.only(top: 15),
+                  //         physics: const NeverScrollableScrollPhysics(),
+                  //         itemBuilder: (BuildContext context, int index) {
+                  //           final meal =
+                  //               meals[index].data() as Map<String, dynamic>;
+                  //
+                  //           return Container(
+                  //             margin: const EdgeInsets.only(bottom: 15),
+                  //             child: Column(
+                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                  //               children: [
+                  //                 Container(
+                  //                   width: double.infinity,
+                  //                   height: 190,
+                  //                   decoration: BoxDecoration(
+                  //                     borderRadius: BorderRadius.circular(10),
+                  //                     image: DecorationImage(
+                  //                       image: NetworkImage(meal['image']),
+                  //                       fit: BoxFit.fill,
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //                 const SizedBox(height: 10),
+                  //                 Text(
+                  //                   meal['title'], // Exercise title
+                  //                   style: const TextStyle(
+                  //                       color: Colors.black,
+                  //                       fontSize: 14,
+                  //                       fontWeight: FontWeight.w600),
+                  //                 ),
+                  //                 const SizedBox(height: 5),
+                  //                 Row(
+                  //                   children: [
+                  //                     Text(
+                  //                       "${meal['category']}  |  ",
+                  //                       // Exercise level
+                  //                       style: const TextStyle(
+                  //                           color: Color(0xFF303841),
+                  //                           fontSize: 12,
+                  //                           fontWeight: FontWeight.w400),
+                  //                     ),
+                  //                     const Icon(
+                  //                       Icons.local_fire_department,
+                  //                       size: 12,
+                  //                       color: Color(0xFF00ADB5),
+                  //                     ),
+                  //                     Text(
+                  //                       " ${meal['calories']}", // Duration
+                  //                       style: const TextStyle(
+                  //                           color: Color(0xFF303841),
+                  //                           fontSize: 12,
+                  //                           fontWeight: FontWeight.w400),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           );
+                  //         },
+                  //       );
+                  //     } else {
+                  //       return const Center(child: Text("No data found"));
+                  //     }
+                  //   },
+                  // ),
                   // ListView.builder(
                   //   itemCount: 2,
                   //   shrinkWrap: true,
