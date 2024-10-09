@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'firebase_options.dart';
+import 'screens/RegisterScreen_5.dart';
 import 'shared/app_colors.dart';
 
 void main() async {
@@ -19,7 +20,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
               scaffoldBackgroundColor: Colors.white,
               useMaterial3: true,
             ),
-            home: const AppLayoutPage(),
+            home:  SignupScreen(),
           );
         },
       ),
