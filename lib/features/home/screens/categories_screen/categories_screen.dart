@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../categories_details_screen/categories_details_screen.dart';
+
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
 
@@ -88,40 +90,48 @@ class CategoriesScreen extends StatelessWidget {
                 final categoryName = category['categoryName'];
                 final categoryImage = category['categoryImage'];
 
-                return Column(
-                  children: [
-                    ClipOval(
-                      child: CachedNetworkImage(
-                        imageUrl: categoryImage,
-                        width: 120,
-                        height: 120,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            width: 120,
-                            height: 120,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.grey,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CategoriesDetailsScreen(
+                              categoryName: categoryName,
+                            )));
+                  },
+                  child: Column(
+                    children: [
+                      ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: categoryImage,
+                          width: 120,
+                          height: 120,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              width: 120,
+                              height: 120,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey,
+                              ),
                             ),
                           ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error, size: 120),
                         ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error, size: 120),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      categoryName,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
+                      const SizedBox(height: 10),
+                      Text(
+                        categoryName,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
             );

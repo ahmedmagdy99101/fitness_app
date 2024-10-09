@@ -6,8 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../app/cubit/app_cubit/app_cubit.dart';
-import '../../../app/screens/drawer/categories_screen/categories_screen.dart';
 import '../../cubit/home_cubit/home_cubit.dart';
+import '../categories_details_screen/categories_details_screen.dart';
+import '../categories_screen/categories_screen.dart';
 import '../notifications_screen/notifications_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -272,41 +273,50 @@ class _HomeScreenState extends State<HomeScreen> {
                               final categoryName = category['categoryName'];
                               final categoryImage = category['categoryImage'];
 
-                              return Column(
-                                children: [
-                                  ClipOval(
-                                    child: CachedNetworkImage(
-                                      imageUrl: categoryImage,
-                                      width: 80,
-                                      height: 80,
-                                      fit: BoxFit.cover,
-                                      placeholder: (context, url) =>
-                                          Shimmer.fromColors(
-                                        baseColor: Colors.grey[300]!,
-                                        highlightColor: Colors.grey[100]!,
-                                        child: Container(
-                                          width: 80,
-                                          height: 80,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.grey,
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          CategoriesDetailsScreen(
+                                            categoryName: categoryName,
+                                          )));
+                                },
+                                child: Column(
+                                  children: [
+                                    ClipOval(
+                                      child: CachedNetworkImage(
+                                        imageUrl: categoryImage,
+                                        width: 80,
+                                        height: 80,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: Container(
+                                            width: 80,
+                                            height: 80,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.grey,
+                                            ),
                                           ),
                                         ),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error, size: 80),
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error, size: 80),
                                     ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    categoryName,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600,
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      categoryName,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               );
                             },
                             separatorBuilder: (context, index) {
@@ -548,9 +558,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.normal,
                             fontFamily: "Bebas",
                           )),
-                      // const Text("See all",
-                      //     style: TextStyle(
-                      //         fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
                   ),
                   FutureBuilder<QuerySnapshot>(
@@ -661,7 +668,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Color(0xFF00ADB5),
                                       ),
                                       Text(
-                                        " ${meal['calories']} kcal",
+                                        " ${meal['calories']}",
                                         // Calories info
                                         style: const TextStyle(
                                           color: Color(0xFF303841),
@@ -681,132 +688,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     },
                   ),
-                  // FutureBuilder<QuerySnapshot>(
-                  //   future:
-                  //       FirebaseFirestore.instance.collection('meals').get(),
-                  //   builder: (BuildContext context,
-                  //       AsyncSnapshot<QuerySnapshot> snapshot) {
-                  //     if (snapshot.connectionState == ConnectionState.waiting) {
-                  //       return const Center(child: CircularProgressIndicator());
-                  //     }
-                  //
-                  //     if (snapshot.hasError) {
-                  //       return const Center(child: Text("Error loading data"));
-                  //     }
-                  //
-                  //     if (snapshot.hasData) {
-                  //       final meals = snapshot.data!.docs;
-                  //
-                  //       return ListView.builder(
-                  //         itemCount: 3,
-                  //         shrinkWrap: true,
-                  //         padding: const EdgeInsets.only(top: 15),
-                  //         physics: const NeverScrollableScrollPhysics(),
-                  //         itemBuilder: (BuildContext context, int index) {
-                  //           final meal =
-                  //               meals[index].data() as Map<String, dynamic>;
-                  //
-                  //           return Container(
-                  //             margin: const EdgeInsets.only(bottom: 15),
-                  //             child: Column(
-                  //               crossAxisAlignment: CrossAxisAlignment.start,
-                  //               children: [
-                  //                 Container(
-                  //                   width: double.infinity,
-                  //                   height: 190,
-                  //                   decoration: BoxDecoration(
-                  //                     borderRadius: BorderRadius.circular(10),
-                  //                     image: DecorationImage(
-                  //                       image: NetworkImage(meal['image']),
-                  //                       fit: BoxFit.fill,
-                  //                     ),
-                  //                   ),
-                  //                 ),
-                  //                 const SizedBox(height: 10),
-                  //                 Text(
-                  //                   meal['title'], // Exercise title
-                  //                   style: const TextStyle(
-                  //                       color: Colors.black,
-                  //                       fontSize: 14,
-                  //                       fontWeight: FontWeight.w600),
-                  //                 ),
-                  //                 const SizedBox(height: 5),
-                  //                 Row(
-                  //                   children: [
-                  //                     Text(
-                  //                       "${meal['category']}  |  ",
-                  //                       // Exercise level
-                  //                       style: const TextStyle(
-                  //                           color: Color(0xFF303841),
-                  //                           fontSize: 12,
-                  //                           fontWeight: FontWeight.w400),
-                  //                     ),
-                  //                     const Icon(
-                  //                       Icons.local_fire_department,
-                  //                       size: 12,
-                  //                       color: Color(0xFF00ADB5),
-                  //                     ),
-                  //                     Text(
-                  //                       " ${meal['calories']}", // Duration
-                  //                       style: const TextStyle(
-                  //                           color: Color(0xFF303841),
-                  //                           fontSize: 12,
-                  //                           fontWeight: FontWeight.w400),
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           );
-                  //         },
-                  //       );
-                  //     } else {
-                  //       return const Center(child: Text("No data found"));
-                  //     }
-                  //   },
-                  // ),
-                  // ListView.builder(
-                  //   itemCount: 2,
-                  //   shrinkWrap: true,
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   padding: const EdgeInsets.only(top: 15),
-                  //   itemBuilder: (BuildContext context, int index) {
-                  //     return Container(
-                  //       margin: const EdgeInsets.only(bottom: 15),
-                  //       child: Column(
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
-                  //           Image.asset(
-                  //             'assets/images/meal_plans1.png',
-                  //             width: double.infinity,
-                  //             height: 190,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //           const SizedBox(
-                  //             height: 10,
-                  //           ),
-                  //           const Text(
-                  //             "Greek salad with lettuce, green onion, ",
-                  //             style: TextStyle(
-                  //                 color: Colors.black,
-                  //                 fontSize: 14,
-                  //                 fontWeight: FontWeight.w600),
-                  //           ),
-                  //           const SizedBox(
-                  //             height: 3,
-                  //           ),
-                  //           const Text(
-                  //             "150 kcal",
-                  //             style: TextStyle(
-                  //                 color: Color(0xFF3A4750),
-                  //                 fontSize: 12,
-                  //                 fontWeight: FontWeight.w400),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
+
                   Divider(
                     color: Colors.grey[300],
                   ),
