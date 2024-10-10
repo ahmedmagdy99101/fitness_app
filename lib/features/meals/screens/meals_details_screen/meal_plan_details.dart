@@ -1,31 +1,65 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
-class MealPlanDetails extends StatefulWidget {
-  const MealPlanDetails({super.key});
+class MealPlanDetailsScreen extends StatefulWidget {
+  const MealPlanDetailsScreen({super.key, required this.mealData});
+
+  final Map<String, dynamic> mealData;
 
   @override
-  State<MealPlanDetails> createState() => _MealPlanDetailsState();
+  State<MealPlanDetailsScreen> createState() => _MealPlanDetailsScreenState();
 }
 
-class _MealPlanDetailsState extends State<MealPlanDetails> {
+class _MealPlanDetailsScreenState extends State<MealPlanDetailsScreen> {
   bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
+    print(widget.mealData);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
-                Image.asset(
-                  'assets/images/meal1.png',
-                  width: double.infinity,
-                  height: 300,
-                  fit: BoxFit.cover,
+                CachedNetworkImage(
+                  imageUrl: widget.mealData['image'],
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: double.infinity,
+                    height: 280,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12)),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: double.infinity,
+                      height: 280,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(12),
+                            bottomRight: Radius.circular(12)),
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => const SizedBox(
+                      height: 280,
+                      width: double.infinity,
+                      child: Center(child: Icon(Icons.error))),
                 ),
                 Positioned(
-                  top: 30,
+                  top: 50,
                   right: 20,
                   child: GestureDetector(
                     onTap: () {
@@ -49,7 +83,7 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
                   ),
                 ),
                 Positioned(
-                  top: 30,
+                  top: 50,
                   left: 20,
                   child: GestureDetector(
                     onTap: () {
@@ -63,7 +97,7 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.white,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back_ios_new_outlined,
                         color: Colors.black,
                       ),
@@ -74,10 +108,28 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
             ),
             // Title and Nutritional Info
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    widget.mealData['title'],
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Bebas',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    widget.mealData['description'],
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -87,11 +139,15 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         padding: const EdgeInsets.all(8),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Icon(Icons.local_fire_department),
-                            SizedBox(width: 4),
-                            Text('135 kcal'),
+                            const Icon(
+                              Icons.local_fire_department,
+                              color: Color(0xFF00ADB5),
+                              size: 20,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(widget.mealData['calories'].toString()),
                           ],
                         ),
                       ),
@@ -102,73 +158,218 @@ class _MealPlanDetailsState extends State<MealPlanDetails> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         padding: const EdgeInsets.all(8),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Icon(Icons.timer),
-                            SizedBox(width: 4),
-                            Text('5 min'),
+                            const Icon(
+                              Icons.timer_sharp,
+                              color: Color(0xFF00ADB5),
+                              size: 20,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(widget.mealData['duration'].toString()),
                           ],
                         ),
                       ),
                     ],
                   ),
-                  const Row(
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      NutrientInfo(title: 'Fat', value: '1.5 g'),
-                      NutrientInfo(title: 'Protein', value: '10.9 g'),
-                      NutrientInfo(title: 'Carbs', value: '13.5 g'),
+                      Column(
+                        children: [
+                          const Text(
+                            "Fat",
+                            style: TextStyle(
+                                color: Colors.red, fontWeight: FontWeight.w700),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            widget.mealData['fats'].toString(),
+                            style: const TextStyle(
+                                color: Color(0xFF3A4750),
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            "Protein",
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            widget.mealData['proteins'].toString(),
+                            style: const TextStyle(
+                                color: Color(0xFF3A4750),
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            "Carbs",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            widget.mealData['carbohydrates'].toString(),
+                            style: const TextStyle(
+                                color: Color(0xFF3A4750),
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Healthy Balanced Vegetarian Food',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Bebas',
+                  const SizedBox(height: 15),
+                  Text(
+                    "More ${widget.mealData['category']} Meal Plans",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Arial',
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'There are many variations of passages of Lorem Ipsum available...',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  const SizedBox(height: 16),
                 ],
               ),
             ),
-
             // Meal Plan List
-            ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: const [
-                MealPlanItem(
-                  title: 'Tortilla wrap with falafel and fresh salad',
-                  imageUrl: 'assets/images/meal1.png',
-                  // Add your image here
-                  fat: '1.5 g',
-                  protein: '10.9 g',
-                  carbs: '13.5 g',
-                ),
-                MealPlanItem(
-                  title: 'Healthy vegan salad of vegetables',
-                  imageUrl: 'assets/images/meal2.png',
-                  // Add your image here
-                  fat: '1.5 g',
-                  protein: '10.9 g',
-                  carbs: '13.5 g',
-                ),
-                MealPlanItem(
-                  title: 'Ketogenic/paleo diet. fried eggs, salmon',
-                  imageUrl: 'assets/images/meal3.png',
-                  // Add your image here
-                  fat: '1.5 g',
-                  protein: '10.9 g',
-                  carbs: '13.5 g',
-                ),
-              ],
+            FutureBuilder<QuerySnapshot>(
+              future: FirebaseFirestore.instance
+                  .collection('meals')
+                  .where('category', isEqualTo: widget.mealData['category'])
+                  .get(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                if (snapshot.hasError) {
+                  return const Center(child: Text("Error loading data"));
+                }
+
+                if (snapshot.hasData) {
+                  final meals = snapshot.data!.docs;
+
+                  return ListView.builder(
+                    itemCount: meals.length,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      final meal = meals[index].data() as Map<String, dynamic>;
+
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      MealPlanDetailsScreen(
+                                        mealData: meal,
+                                      )));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // CachedNetworkImage with Shimmer placeholder
+                              CachedNetworkImage(
+                                imageUrl: meal['image'],
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  width: double.infinity,
+                                  height: 190,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 190,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const SizedBox(
+                                        height: 190,
+                                        width: double.infinity,
+                                        child:
+                                            Center(child: Icon(Icons.error))),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                meal['title'],
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.access_time_outlined,
+                                    size: 12,
+                                    color: Color(0xFF00ADB5),
+                                  ),
+                                  Text(
+                                    " ${meal['duration']}  |  ",
+                                    style: const TextStyle(
+                                      color: Color(0xFF303841),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.local_fire_department,
+                                    size: 12,
+                                    color: Color(0xFF00ADB5),
+                                  ),
+                                  Text(
+                                    " ${meal['calories']}",
+                                    style: const TextStyle(
+                                      color: Color(0xFF303841),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(child: Text("No data found"));
+                }
+              },
             ),
           ],
         ),
