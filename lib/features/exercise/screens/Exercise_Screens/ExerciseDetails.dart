@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Schedula.dart';
+
 class ExerciseDetails_Screen extends StatefulWidget {
   const ExerciseDetails_Screen({super.key});
 
@@ -10,6 +12,7 @@ class ExerciseDetails_Screen extends StatefulWidget {
 class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
   @override
   Widget build(BuildContext context) {
+    var argument = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       body: SingleChildScrollView(
         controller: ScrollController(),
@@ -20,7 +23,7 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                 Image.asset(
                   'assets/images/img.png',
                   width: double.infinity,
-                  height: 200,
+                  height: 250,
                   fit: BoxFit.cover,
                 ),
               ],
@@ -39,11 +42,11 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         padding: const EdgeInsets.all(8),
-                        child: const Row(
+                        child: Row(
                           children: [
                             Icon(Icons.local_fire_department),
                             SizedBox(width: 4),
-                            Text('135 kcal'),
+                            Text('${argument['calories']}'),
                           ],
                         ),
                       ),
@@ -54,29 +57,29 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         padding: const EdgeInsets.all(8),
-                        child: const Row(
+                        child: Row(
                           children: [
                             Icon(Icons.timer),
                             SizedBox(width: 4),
-                            Text('5 min'),
+                            Text('${argument['time']} min'),
                           ],
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 5,),
-                  const Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ExerciseInfo('Level','Beginner'),
+                      ExerciseInfo('Level','${argument['level']}'),
                       ExerciseInfo('Category','Cardio'),
                       ExerciseInfo('Weight','Lose'),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Exercises with Sitting Dumbbells',
-                    style: TextStyle(
+                   Text(
+                    '${argument['title']}',
+                    style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w400,
                     ),
@@ -91,7 +94,7 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("3 Weeks - 20 Exercise", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
-                      scheduleButton("Schedule")
+                      scheduleButton("Schedule", context)
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -160,11 +163,13 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
 }
 
 
-Widget scheduleButton(String text) {
+Widget scheduleButton(String text, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.only(right: 8.0),
     child: MaterialButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const Schedule()));
+      },
       color:  Colors.black,
       textColor: Colors.white,
       shape: RoundedRectangleBorder(
