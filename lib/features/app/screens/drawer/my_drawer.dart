@@ -74,12 +74,12 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
-          const Divider(),
-          BuildDrawerItemWidget(
-            itemName: 'My Account',
-            itemIcon: 'assets/icons/my_account.png',
-            onTap: () {},
-          ),
+          // const Divider(),
+          // BuildDrawerItemWidget(
+          //   itemName: 'My Account',
+          //   itemIcon: 'assets/icons/my_account.png',
+          //   onTap: () {},
+          // ),
           const Divider(),
           BuildDrawerItemWidget(
             itemName: 'My Favorites',

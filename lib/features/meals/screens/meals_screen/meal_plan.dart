@@ -5,6 +5,8 @@ import 'package:fitness_app/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../meals_details_screen/meal_plan_details.dart';
+
 class MealPlanScreen extends StatefulWidget {
   const MealPlanScreen({super.key});
 
@@ -82,100 +84,113 @@ class MealPlanScreenState extends State<MealPlanScreen> {
                                   itemCount: meals.length,
                                   shrinkWrap: true,
                                   physics:
-                                  const AlwaysScrollableScrollPhysics(),
+                                      const AlwaysScrollableScrollPhysics(),
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     final meal = meals[index].data()
-                                    as Map<String, dynamic>;
+                                        as Map<String, dynamic>;
 
-                                    return Container(
-                                      margin: const EdgeInsets.only(bottom: 15),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          // CachedNetworkImage with Shimmer placeholder
-                                          CachedNetworkImage(
-                                            imageUrl: meal['image'],
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                Container(
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        MealPlanDetailsScreen(
+                                                          mealData: meal,
+                                                        )));
+                                      },
+                                      child: Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 15),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            // CachedNetworkImage with Shimmer placeholder
+                                            CachedNetworkImage(
+                                              imageUrl: meal['image'],
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                width: double.infinity,
+                                                height: 190,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  Shimmer.fromColors(
+                                                baseColor: Colors.grey[300]!,
+                                                highlightColor:
+                                                    Colors.grey[100]!,
+                                                child: Container(
                                                   width: double.infinity,
                                                   height: 190,
                                                   decoration: BoxDecoration(
+                                                    color: Colors.white,
                                                     borderRadius:
-                                                    BorderRadius.circular(10),
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.fill,
-                                                    ),
+                                                        BorderRadius.circular(
+                                                            10),
                                                   ),
                                                 ),
-                                            placeholder: (context, url) =>
-                                                Shimmer.fromColors(
-                                                  baseColor: Colors.grey[300]!,
-                                                  highlightColor: Colors
-                                                      .grey[100]!,
-                                                  child: Container(
-                                                    width: double.infinity,
-                                                    height: 190,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                      BorderRadius.circular(10),
-                                                    ),
-                                                  ),
-                                                ),
-                                            errorWidget: (context, url,
-                                                error) =>
-                                            const SizedBox(
-                                                height: 190,
-                                                width: double.infinity,
-                                                child: Center(
-                                                    child:
-                                                    Icon(Icons.error))),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            meal['title'],
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
+                                              ),
+                                              errorWidget: (context, url,
+                                                      error) =>
+                                                  const SizedBox(
+                                                      height: 190,
+                                                      width: double.infinity,
+                                                      child: Center(
+                                                          child: Icon(
+                                                              Icons.error))),
                                             ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.access_time_outlined,
-                                                size: 12,
-                                                color: Color(0xFF00ADB5),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              meal['title'],
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
                                               ),
-                                              Text(
-                                                " ${meal['duration']}  |  ",
-                                                style: const TextStyle(
-                                                  color: Color(0xFF303841),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.access_time_outlined,
+                                                  size: 12,
+                                                  color: Color(0xFF00ADB5),
                                                 ),
-                                              ),
-                                              const Icon(
-                                                Icons.local_fire_department,
-                                                size: 12,
-                                                color: Color(0xFF00ADB5),
-                                              ),
-                                              Text(
-                                                " ${meal['calories']}",
-                                                style: const TextStyle(
-                                                  color: Color(0xFF303841),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
+                                                Text(
+                                                  " ${meal['duration']}  |  ",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF303841),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                                const Icon(
+                                                  Icons.local_fire_department,
+                                                  size: 12,
+                                                  color: Color(0xFF00ADB5),
+                                                ),
+                                                Text(
+                                                  " ${meal['calories']}",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF303841),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   },
@@ -212,94 +227,107 @@ class MealPlanScreenState extends State<MealPlanScreen> {
                                   itemCount: meals.length,
                                   shrinkWrap: true,
                                   physics:
-                                  const AlwaysScrollableScrollPhysics(),
+                                      const AlwaysScrollableScrollPhysics(),
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     final meal = meals[index].data()
-                                    as Map<String, dynamic>;
+                                        as Map<String, dynamic>;
 
-                                    return Container(
-                                      margin: const EdgeInsets.only(bottom: 15),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          CachedNetworkImage(
-                                            imageUrl: meal['image'],
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                Container(
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        MealPlanDetailsScreen(
+                                                          mealData: meal,
+                                                        )));
+                                      },
+                                      child: Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 15),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            CachedNetworkImage(
+                                              imageUrl: meal['image'],
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                width: double.infinity,
+                                                height: 190,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  Shimmer.fromColors(
+                                                baseColor: Colors.grey[300]!,
+                                                highlightColor:
+                                                    Colors.grey[100]!,
+                                                child: Container(
                                                   width: double.infinity,
                                                   height: 190,
                                                   decoration: BoxDecoration(
+                                                    color: Colors.white,
                                                     borderRadius:
-                                                    BorderRadius.circular(10),
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.fill,
-                                                    ),
+                                                        BorderRadius.circular(
+                                                            10),
                                                   ),
                                                 ),
-                                            placeholder: (context, url) =>
-                                                Shimmer.fromColors(
-                                                  baseColor: Colors.grey[300]!,
-                                                  highlightColor: Colors
-                                                      .grey[100]!,
-                                                  child: Container(
-                                                    width: double.infinity,
-                                                    height: 190,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                      BorderRadius.circular(10),
-                                                    ),
-                                                  ),
-                                                ),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                            const Icon(Icons.error),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            meal['title'],
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
                                             ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.access_time_outlined,
-                                                size: 12,
-                                                color: Color(0xFF00ADB5),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              meal['title'],
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
                                               ),
-                                              Text(
-                                                " ${meal['duration']}  |  ",
-                                                style: const TextStyle(
-                                                  color: Color(0xFF303841),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.access_time_outlined,
+                                                  size: 12,
+                                                  color: Color(0xFF00ADB5),
                                                 ),
-                                              ),
-                                              const Icon(
-                                                Icons.local_fire_department,
-                                                size: 12,
-                                                color: Color(0xFF00ADB5),
-                                              ),
-                                              Text(
-                                                " ${meal['calories']}",
-                                                style: const TextStyle(
-                                                  color: Color(0xFF303841),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
+                                                Text(
+                                                  " ${meal['duration']}  |  ",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF303841),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                                const Icon(
+                                                  Icons.local_fire_department,
+                                                  size: 12,
+                                                  color: Color(0xFF00ADB5),
+                                                ),
+                                                Text(
+                                                  " ${meal['calories']}",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF303841),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   },
@@ -336,94 +364,107 @@ class MealPlanScreenState extends State<MealPlanScreen> {
                                   itemCount: meals.length,
                                   shrinkWrap: true,
                                   physics:
-                                  const AlwaysScrollableScrollPhysics(),
+                                      const AlwaysScrollableScrollPhysics(),
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     final meal = meals[index].data()
-                                    as Map<String, dynamic>;
+                                        as Map<String, dynamic>;
 
-                                    return Container(
-                                      margin: const EdgeInsets.only(bottom: 15),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          CachedNetworkImage(
-                                            imageUrl: meal['image'],
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                Container(
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        MealPlanDetailsScreen(
+                                                          mealData: meal,
+                                                        )));
+                                      },
+                                      child: Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 15),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            CachedNetworkImage(
+                                              imageUrl: meal['image'],
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                width: double.infinity,
+                                                height: 190,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  Shimmer.fromColors(
+                                                baseColor: Colors.grey[300]!,
+                                                highlightColor:
+                                                    Colors.grey[100]!,
+                                                child: Container(
                                                   width: double.infinity,
                                                   height: 190,
                                                   decoration: BoxDecoration(
+                                                    color: Colors.white,
                                                     borderRadius:
-                                                    BorderRadius.circular(10),
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.fill,
-                                                    ),
+                                                        BorderRadius.circular(
+                                                            10),
                                                   ),
                                                 ),
-                                            placeholder: (context, url) =>
-                                                Shimmer.fromColors(
-                                                  baseColor: Colors.grey[300]!,
-                                                  highlightColor: Colors
-                                                      .grey[100]!,
-                                                  child: Container(
-                                                    width: double.infinity,
-                                                    height: 190,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                      BorderRadius.circular(10),
-                                                    ),
-                                                  ),
-                                                ),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                            const Icon(Icons.error),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            meal['title'],
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
                                             ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.access_time_outlined,
-                                                size: 12,
-                                                color: Color(0xFF00ADB5),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              meal['title'],
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
                                               ),
-                                              Text(
-                                                " ${meal['duration']}  |  ",
-                                                style: const TextStyle(
-                                                  color: Color(0xFF303841),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.access_time_outlined,
+                                                  size: 12,
+                                                  color: Color(0xFF00ADB5),
                                                 ),
-                                              ),
-                                              const Icon(
-                                                Icons.local_fire_department,
-                                                size: 12,
-                                                color: Color(0xFF00ADB5),
-                                              ),
-                                              Text(
-                                                " ${meal['calories']}",
-                                                style: const TextStyle(
-                                                  color: Color(0xFF303841),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
+                                                Text(
+                                                  " ${meal['duration']}  |  ",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF303841),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                                const Icon(
+                                                  Icons.local_fire_department,
+                                                  size: 12,
+                                                  color: Color(0xFF00ADB5),
+                                                ),
+                                                Text(
+                                                  " ${meal['calories']}",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF303841),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   },
@@ -441,19 +482,6 @@ class MealPlanScreenState extends State<MealPlanScreen> {
                 ),
               ),
             ),
-            // buildMealCategorySelector(),
-            // const Padding(
-            //   padding: EdgeInsets.all(8.0),
-            //   child: Text(
-            //     '15 Meals',
-            //     style: TextStyle(
-            //       fontSize: 20,
-            //       fontWeight: FontWeight.w700,
-            //       fontFamily: 'Montserrat',
-            //     ),
-            //   ),
-            // ),
-            // buildMealList(),
           ],
         ),
       ),
@@ -486,7 +514,4 @@ class MealPlanScreenState extends State<MealPlanScreen> {
       child: HorizontalCalendar(),
     );
   }
-
 }
-
-
