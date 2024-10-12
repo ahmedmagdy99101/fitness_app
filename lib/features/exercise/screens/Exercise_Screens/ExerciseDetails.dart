@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Schedula.dart';
+import 'StartTraining_Screen.dart';
 
 class ExerciseDetails_Screen extends StatefulWidget {
   const ExerciseDetails_Screen({super.key});
@@ -147,7 +148,8 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
                 onPressed: () {
-                  // Handle Next Steps action
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => StartTraining_Screen(), settings:
+                  RouteSettings(arguments: argument['title'])));
                 },
                 child: const Text(
                   'Start Now',
