@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../../meals/widgets/calender.dart';
 
-final time = TimeOfDay.now();
+TimeOfDay selectTime = TimeOfDay.now();
+DateTime scheduleTime = DateTime.now();
 
 class Schedule extends StatefulWidget {
   const Schedule({super.key});
@@ -10,8 +10,6 @@ class Schedule extends StatefulWidget {
   @override
   State<Schedule> createState() => _ScheduleState();
 }
-
-DateTime dateTime = DateTime.now();
 
 class _ScheduleState extends State<Schedule> {
   @override
@@ -39,18 +37,19 @@ class _ScheduleState extends State<Schedule> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 "SCHEDULE EXERCISE",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-                              Icon(
-                                Icons.close,
-                                size: 30,
-                              )
+                              IconButton(
+                                  onPressed: (){
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(Icons.close))
                             ],
                           ),
                         ),
@@ -106,37 +105,51 @@ class _ScheduleState extends State<Schedule> {
                             Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: ElevatedButton(
-                                    onPressed: () {
-                                      showTime(context);
+                                    onPressed: () async{
+                                      final TimeOfDay? timeOfDay = await showTimePicker(
+                                        context: context,
+                                        initialTime: selectTime,
+                                        initialEntryMode: TimePickerEntryMode.dial,
+                                      );
+                                      if (timeOfDay != null){
+                                        setState(() {
+                                          selectTime = timeOfDay;
+                                        });
+                                      }
                                     },
                                     child:
-                                        Text("${time.hour} : ${time.minute}")))
+                                        Text("${selectTime.hour} : ${selectTime.minute}")))
                           ],
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
-                          child: const Row(
+                          child:  Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(Icons.add_alert_rounded),
-                                      SizedBox(
-                                        height: 6,
-                                      ),
-                                      Text(
-                                        "Set Reminder",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              )
+                              Container(
+                                child: const Row(
+                                  children: [
+                                    Icon(Icons.add_alert_rounded),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+                                    Text(
+                                      "Set Reminder",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Transform.scale(
+                                scale: 1,
+                                child: Switch(
+                                    value: true,
+                                    onChanged: (value){}),
+                              ),
                             ],
                           ),
                         ),
@@ -152,9 +165,7 @@ class _ScheduleState extends State<Schedule> {
                       // Light green color
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    onPressed: () {
-                      // Handle Next Steps action
-                    },
+                    onPressed: () {},
                     child: const Text(
                       'DONE',
                       style:
@@ -174,6 +185,6 @@ Widget buildDateSelector() {
   );
 }
 
-showTime(context) {
-  showTimePicker(context: context, initialTime: time);
-}
+
+
+

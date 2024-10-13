@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'ExerciseDetails.dart';
+
 void main(){
   runApp(
     MaterialApp(
@@ -47,31 +49,34 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
 }
 
 class Exercise_Card extends StatelessWidget {
-  final String title;
-  final String image;
-  final int calories;
-  final int time;
-  final String level;
+  final String? title;
+  final String? image;
+  final int? calories;
+  final int? time;
+  final String? level;
 
-  const Exercise_Card(
-      this.image, this.title, this.calories, this.time, this.level);
+  const Exercise_Card({
+      this.image, this.title, this.calories, this.time, this.level});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseDetails_Screen(), settings:
+        RouteSettings(arguments:{'title' : title, 'calories' : calories, 'time' : time, 'level' : level})));
+      },
       child: Column(
         children: [
-          Container(
+          Padding(
+            padding: EdgeInsets.all(10),
             child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
                   height: 150,
                   width: 150,
                   padding: const EdgeInsets.all(10),
-                  child: Image(image: AssetImage(image)),
-                ),
-                const SizedBox(
-                  width: 5,
+                  child: Image(image: AssetImage(image!)),
                 ),
                 Expanded(
                   child: Column(
@@ -81,7 +86,7 @@ class Exercise_Card extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.topLeft,
                         child: Text(
-                          title,
+                          title!,
                           maxLines: 2,
                           overflow: TextOverflow.visible,
                           style: const TextStyle(
@@ -113,7 +118,7 @@ class Exercise_Card extends StatelessWidget {
                         height: 10,
                       ),
                       FittedBox(
-                          alignment: Alignment.bottomLeft, child: Text(level))
+                          alignment: Alignment.bottomLeft, child: Text(level!))
                     ],
                   ),
                 )
@@ -164,11 +169,46 @@ Widget buildButton(String text, bool isSelected) {
 
 Widget buildExerciseList() {
   return Expanded(
-      child: ListView(children: [
-       GestureDetector(
-         onTap: (){},
-         child: const Exercise_Card('assets/images/images-removebg-preview 1.png',
-          "Exercises With Sitting Dumbbells", 125, 5, "Beginner"),
-    ),
+      child: ListView(children: const [
+        Exercise_Card(
+          image: 'assets/images/images-removebg-preview 1.png',
+        title: "Exercises With Sitting Dumbbells",
+          calories: 125,
+          time: 5,
+          level: 'Beginner',),
+        Exercise_Card(
+          image: 'assets/images/images-removebg-preview (1) 1.png',
+          title: 'Exercises with Holding Jumping Rope ',
+          calories: 135,
+          time: 8,
+          level: 'Beginner',
+        ),
+        Exercise_Card(
+          image: 'assets/images/image_0.png',
+          title: 'Exercises with Sitting Dumbbells',
+          calories: 135,
+          time: 5,
+          level: 'Beginner',
+        ),
+        Exercise_Card(
+          image: 'assets/images/images-removebg-preview 1.png',
+          title: "Exercises With Sitting Dumbbells",
+          calories: 125,
+          time: 5,
+          level: 'Beginner',),
+        Exercise_Card(
+          image: 'assets/images/images-removebg-preview (1) 1.png',
+          title: 'Exercises with Holding Jumping Rope ',
+          calories: 135,
+          time: 8,
+          level: 'Beginner',
+        ),
+        Exercise_Card(
+          image: 'assets/images/image_0.png',
+          title: 'Exercises with Sitting Dumbbells',
+          calories: 135,
+          time: 5,
+          level: 'Beginner',
+        ),
   ]));
 }
