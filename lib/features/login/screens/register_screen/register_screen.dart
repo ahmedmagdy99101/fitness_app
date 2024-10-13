@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignupScreen extends StatelessWidget {
    SignupScreen({super.key});
@@ -162,12 +163,13 @@ class SignupScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () async{
+                          onPressed: () async {
                             try{
-                              GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
-                              await FirebaseAuth.instance.signInWithProvider(googleAuthProvider);
-                            }catch (e){}
+                              signinWithGoogle();
 
+                            }catch(e){
+                              print(e);
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
@@ -232,5 +234,19 @@ class SignupScreen extends StatelessWidget {
       password: password!,
     );
   }
+
+  Future<void> signinWithGoogle() async{
+     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+     GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+     AuthCredential credential =   GoogleAuthProvider.credential(
+       accessToken: googleAuth?.accessToken,
+       idToken: googleAuth?.idToken,
+     );
+
+     UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+   }
+
 }
 
