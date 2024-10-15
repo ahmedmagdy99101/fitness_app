@@ -1,8 +1,10 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import '../../../meals/widgets/calender.dart';
 
 TimeOfDay selectTime = TimeOfDay.now();
 DateTime scheduleTime = DateTime.now();
+bool reminder = true;
 
 class Schedule extends StatefulWidget {
   const Schedule({super.key});
@@ -111,14 +113,15 @@ class _ScheduleState extends State<Schedule> {
                                         initialTime: selectTime,
                                         initialEntryMode: TimePickerEntryMode.dial,
                                       );
-                                      if (timeOfDay != null){
-                                        setState(() {
+                                      if (timeOfDay == null) return;
+
+                                       setState(() {
                                           selectTime = timeOfDay;
                                         });
-                                      }
+
                                     },
                                     child:
-                                        Text("${selectTime.hour} : ${selectTime.minute}")))
+                                        Text("${selectTime.hour.toString().padLeft(2,'0')} : ${selectTime.minute.toString().padLeft(2,'')}")))
                           ],
                         ),
                       ),
@@ -147,8 +150,12 @@ class _ScheduleState extends State<Schedule> {
                               Transform.scale(
                                 scale: 1,
                                 child: Switch(
-                                    value: true,
-                                    onChanged: (value){}),
+                                    value: reminder,
+                                    onChanged: (value){
+                                      setState(() {
+                                        reminder = value;
+                                      });
+                                    }),
                               ),
                             ],
                           ),
@@ -165,7 +172,29 @@ class _ScheduleState extends State<Schedule> {
                       // Light green color
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (reminder == true) {
+                      AwesomeNotifications().createNotification(
+                          content: NotificationContent(
+                            id: 10,
+                            channelKey: "basic key",
+                            actionType: ActionType.Default,
+                            title: 'Hello World!',
+                            body: 'This is my first notification!',
+                          ),
+                        schedule: NotificationCalendar(
+                            day: scheduleTime.day,
+                            month: scheduleTime.month,
+                             year: scheduleTime.year,
+                             hour: selectTime.hour,
+                             minute: selectTime.minute,
+                        )
+                      );
+                      Navigator.pop(context);
+                    } else {
+                        Navigator.pop(context);
+                      }
+                      },
                     child: const Text(
                       'DONE',
                       style:

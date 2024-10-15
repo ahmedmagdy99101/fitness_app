@@ -1,12 +1,26 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-
 import 'ExerciseDetails.dart';
 
-void main(){
-  runApp(
-    MaterialApp(
-      home: ExerciseScreen(),
-    )
+void main() async{
+  AwesomeNotifications().initialize
+    (null,
+      [
+        NotificationChannel(
+          channelKey: "basic key",
+          channelName: "test channel",
+          channelDescription: "notificaions for test",
+          playSound: true,
+          channelShowBadge: true,
+        )
+      ],
+      debug: true
+  );
+
+  runApp (
+      MaterialApp(
+        home: ExerciseScreen(),
+      )
   );
 }
 
@@ -47,6 +61,7 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
     );
   }
 }
+
 
 class Exercise_Card extends StatelessWidget {
   final String? title;

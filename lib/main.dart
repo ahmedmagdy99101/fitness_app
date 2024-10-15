@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,19 @@ import 'firebase_options.dart';
 import 'shared/app_colors.dart';
 
 void main() async {
+  AwesomeNotifications().initialize
+    (null,
+      [
+        NotificationChannel(
+          channelKey: "basic key",
+          channelName: "test channel",
+          channelDescription: "notificaions for test",
+          playSound: true,
+          channelShowBadge: true,
+        )
+      ],
+      debug: true
+  );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
