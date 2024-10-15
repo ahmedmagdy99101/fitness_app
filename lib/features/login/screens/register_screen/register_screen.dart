@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SignupScreen extends StatelessWidget {
-   SignupScreen({super.key});
+  SignupScreen({super.key});
 
   String? name;
   String? phone;
@@ -25,8 +26,7 @@ class SignupScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                      height: size.height * 0.02),
+                  SizedBox(height: size.height * 0.02),
                   Row(
                     children: [
                       IconButton(
@@ -44,20 +44,19 @@ class SignupScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                      height: size.height * 0.01),
+                  SizedBox(height: size.height * 0.01),
                   const Text(
                     'Please enter your credentials to proceed',
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   SizedBox(height: size.height * 0.03),
                   TextFormField(
-                    validator: (String? data){
-                      if(data!.isEmpty){
-                        return 'This Field is required' ;
+                    validator: (String? data) {
+                      if (data!.isEmpty) {
+                        return 'This Field is required';
                       }
                     },
-                    onChanged: (data){
+                    onChanged: (data) {
                       name = data;
                     },
                     decoration: const InputDecoration(
@@ -65,16 +64,15 @@ class SignupScreen extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(
-                      height: size.height * 0.02),
+                  SizedBox(height: size.height * 0.02),
                   TextFormField(
-                    validator: (String? data){
-                      if(data!.isEmpty){
-                        return 'This Field is required' ;
+                    validator: (String? data) {
+                      if (data!.isEmpty) {
+                        return 'This Field is required';
                       }
                     },
-                    onChanged: (data){
-                      phone =data;
+                    onChanged: (data) {
+                      phone = data;
                     },
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
@@ -82,15 +80,14 @@ class SignupScreen extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(
-                      height: size.height * 0.02),
+                  SizedBox(height: size.height * 0.02),
                   TextFormField(
-                    validator: (String? data){
-                      if(data!.isEmpty){
-                        return 'This Field is required' ;
+                    validator: (String? data) {
+                      if (data!.isEmpty) {
+                        return 'This Field is required';
                       }
                     },
-                    onChanged: (data){
+                    onChanged: (data) {
                       email = data;
                     },
                     keyboardType: TextInputType.emailAddress,
@@ -99,16 +96,14 @@ class SignupScreen extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(
-                      height: size.height * 0.02),
+                  SizedBox(height: size.height * 0.02),
                   TextFormField(
-                    validator: (String? data){
-                      if(data!.isEmpty){
-                        return 'This Field is required' ;
+                    validator: (String? data) {
+                      if (data!.isEmpty) {
+                        return 'This Field is required';
                       }
                     },
-
-                    onChanged: (data){
+                    onChanged: (data) {
                       password = data;
                     },
                     obscureText: true,
@@ -118,26 +113,47 @@ class SignupScreen extends StatelessWidget {
                       suffixIcon: Icon(Icons.visibility_off),
                     ),
                   ),
-                  SizedBox(
-                      height: size.height * 0.03),
+                  SizedBox(height: size.height * 0.03),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF9ACD32), // Light green color
+                        backgroundColor: const Color(0xFF9ACD32),
+                        // Light green color
                         padding: const EdgeInsets.symmetric(vertical: 15),
                       ),
                       onPressed: () async {
-                        if(formKey.currentState!.validate()){
+                        if (formKey.currentState!.validate()) {
                           try {
-                            await registerUser();
-
+                            await registerUser().then((value) {
+                              FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(email)
+                                  .set({
+                                'full-name': name,
+                                'phone': phone,
+                                'email': email,
+                                'password': password,
+                                'gender': 'Male',
+                                'goal': 'Weight loss',
+                                'level': 'Beginner',
+                                'height': '180',
+                                'weight': '80',
+                                'progress-sleep': 0,
+                                'progress-calories': 0,
+                                'progress-exercise': 0,
+                                'progress-walk': 0,
+                                'progress-water': 0,
+                                'uid': FirebaseAuth.instance.currentUser!.uid
+                              });
+                            });
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
-                              showSnackBarMessage(context , 'The password provided is too weak');
+                              showSnackBarMessage(
+                                  context, 'The password provided is too weak');
                             } else if (e.code == 'email-already-in-use') {
-                              showSnackBarMessage(context ,'The account already exists for that email'
-                              );
+                              showSnackBarMessage(context,
+                                  'The account already exists for that email');
                             }
                           } catch (e) {
                             showSnackBarMessage(context, 'there was an error');
@@ -147,7 +163,8 @@ class SignupScreen extends StatelessWidget {
                       },
                       child: const Text(
                         'CREATE ACCOUNT',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -164,10 +181,9 @@ class SignupScreen extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () async {
-                            try{
-                              signinWithGoogle();
-
-                            }catch(e){
+                            try {
+                              await signinWithGoogle();
+                            } catch (e) {
                               print(e);
                             }
                           },
@@ -220,33 +236,29 @@ class SignupScreen extends StatelessWidget {
     );
   }
 
-  void showSnackBarMessage(BuildContext context , String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
-            content:Text(msg)
-        )
-    ) ;
+  void showSnackBarMessage(BuildContext context, String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
   }
 
   Future<void> registerUser() async {
-    UserCredential user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    UserCredential user =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email!,
       password: password!,
     );
   }
 
-  Future<void> signinWithGoogle() async{
-     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  Future<void> signinWithGoogle() async {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-     GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
-     AuthCredential credential =   GoogleAuthProvider.credential(
-       accessToken: googleAuth?.accessToken,
-       idToken: googleAuth?.idToken,
-     );
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-     UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-   }
-
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 }
-
