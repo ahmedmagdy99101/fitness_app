@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitness_app/features/exercise/screens/Exercise_Screens/Full%20Exercise.dart';
 import 'package:flutter/material.dart';
 import 'Schedula.dart';
 import 'StartTraining_Screen.dart';
+
+List data = ExerciseScreen.passData;
 
 class ExerciseDetails_Screen extends StatefulWidget {
   const ExerciseDetails_Screen({super.key});
@@ -10,6 +14,7 @@ class ExerciseDetails_Screen extends StatefulWidget {
 }
 
 class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
+
   @override
   Widget build(BuildContext context) {
     var argument = ModalRoute.of(context)!.settings.arguments as Map;
@@ -20,8 +25,8 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
           children: [
             Stack(
               children: [
-                Image.asset(
-                  'assets/images/img.png',
+                Image.network(
+                  '${argument['image']}',
                   width: double.infinity,
                   height: 250,
                   fit: BoxFit.cover,
@@ -44,8 +49,8 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                         padding: const EdgeInsets.all(8),
                         child: Row(
                           children: [
-                            Icon(Icons.local_fire_department),
-                            SizedBox(width: 4),
+                            const Icon(Icons.local_fire_department),
+                            const SizedBox(width: 4),
                             Text('${argument['calories']}'),
                           ],
                         ),
@@ -59,21 +64,21 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                         padding: const EdgeInsets.all(8),
                         child: Row(
                           children: [
-                            Icon(Icons.timer),
-                            SizedBox(width: 4),
-                            Text('${argument['time']} min'),
+                            const Icon(Icons.timer),
+                            const SizedBox(width: 4),
+                            Text('${argument['time']}'),
                           ],
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 5,),
+                  const SizedBox(height: 5,),
                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ExerciseInfo('Level','${argument['level']}'),
-                      ExerciseInfo('Category','Cardio'),
-                      ExerciseInfo('Weight','Lose'),
+                      ExerciseInfo('Category','${argument['category']}'),
+                      const ExerciseInfo('Weight','Lose'),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -85,15 +90,16 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  const Text(
-                    "There are many variations of passages of Lorem \n Ipsum available, but the majority have suffered \n alteration in some form, by injected humour",
-                    style: TextStyle(color: Colors.grey),
+                  Text(
+                    argument['description'],
+                    maxLines: 2,
+                    style: const TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: 10),
                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("3 Weeks - 20 Exercise", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                      const Text("3 Weeks - 20 Exercise", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                       scheduleButton("Schedule", context)
                     ],
                   ),
@@ -112,30 +118,7 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                       ],
                     ),
                   ),
-                  ListView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: const [
-                      Exercise_Card(
-                          'assets/images/89694286_XS-removebg-preview 1.png',
-                          "Exercises With Sitting Dumbbells",
-                          125,
-                          5,
-                          "Beginner"),
-                      Exercise_Card(
-                          'assets/images/image 6.png',
-                          "Exercises With Sitting Dumbbells",
-                          125,
-                          5,
-                          "Beginner"),
-                      Exercise_Card(
-                          'assets/images/images-removebg-preview 1.png',
-                          "Exercises With Sitting Dumbbells",
-                          125,
-                          5,
-                          "Beginner"),
-                    ],
-                  ),
+                  buildExerciseList(context),
                 ],
               ),
             ),
@@ -147,7 +130,7 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => StartTraining_Screen(), settings:
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const StartTraining_Screen(), settings:
                   RouteSettings(arguments: argument['title'])));
                 },
                 child: const Text(
@@ -163,6 +146,31 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
   }
 }
 
+Widget buildExerciseList(BuildContext context) {
+  return SizedBox(
+      height: 360,
+      width: 450,
+      child: ListView.separated(
+          itemCount: 3,
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              color: Colors.black12,
+            );
+          },
+          itemBuilder: (context, index){
+            return Exercise_Card(
+              image: data[index]["image"],
+              title: data[index]["title"],
+              level: data[index]["level"],
+              time:  data[index]["duration"],
+              calories: data[index]["calories"],
+              category: data[index]['category'],
+              description: data[index]['description'],
+            );
+          })
+  );
+}
 
 Widget scheduleButton(String text, BuildContext context) {
   return Padding(
@@ -205,62 +213,80 @@ Widget buildButton(String text, bool isSelected) {
 }
 
 class Exercise_Card extends StatelessWidget {
-  final String title;
-  final String image;
-  final int calories;
-  final int time;
-  final String level;
+  final String? title;
+  final String? image;
+  final String? calories;
+  final String? time;
+  final String? level;
+  final String? category;
+  final String? description;
 
-  const Exercise_Card (this.image, this.title, this.calories, this.time, this.level);
+  const Exercise_Card({
+    this.image, this.title, this.calories, this.time, this.level, this.category, this.description});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: (){
+         Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseDetails_Screen(), settings:
+         RouteSettings(arguments:{'image' : image, 'title' : title, 'calories' : calories, 'time' : time, 'level' : level, 'category' : category, 'description' : description})));
+      },
       child: Column(
         children: [
-          Container(
+          Padding(
+            padding: EdgeInsets.all(10),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  height: 100,
-                  width: 100,
-                  padding: EdgeInsets.all(10),
-                  child: Image(image: AssetImage(image)),
+                  height: 150,
+                  width: 150,
+                  padding: const EdgeInsets.all(10),
+                  child: Image(image: NetworkImage(image!)),
                 ),
-                SizedBox(width: 5,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.topLeft,
-                      child: Text(title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          title!,
+                          maxLines: 2,
+                          overflow: TextOverflow.visible,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10,),
-                    FittedBox(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          Icon(Icons.local_fire_department),
-                          Text("$calories KCL"),
-                          SizedBox(width: 5,),
-                          Text('|'),
-                          SizedBox(width: 5,),
-                          Icon(Icons.timer),
-                          Text("$time min")
-
-                        ],
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    SizedBox(height: 10,),
-                    FittedBox(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(level))
-                  ],
+                      FittedBox(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: [
+                            const Icon(Icons.local_fire_department),
+                            Text("$calories"),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Text('|'),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Icon(Icons.timer),
+                            Text("$time")
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      FittedBox(
+                          alignment: Alignment.bottomLeft, child: Text(level!))
+                    ],
+                  ),
                 )
               ],
             ),

@@ -25,7 +25,7 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> bottomNavPages = [
     const HomeScreen(),
     const MealPlanScreen(),
-    const ExerciseScreen(),
+     ExerciseScreen(),
     const ProfileScreen(),
   ];
 

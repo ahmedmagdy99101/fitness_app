@@ -23,7 +23,7 @@ void main() async{
   );
 
   runApp (
-      const MaterialApp(
+       MaterialApp(
         home: ExerciseScreen(),
       )
   );
@@ -33,7 +33,9 @@ List<QueryDocumentSnapshot> data = [];
 bool isLoading = true;
 
 class ExerciseScreen extends StatefulWidget {
-  const ExerciseScreen({super.key});
+   ExerciseScreen({super.key});
+
+static List passData = data;
 
   @override
   State<ExerciseScreen> createState() => _MealPlanScreenState();
@@ -44,6 +46,7 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
   getData() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection("exercise").get();
+    await Future.delayed(Duration(seconds: 1));
     data.addAll(querySnapshot.docs);
     isLoading = false;
     setState(() {
@@ -66,7 +69,7 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 50,
               width: double.infinity,
               child: Row(
@@ -132,16 +135,24 @@ Widget buildExerciseList(BuildContext context) {
     ),
   )
   : Expanded(
-    child: ListView.builder(
+    child: ListView.separated(
         itemCount: data.length,
-        itemBuilder: (context, index){
-          return Exercise_Card(
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(
+            height: 1,
+            color: Colors.black12,
+          );
+        },
+        itemBuilder: (context, index) => Exercise_Card(
               image: data[index]["image"],
               title: data[index]["title"],
               level: data[index]["level"],
-              time:  data[index]["duration"]
-          );
-        }),
+              time:  data[index]["duration"],
+              calories: data[index]["calories"],
+              category: data[index]['category'],
+              description: data[index]['description'],
+        ),
+    ),
   );
 }
 
@@ -151,16 +162,18 @@ class Exercise_Card extends StatelessWidget {
   final String? calories;
   final String? time;
   final String? level;
+  final String? category;
+  final String? description;
 
   const Exercise_Card({
-    this.image, this.title, this.calories, this.time, this.level});
+    this.image, this.title, this.calories, this.time, this.level, this.category, this.description});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
         Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseDetails_Screen(), settings:
-        RouteSettings(arguments:{'title' : title, 'calories' : calories, 'time' : time, 'level' : level})));
+        RouteSettings(arguments:{'image' : image, 'title' : title, 'calories' : calories, 'time' : time, 'level' : level, 'category' : category, 'description' : description})));
       },
       child: Column(
         children: [
@@ -198,7 +211,7 @@ class Exercise_Card extends StatelessWidget {
                         child: Row(
                           children: [
                             const Icon(Icons.local_fire_department),
-                            Text("$calories KCL"),
+                            Text("$calories"),
                             const SizedBox(
                               width: 5,
                             ),
@@ -207,7 +220,7 @@ class Exercise_Card extends StatelessWidget {
                               width: 5,
                             ),
                             const Icon(Icons.timer),
-                            Text("$time min")
+                            Text("$time")
                           ],
                         ),
                       ),
