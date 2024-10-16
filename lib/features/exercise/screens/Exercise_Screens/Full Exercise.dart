@@ -1,8 +1,13 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'ExerciseDetails.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   AwesomeNotifications().initialize
     (null,
       [
@@ -18,11 +23,14 @@ void main() async{
   );
 
   runApp (
-      MaterialApp(
+      const MaterialApp(
         home: ExerciseScreen(),
       )
   );
 }
+
+List<QueryDocumentSnapshot> data = [];
+bool isLoading = true;
 
 class ExerciseScreen extends StatefulWidget {
   const ExerciseScreen({super.key});
@@ -32,6 +40,22 @@ class ExerciseScreen extends StatefulWidget {
 }
 
 class _MealPlanScreenState extends State<ExerciseScreen> {
+
+  getData() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection("exercise").get();
+    data.addAll(querySnapshot.docs);
+    isLoading = false;
+    setState(() {
+
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +78,7 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
                 ],
               ),
             ),
-            buildExerciseList(),
+            buildExerciseList(context),
           ],
         ),
       ),
@@ -62,16 +86,74 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
   }
 }
 
+AppBar buildAppBar() {
+  return AppBar(
+    title: const Text(
+      'FULL EXERCISE',
+      style: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Bebas',
+      ),
+    ),
+    centerTitle: true,
+    // leading: const Icon(Icons.arrow_back),
+    leading: IconButton(onPressed: () => {}, icon: const Icon(Icons.arrow_back_ios)),
+  );
+}
+
+Widget buildButton(String text, bool isSelected) {
+  return Expanded(
+    child: Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: MaterialButton(
+        onPressed: () {},
+        color: isSelected ? Colors.black : Colors.white,
+        textColor: isSelected ? Colors.white : Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Text(text,
+            style: const TextStyle(
+              fontFamily: 'Montserrat',
+            )),
+      ),
+    ),
+  );
+}
+
+Widget buildExerciseList(BuildContext context) {
+  return isLoading == true ?
+  Expanded(
+    child: Center(
+      child: LoadingAnimationWidget.waveDots(
+          color: Colors.black,
+          size: 50),
+    ),
+  )
+  : Expanded(
+    child: ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (context, index){
+          return Exercise_Card(
+              image: data[index]["image"],
+              title: data[index]["title"],
+              level: data[index]["level"],
+              time:  data[index]["duration"]
+          );
+        }),
+  );
+}
 
 class Exercise_Card extends StatelessWidget {
   final String? title;
   final String? image;
-  final int? calories;
-  final int? time;
+  final String? calories;
+  final String? time;
   final String? level;
 
   const Exercise_Card({
-      this.image, this.title, this.calories, this.time, this.level});
+    this.image, this.title, this.calories, this.time, this.level});
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +167,13 @@ class Exercise_Card extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(10),
             child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
                   height: 150,
                   width: 150,
                   padding: const EdgeInsets.all(10),
-                  child: Image(image: AssetImage(image!)),
+                  child: Image(image: NetworkImage(image!)),
                 ),
                 Expanded(
                   child: Column(
@@ -146,84 +228,3 @@ class Exercise_Card extends StatelessWidget {
   }
 }
 
-AppBar buildAppBar() {
-  return AppBar(
-    title: const Text(
-      'FULL EXERCISE',
-      style: TextStyle(
-        fontSize: 28,
-        fontWeight: FontWeight.w400,
-        fontFamily: 'Bebas',
-      ),
-    ),
-    centerTitle: true,
-    // leading: const Icon(Icons.arrow_back),
-    leading: IconButton(onPressed: () => {}, icon: const Icon(Icons.arrow_back_ios)),
-  );
-}
-
-Widget buildButton(String text, bool isSelected) {
-  return Expanded(
-    child: Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: MaterialButton(
-        onPressed: () {},
-        color: isSelected ? Colors.black : Colors.white,
-        textColor: isSelected ? Colors.white : Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Text(text,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
-            )),
-      ),
-    ),
-  );
-}
-
-Widget buildExerciseList() {
-  return Expanded(
-      child: ListView(children: const [
-        Exercise_Card(
-          image: 'assets/images/images-removebg-preview 1.png',
-        title: "Exercises With Sitting Dumbbells",
-          calories: 125,
-          time: 5,
-          level: 'Beginner',),
-        Exercise_Card(
-          image: 'assets/images/images-removebg-preview (1) 1.png',
-          title: 'Exercises with Holding Jumping Rope ',
-          calories: 135,
-          time: 8,
-          level: 'Beginner',
-        ),
-        Exercise_Card(
-          image: 'assets/images/image_0.png',
-          title: 'Exercises with Sitting Dumbbells',
-          calories: 135,
-          time: 5,
-          level: 'Beginner',
-        ),
-        Exercise_Card(
-          image: 'assets/images/images-removebg-preview 1.png',
-          title: "Exercises With Sitting Dumbbells",
-          calories: 125,
-          time: 5,
-          level: 'Beginner',),
-        Exercise_Card(
-          image: 'assets/images/images-removebg-preview (1) 1.png',
-          title: 'Exercises with Holding Jumping Rope ',
-          calories: 135,
-          time: 8,
-          level: 'Beginner',
-        ),
-        Exercise_Card(
-          image: 'assets/images/image_0.png',
-          title: 'Exercises with Sitting Dumbbells',
-          calories: 135,
-          time: 5,
-          level: 'Beginner',
-        ),
-  ]));
-}
