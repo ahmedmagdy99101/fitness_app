@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness_app/features/exercise/screens/Exercise_Screens/Full%20Exercise.dart';
 import 'package:flutter/material.dart';
 import 'Schedula.dart';
