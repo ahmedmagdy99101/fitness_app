@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_app/features/login/screens/login_screen/login_screen.dart';
+import 'package:fitness_app/screens/SelectFavoriteScreen_7.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -147,6 +149,11 @@ class SignupScreen extends StatelessWidget {
                                 'uid': FirebaseAuth.instance.currentUser!.uid
                               });
                             });
+
+                            showSnackBarMessage(context, "Sign in succsess");
+
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavoriteScreen()));
+
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
                               showSnackBarMessage(
@@ -183,6 +190,8 @@ class SignupScreen extends StatelessWidget {
                           onPressed: () async {
                             try {
                               await signinWithGoogle();
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavoriteScreen()));
+
                             } catch (e) {
                               print(e);
                             }
@@ -216,7 +225,7 @@ class SignupScreen extends StatelessWidget {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        // Navigate to login
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                       },
                       child: const Text(
                         'Already have an account? Login!',

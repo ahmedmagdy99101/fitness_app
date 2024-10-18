@@ -1,8 +1,5 @@
+import 'package:fitness_app/features/login/screens/register_screen/register_screen.dart';
 import 'package:flutter/material.dart';
-
-
-
-
 
 class WelcomefitScreen extends StatelessWidget {
   const WelcomefitScreen({super.key});
@@ -73,7 +70,7 @@ class WelcomefitScreen extends StatelessWidget {
                   // SKIP Button
                   TextButton(
                     onPressed: () {
-                      // Skip action
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
                     },
                     child: const Text(
                       'SKIP',
@@ -98,7 +95,7 @@ class WelcomefitScreen extends StatelessWidget {
                   // NEXT Button
                   TextButton(
                     onPressed: () {
-                      // Next action
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
                     },
                     child: const Text(
                       'NEXT',

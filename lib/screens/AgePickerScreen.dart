@@ -1,3 +1,4 @@
+import 'package:fitness_app/screens/WeightAndHeight.dart';
 import 'package:flutter/material.dart';
 
 class AgePickerScreen extends StatelessWidget {
@@ -67,7 +68,7 @@ class AgePickerScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // Next steps action
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreen,

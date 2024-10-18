@@ -1,3 +1,5 @@
+import 'package:fitness_app/screens/AgePickerScreen.dart';
+import 'package:fitness_app/screens/WeightAndHeight.dart';
 import 'package:flutter/material.dart';
 
 class SelectFavoriteScreen extends StatelessWidget {
@@ -73,7 +75,7 @@ class SelectFavoriteScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     onPressed: () {
-                      // Handle Next Steps action
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AgePickerScreen()));
                     },
                     child: const Text(
                       'NEXT STEPS',

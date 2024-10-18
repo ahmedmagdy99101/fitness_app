@@ -1,3 +1,6 @@
+import 'package:fitness_app/features/login/screens/login_screen/login_screen.dart';
+import 'package:fitness_app/features/login/screens/register_screen/register_screen.dart';
+import 'package:fitness_app/screens/WelcomeScreen_3.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeCrossfitScreen extends StatelessWidget {
@@ -28,14 +31,13 @@ class WelcomeCrossfitScreen extends StatelessWidget {
               child: CircleAvatar(
                 radius: 140,
                 backgroundImage: AssetImage(
-                    'images/horizontal.png'), // Replace with your asset
+                    'assets/images/horizontal.png'), // Replace with your asset
               ),
             ),
 
             const SizedBox(height: 40),
 
-            // Title: PERFECT BODY DOING CROSSFIT EXERCISES
-            Padding(
+           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: RichText(
                 textAlign: TextAlign.center,
@@ -70,7 +72,7 @@ class WelcomeCrossfitScreen extends StatelessWidget {
                   // SKIP Button
                   TextButton(
                     onPressed: () {
-                      // Skip action
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
                     },
                     child: const Text(
                       'SKIP',
@@ -98,7 +100,7 @@ class WelcomeCrossfitScreen extends StatelessWidget {
                   // NEXT Button
                   TextButton(
                     onPressed: () {
-                      // Next action
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomefitScreen()));
                     },
                     child: const Text(
                       'NEXT',

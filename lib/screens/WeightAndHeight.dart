@@ -1,5 +1,5 @@
+import 'package:fitness_app/features/app/screens/app_layout/app_layout.dart';
 import 'package:flutter/material.dart';
-
 
 
 class UserInfoScreen extends StatelessWidget {
@@ -47,7 +47,10 @@ class UserInfoScreen extends StatelessWidget {
               // Next Step Button
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AppLayoutPage()));
+
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -55,6 +58,7 @@ class UserInfoScreen extends StatelessWidget {
                 ),
                 child: const Text("Next Steps"),
               ),
+
             ],
           ),
         ),
@@ -62,6 +66,8 @@ class UserInfoScreen extends StatelessWidget {
     );
   }
 }
+
+
 
 class UserInfoSection extends StatelessWidget {
   final int step;

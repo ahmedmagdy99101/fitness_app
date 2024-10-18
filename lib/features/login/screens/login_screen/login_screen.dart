@@ -1,4 +1,8 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_app/features/login/screens/register_screen/register_screen.dart';
+import 'package:fitness_app/screens/SelectFavoriteScreen_7.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -126,6 +130,8 @@ class LoginScreen extends StatelessWidget {
                                   if (formKey.currentState!.validate()) {
                                     try {
                                       await loginUser();
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavoriteScreen()));
+
                                     } on FirebaseAuthException catch (e) {
                                       if (e.code == 'user-not-found') {
                                         showSnackBarMessage(context,
@@ -136,7 +142,7 @@ class LoginScreen extends StatelessWidget {
                                       }
                                     } catch (e) {
                                       showSnackBarMessage(
-                                          context, 'there was an error');
+                                          context, 'there was an error Try again');
                                       print(e);
                                     }
                                   }
@@ -180,6 +186,8 @@ class LoginScreen extends StatelessWidget {
                                 onPressed: () async {
                                   try {
                                     loginWithGoogle();
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavoriteScreen()));
+
 
                                   } catch (e) {}
                                 },
@@ -191,21 +199,27 @@ class LoginScreen extends StatelessWidget {
                         const Spacer(),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
-                          child: Center(
-                            child: RichText(
-                              text: const TextSpan(
-                                text: "Don’t have an account? ",
-                                style: TextStyle(color: Colors.black),
-                                children: [
-                                  TextSpan(
-                                    text: "Register!",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+
+                            },
+                            child: Center(
+                              child: RichText(
+                                text: const TextSpan(
+                                  text: "Don’t have an account? ",
+                                  style: TextStyle(color: Colors.black),
+                                  children: [
+                                    TextSpan(
+                                      text: "Register!",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green,
+                                      ),
+                                      // Handle register action
                                     ),
-                                    // Handle register action
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

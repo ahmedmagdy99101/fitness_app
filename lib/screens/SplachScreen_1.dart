@@ -1,3 +1,4 @@
+import 'package:fitness_app/screens/WelcomeScreen_2.dart';
 import 'package:flutter/material.dart';
 
 class SplashFitnessScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class SplashFitnessScreen extends StatelessWidget {
                   Positioned(
                     top: 80,
                     child: Image.asset(
-                      'images/girl.png',
+                      'assets/images/girl.png',
                       // Add your asset path here
                       width: 250,
                       height: 400,
@@ -109,15 +110,12 @@ class SplashFitnessScreen extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 height: 50,
-                child: ElevatedButton(
+                child: TextButton(
                   onPressed: () {
-                    // Button action
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeCrossfitScreen()));
                   },
-                  style: ElevatedButton.styleFrom(
+                  style: TextButton.styleFrom(
                     backgroundColor: Colors.black, // Black button
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
                   ),
                   child: const Text(
                     "LET'S START",
