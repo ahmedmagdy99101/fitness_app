@@ -148,12 +148,17 @@ class SignupScreen extends StatelessWidget {
                                 'progress-water': 0,
                                 'uid': FirebaseAuth.instance.currentUser!.uid
                               });
+                              FirebaseAuth.instance.currentUser
+                                  ?.updateDisplayName(name);
                             });
 
                             showSnackBarMessage(context, "Sign in succsess");
 
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavoriteScreen()));
-
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SelectFavoriteScreen()));
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
                               showSnackBarMessage(
@@ -190,8 +195,11 @@ class SignupScreen extends StatelessWidget {
                           onPressed: () async {
                             try {
                               await signinWithGoogle();
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavoriteScreen()));
-
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SelectFavoriteScreen()));
                             } catch (e) {
                               print(e);
                             }
@@ -225,7 +233,10 @@ class SignupScreen extends StatelessWidget {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
                       },
                       child: const Text(
                         'Already have an account? Login!',

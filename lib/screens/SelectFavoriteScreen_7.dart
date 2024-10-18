@@ -1,5 +1,4 @@
 import 'package:fitness_app/screens/AgePickerScreen.dart';
-import 'package:fitness_app/screens/WeightAndHeight.dart';
 import 'package:flutter/material.dart';
 
 class SelectFavoriteScreen extends StatelessWidget {
@@ -28,7 +27,8 @@ class SelectFavoriteScreen extends StatelessWidget {
                     ),
                     const Text(
                       'Step 1 of 8',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     TextButton(
                       onPressed: () {
@@ -58,12 +58,16 @@ class SelectFavoriteScreen extends StatelessWidget {
                     childAspectRatio: 1,
                   ),
                   children: [
-                    _buildFavoriteOption('Running', 'images/running.png'),
-                    _buildFavoriteOption('Walking', 'images/walking.png'),
-                    _buildFavoriteOption('Meal plan', 'images/meal_plan.png'),
-                    _buildFavoriteOption('Cycling', 'images/cycling.png'),
-                    _buildFavoriteOption('Yoga', 'images/yoga.png'),
-                    _buildFavoriteOption('Health', 'images/health.png'),
+                    _buildFavoriteOption(
+                        'Running', 'assets/images/running.png'),
+                    _buildFavoriteOption(
+                        'Walking', 'assets/images/walking.png'),
+                    _buildFavoriteOption(
+                        'Meal plan', 'assets/images/meal_plan.png'),
+                    _buildFavoriteOption(
+                        'Cycling', 'assets/images/cycling.png'),
+                    _buildFavoriteOption('Yoga', 'assets/images/yoga.png'),
+                    _buildFavoriteOption('Health', 'assets/images/health.png'),
                   ],
                 ),
                 SizedBox(height: size.height * 0.04),
@@ -71,15 +75,20 @@ class SelectFavoriteScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF9ACD32), // Light green color
+                      backgroundColor: const Color(0xFF9ACD32),
+                      // Light green color
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AgePickerScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AgePickerScreen()));
                     },
                     child: const Text(
                       'NEXT STEPS',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -112,5 +121,3 @@ class SelectFavoriteScreen extends StatelessWidget {
     );
   }
 }
-
-

@@ -24,7 +24,7 @@ class WelcomefitScreen extends StatelessWidget {
 
             // Circular Image with Background
             Image.asset(
-              'images/Mask group.png',
+              'assets/images/Mask group.png',
               // Add your asset path here
               width: 250,
               height: 400,
@@ -57,7 +57,7 @@ class WelcomefitScreen extends StatelessWidget {
                 ),
               ),
             ),
-          //Shot Strong Timeless
+            //Shot Strong Timeless
             // Woman Training
             const Spacer(),
 
@@ -70,7 +70,10 @@ class WelcomefitScreen extends StatelessWidget {
                   // SKIP Button
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignupScreen()));
                     },
                     child: const Text(
                       'SKIP',
@@ -84,18 +87,24 @@ class WelcomefitScreen extends StatelessWidget {
                   // Indicator
                   const Row(
                     children: [
-                      Icon(Icons.circle, size: 12, color: Color(0xFFA2D05D)), // Active dot
+                      Icon(Icons.circle, size: 12, color: Color(0xFFA2D05D)),
+                      // Active dot
                       SizedBox(width: 6),
-                      Icon(Icons.circle, size: 12, color: Colors.black38), // Inactive dot
+                      Icon(Icons.circle, size: 12, color: Colors.black38),
+                      // Inactive dot
                       SizedBox(width: 6),
-                      Icon(Icons.circle, size: 12, color: Colors.black38), // Inactive dot
+                      Icon(Icons.circle, size: 12, color: Colors.black38),
+                      // Inactive dot
                     ],
                   ),
 
                   // NEXT Button
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignupScreen()));
                     },
                     child: const Text(
                       'NEXT',

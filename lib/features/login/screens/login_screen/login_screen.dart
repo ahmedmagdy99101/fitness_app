@@ -1,8 +1,6 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_app/features/app/screens/app_layout/app_layout.dart';
 import 'package:fitness_app/features/login/screens/register_screen/register_screen.dart';
-import 'package:fitness_app/screens/SelectFavoriteScreen_7.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -130,8 +128,11 @@ class LoginScreen extends StatelessWidget {
                                   if (formKey.currentState!.validate()) {
                                     try {
                                       await loginUser();
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavoriteScreen()));
-
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AppLayoutPage()));
                                     } on FirebaseAuthException catch (e) {
                                       if (e.code == 'user-not-found') {
                                         showSnackBarMessage(context,
@@ -141,8 +142,8 @@ class LoginScreen extends StatelessWidget {
                                             context, 'Wrong password');
                                       }
                                     } catch (e) {
-                                      showSnackBarMessage(
-                                          context, 'there was an error Try again');
+                                      showSnackBarMessage(context,
+                                          'there was an error Try again');
                                       print(e);
                                     }
                                   }
@@ -186,9 +187,11 @@ class LoginScreen extends StatelessWidget {
                                 onPressed: () async {
                                   try {
                                     loginWithGoogle();
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavoriteScreen()));
-
-
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                AppLayoutPage()));
                                   } catch (e) {}
                                 },
                               ),
@@ -201,8 +204,10 @@ class LoginScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
-
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignupScreen()));
                             },
                             child: Center(
                               child: RichText(
@@ -245,19 +250,19 @@ class LoginScreen extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
   }
 
-  Future<void> loginWithGoogle() async{
+  Future<void> loginWithGoogle() async {
     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
-    AuthCredential credential =   GoogleAuthProvider.credential(
+    AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
 
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
 }
 
 // Custom widget for social login buttons

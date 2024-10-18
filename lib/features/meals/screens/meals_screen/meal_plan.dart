@@ -502,9 +502,10 @@ class MealPlanScreenState extends State<MealPlanScreen> {
       centerTitle: true,
       // leading: const Icon(Icons.arrow_back),
       actions: const [
-        Icon(Icons.lightbulb_outline),
-        SizedBox(width: 16),
+        // Icon(Icons.lightbulb_outline),
+        // SizedBox(width: 16),
       ],
+      leading: SizedBox(),
     );
   }
 

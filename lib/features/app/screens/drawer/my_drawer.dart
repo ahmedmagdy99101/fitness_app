@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/features/app/screens/drawer/training_screen/training_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../my_progress.dart';
 import '../../../../shared/app_colors.dart';
 import '../../../home/screens/categories_screen/categories_screen.dart';
+import '../../../login/screens/login_screen/login_screen.dart';
 import 'app_setting_screen/app_setting_screen.dart';
 import 'favorites_screen/favorites_screen.dart';
 
@@ -48,11 +51,22 @@ class MyDrawer extends StatelessWidget {
           )),
           // plans
           BuildDrawerItemWidget(
-            itemName: 'Plans',
-            itemIcon: 'assets/icons/plans_icon.png',
-            onTap: () {},
+            itemName: 'My Progress',
+            itemIcon: 'assets/icons/progress.png',
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => const MyProgress()));
+            },
           ),
-          const Divider(),
+          const SizedBox(
+            height: 10,
+          ),
+          // BuildDrawerItemWidget(
+          //   itemName: 'Plans',
+          //   itemIcon: 'assets/icons/plans_icon.png',
+          //   onTap: () {},
+          // ),
+          // const Divider(),
           // plans
           BuildDrawerItemWidget(
             itemName: 'Training',
@@ -107,6 +121,65 @@ class MyDrawer extends StatelessWidget {
           ),
           const SizedBox(
             height: 10,
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          Container(
+            width: double.infinity,
+            height: 50,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.white,
+                      title: const Text("Logout"),
+                      content: const Text("Are you sure you want to logout ?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await FirebaseAuth.instance.signOut();
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()),
+                                (route) => false);
+                          },
+                          child: const Text("Logout"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(
+                  AppColors.primaryColor,
+                ),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                )),
+              ),
+              child: const Text(
+                "Logout",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
           ),
           // ListView.separated(itemBuilder: (BuildContext context, int index) {
           //   return BuildDrawerItemWidget(

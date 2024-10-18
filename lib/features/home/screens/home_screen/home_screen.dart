@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/shared/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 10,
                           ),
                           const CircleAvatar(
-                            radius: 25,
+                            radius: 20,
                             backgroundImage: AssetImage(
                               'assets/images/avatar.png',
                             ),
@@ -78,7 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.white, fontSize: 16),
                               ),
                               Text(
-                                "Salma",
+                                FirebaseAuth
+                                        .instance.currentUser?.displayName ??
+                                    "user name",
                                 style: TextStyle(
                                     color: Colors.grey[100], fontSize: 14),
                               ),

@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+
 import '../../../meals/widgets/calender.dart';
 
 TimeOfDay selectTime = TimeOfDay.now();
@@ -24,7 +25,7 @@ class _ScheduleState extends State<Schedule> {
                 Stack(
                   children: [
                     Image.asset(
-                      'assets/images/img.png',
+                      'assets/images/progress.png',
                       width: double.infinity,
                       height: 300,
                       fit: BoxFit.cover,
@@ -48,7 +49,7 @@ class _ScheduleState extends State<Schedule> {
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                               IconButton(
-                                  onPressed: (){
+                                  onPressed: () {
                                     Navigator.pop(context);
                                   },
                                   icon: const Icon(Icons.close))
@@ -107,28 +108,29 @@ class _ScheduleState extends State<Schedule> {
                             Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: ElevatedButton(
-                                    onPressed: () async{
-                                      final TimeOfDay? timeOfDay = await showTimePicker(
+                                    onPressed: () async {
+                                      final TimeOfDay? timeOfDay =
+                                          await showTimePicker(
                                         context: context,
                                         initialTime: selectTime,
-                                        initialEntryMode: TimePickerEntryMode.dial,
+                                        initialEntryMode:
+                                            TimePickerEntryMode.dial,
                                       );
                                       if (timeOfDay == null) return;
 
-                                       setState(() {
-                                          selectTime = timeOfDay;
-                                        });
-
+                                      setState(() {
+                                        selectTime = timeOfDay;
+                                      });
                                     },
-                                    child:
-                                        Text("${selectTime.hour.toString().padLeft(2,'0')} : ${selectTime.minute.toString().padLeft(2,'')}")))
+                                    child: Text(
+                                        "${selectTime.hour.toString().padLeft(2, '0')} : ${selectTime.minute.toString().padLeft(2, '')}")))
                           ],
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
-                          child:  Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
@@ -151,7 +153,7 @@ class _ScheduleState extends State<Schedule> {
                                 scale: 1,
                                 child: Switch(
                                     value: reminder,
-                                    onChanged: (value){
+                                    onChanged: (value) {
                                       setState(() {
                                         reminder = value;
                                       });
@@ -174,27 +176,26 @@ class _ScheduleState extends State<Schedule> {
                     ),
                     onPressed: () {
                       if (reminder == true) {
-                      AwesomeNotifications().createNotification(
-                          content: NotificationContent(
-                            id: 10,
-                            channelKey: "basic key",
-                            actionType: ActionType.Default,
-                            title: 'Hello World!',
-                            body: 'This is my first notification!',
-                          ),
-                        schedule: NotificationCalendar(
-                            day: scheduleTime.day,
-                            month: scheduleTime.month,
-                             year: scheduleTime.year,
-                             hour: selectTime.hour,
-                             minute: selectTime.minute,
-                        )
-                      );
-                      Navigator.pop(context);
-                    } else {
+                        AwesomeNotifications().createNotification(
+                            content: NotificationContent(
+                              id: 10,
+                              channelKey: "basic key",
+                              actionType: ActionType.Default,
+                              title: 'Hello World!',
+                              body: 'This is my first notification!',
+                            ),
+                            schedule: NotificationCalendar(
+                              day: scheduleTime.day,
+                              month: scheduleTime.month,
+                              year: scheduleTime.year,
+                              hour: selectTime.hour,
+                              minute: selectTime.minute,
+                            ));
+                        Navigator.pop(context);
+                      } else {
                         Navigator.pop(context);
                       }
-                      },
+                    },
                     child: const Text(
                       'DONE',
                       style:
@@ -213,7 +214,3 @@ Widget buildDateSelector() {
     child: HorizontalCalendar(),
   );
 }
-
-
-
-
