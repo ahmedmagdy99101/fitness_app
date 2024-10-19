@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness_app/features/app/screens/app_layout/app_layout.dart';
+import 'package:fitness_app/push_notifications.dart';
 import 'package:fitness_app/screens/SplachScreen_1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await AppNotifications().init();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -34,15 +36,15 @@ class MyApp extends StatelessWidget {
           // TODO: implement listener
         },
         builder: (context, state) {
-          User? userA;
-          FirebaseAuth.instance.authStateChanges().listen((User? user) {
-            print(user);
-            if (user == null) {
-              userA = null;
-            } else {
-              userA = user;
-            }
-          });
+          // User? userA;
+          // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+          //   print(user);
+          //   if (user == null) {
+          //     userA = null;
+          //   } else {
+          //     userA = user;
+          //   }
+          // });
           print(FirebaseAuth.instance.currentUser);
           return MaterialApp(
             title: 'Fitness Tracker App',

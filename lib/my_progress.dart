@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyProgress extends StatelessWidget {
   const MyProgress({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -19,47 +20,68 @@ class MyProgress extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              childAspectRatio: 1.2,
-              children: const [
-                ProgressCircle(
-                  title: 'Walk',
-                  progress: 0.45,
-                  value: '2265',
-                  unit: 'Steps',
-                  icon: Icons.directions_walk_outlined,
-                ),
-                ProgressCircle(
-                  title: 'Sleep',
-                  progress: 0.75,
-                  value: '8:50',
-                  unit: 'Hours',
-                  icon: Icons.bed_outlined
-                ),
-                ProgressCircle(
-                  title: 'Heart',
-                  progress: 0.65,
-                  value: '115',
-                  unit: 'bpm',
-                  icon: Icons.favorite_border_outlined
-                ),
+      body: FutureBuilder<DocumentSnapshot>(
+        future: FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.email)
+            .get(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Shimmer loading placeholder while data is being fetched
+            return const CircularProgressIndicator();
+          }
+          if (snapshot.hasError) {
+            return const Center(child: Text('Error Progress categories'));
+          }
+          if (snapshot.hasData && snapshot.data != null) {
+            // final categories = snapshot.data!['progress'];
 
-                ProgressCircle(
-                  title: 'Calories',
-                  progress: 0.60,
-                  value: '399',
-                  unit: 'Kcal',
-                  icon: Icons.local_fire_department_outlined,
-
+            return Column(
+              children: [
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    children: [
+                      ProgressCircle(
+                        title: 'Walk',
+                        progress: (snapshot.data!['progress-walk'] / 6000),
+                        value: '${snapshot.data!['progress-walk']}',
+                        unit: 'Steps',
+                        icon: Icons.directions_walk_outlined,
+                      ),
+                      ProgressCircle(
+                          title: 'Sleep',
+                          progress: (snapshot.data!['progress-sleep'] / 8),
+                          value: '${snapshot.data!['progress-sleep']}',
+                          unit: 'Hours',
+                          icon: Icons.bed_outlined),
+                      ProgressCircle(
+                          title: 'Exercises',
+                          progress: (snapshot.data!['progress-exercise'] / 15),
+                          value: '${snapshot.data!['progress-exercise']}',
+                          unit: 'exercise',
+                          icon: Icons.favorite_border_outlined),
+                      ProgressCircle(
+                        title: 'Calories',
+                        progress: (snapshot.data!['progress-calories'] / 2400),
+                        value: '${snapshot.data!['progress-calories']}',
+                        unit: 'Kcal',
+                        icon: Icons.local_fire_department_outlined,
+                      ),
+                    ],
+                  ),
                 ),
               ],
-            ),
-          ),
-        ],
+            );
+          } else {
+            return const Center(child: Text('No Progress found'));
+          }
+        },
       ),
     );
   }
@@ -116,7 +138,7 @@ class ProgressCircle extends StatelessWidget {
                   child: CircularProgressIndicator(
                     value: progress,
                     strokeWidth: 8,
-                    valueColor: AlwaysStoppedAnimation(Color(0xFFB0C929)),
+                    valueColor: const AlwaysStoppedAnimation(Color(0xFFB0C929)),
                     backgroundColor: Colors.grey[200],
                   ),
                 ),
@@ -147,4 +169,3 @@ class ProgressCircle extends StatelessWidget {
     );
   }
 }
-
