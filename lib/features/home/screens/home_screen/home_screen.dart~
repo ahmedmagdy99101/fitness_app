@@ -79,11 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.white, fontSize: 16),
                               ),
                               Text(
-                                FirebaseAuth.instance.currentUser!.displayName!
-                                        .isEmpty
-                                    ? 'new user'
-                                    : FirebaseAuth
-                                        .instance.currentUser!.displayName!,
+                                  FirebaseAuth.instance.currentUser!.displayName!.isEmpty
+                                      ? 'new user'
+                                      : FirebaseAuth.instance.currentUser!.displayName!,
                                 style: TextStyle(
                                     color: Colors.grey[100], fontSize: 14),
                               ),

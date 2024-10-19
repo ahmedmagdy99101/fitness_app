@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/shared/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../login/screens/login_screen/login_screen.dart';
 
 class AppSettingScreen extends StatefulWidget {
   const AppSettingScreen({super.key});
@@ -11,6 +14,7 @@ class AppSettingScreen extends StatefulWidget {
 
 class _AppSettingScreenState extends State<AppSettingScreen> {
   bool healthSwitch = true;
+  bool notificationSwitch = true;
   bool darkSwitch = false;
 
   @override
@@ -33,6 +37,24 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
         children: [
           ListTile(
             title: const Text(
+              "Change Password",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500),
+            ),
+            leading: Image.asset(
+              "assets/icons/lock.png",
+              width: 25,
+              height: 25,
+            ),
+            visualDensity: const VisualDensity(vertical: -3),
+          ),
+          Divider(
+            color: Colors.grey.shade300,
+          ),
+          ListTile(
+            title: const Text(
               "Reminder",
               style: TextStyle(
                   color: Colors.black,
@@ -44,23 +66,14 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
               width: 25,
               height: 25,
             ),
-            visualDensity: const VisualDensity(vertical: -3),
-          ),
-          Divider(
-            color: Colors.grey.shade300,
-          ),
-          ListTile(
-            title: const Text(
-              "Change Password",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
-            ),
-            leading: Image.asset(
-              "assets/icons/lock.png",
-              width: 25,
-              height: 25,
+            trailing: CupertinoSwitch(
+              value: notificationSwitch,
+              activeColor: AppColors.primaryColor,
+              onChanged: (value) {
+                setState(() {
+                  notificationSwitch = value;
+                });
+              },
             ),
             visualDensity: const VisualDensity(vertical: -3),
           ),
@@ -147,7 +160,39 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
             height: 60,
           ),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.white,
+                      title: const Text("Logout"),
+                      content: const Text("Are you sure you want to logout ?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await FirebaseAuth.instance.signOut();
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()),
+                                (route) => false);
+                          },
+                          child: const Text("Logout"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
               style: ButtonStyle(
                   padding: const WidgetStatePropertyAll(
                       EdgeInsets.symmetric(vertical: 15)),
