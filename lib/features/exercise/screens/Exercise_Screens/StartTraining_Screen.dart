@@ -1,6 +1,9 @@
+import 'package:fitness_app/features/exercise/screens/Exercise_Screens/Result.dart';
+import 'package:fitness_app/features/exercise/widgets/Exercise_Card.dart';
+import 'package:fitness_app/features/exercise/widgets/bulidElevatedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
-
+import '../../widgets/bulidTimer.dart';
 import 'ExerciseDetails.dart';
 
 CountDownController controller = CountDownController();
@@ -15,7 +18,7 @@ class StartTraining_Screen extends StatefulWidget {
 class _StartTraining_ScreenState extends State<StartTraining_Screen> {
   @override
   Widget build(BuildContext context) {
-    var argument = ModalRoute.of(context)!.settings.arguments as String;
+    var argument = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       body: SingleChildScrollView(
         controller: ScrollController(),
@@ -23,8 +26,8 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
           children: [
             Stack(
               children: [
-                   Image.asset(
-                    'assets/images/image_5.png',
+                   Image.network(
+                    argument['image'],
                     width: double.infinity,
                     height: 400,
                     fit: BoxFit.cover,
@@ -32,7 +35,7 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
               ],
             ),
              Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.only(top: 8, left: 12),
               child:  Row(
                 children: [
                    Column(
@@ -40,7 +43,7 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
                      children: [
                        const Text("Exercise 3/12"),
                        const SizedBox(height: 10,),
-                       Text('$argument', style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                       Text(argument['title'], style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
                      ],
                    ),
                 ],
@@ -54,7 +57,7 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
                 children: [
                 Column(
                   children: [
-                    bulidTimer(),
+                    bulidTimer(controller),
                     const SizedBox(height: 20,),
                     SizedBox(
                       child: ElevatedButton(
@@ -146,19 +149,20 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
                 ],
               ),
             ),
-            ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: const [
-                Exercise_Card(
-                    'assets/images/89694286_XS-removebg-preview 1.png',
-                    "Exercises With Sitting Dumbbells",
-                    125,
-                    5,
-                    "Beginner"
-                )
-              ],
-            )
+            Exercise_Card(
+                onTap: (){},
+                image: "assets/images/image_5.png",
+                title: "PUSH-UPS",
+                time: "10 MIN",
+                calories: "100 KCAL",
+                level: "Beginner",
+            ),
+            bulidElevatedButton(
+                "FINISH",
+                (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Result_Screen(), settings:
+                  RouteSettings(arguments: {'image' : argument['image'], 'title' : argument['title']})));
+                })
           ],
         ),
       ),
@@ -166,88 +170,5 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
   }
 }
 
-class Exercise_Card extends StatelessWidget {
-  final String title;
-  final String image;
-  final int calories;
-  final int time;
-  final String level;
 
-  const Exercise_Card (this.image, this.title, this.calories, this.time, this.level);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            child: Row(
-              children: [
-                Container(
-                  height: 100,
-                  width: 100,
-                  padding: const EdgeInsets.all(10),
-                  child: Image(image: AssetImage(image)),
-                ),
-                const SizedBox(width: 5,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.topLeft,
-                      child: Text(title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
-                    FittedBox(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          const Icon(Icons.local_fire_department),
-                          Text("$calories KCL"),
-                          const SizedBox(width: 5,),
-                          const Text('|'),
-                          const SizedBox(width: 5,),
-                          const Icon(Icons.timer),
-                          Text("$time min")
-
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
-                    FittedBox(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(level))
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-Widget bulidTimer(){
-  return  NeonCircularTimer(
-    width: 120,
-    duration: 40,
-    autoStart: false,
-    controller: controller,
-    isTimerTextShown: true,
-    neumorphicEffect: true,
-    innerFillGradient: const LinearGradient(colors: [
-      Colors.black,
-      Colors.black
-    ]),
-    neonGradient: const LinearGradient(colors: [
-      Colors.white,
-      Colors.black,
-    ]),
-  );
-}

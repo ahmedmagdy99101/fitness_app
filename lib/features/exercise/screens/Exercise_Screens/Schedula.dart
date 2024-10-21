@@ -1,6 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-
 import '../../../meals/widgets/calender.dart';
 
 TimeOfDay selectTime = TimeOfDay.now();
@@ -17,6 +16,7 @@ class Schedule extends StatefulWidget {
 class _ScheduleState extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
+    String argument = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
         body: SingleChildScrollView(
             controller: ScrollController(),
@@ -24,8 +24,8 @@ class _ScheduleState extends State<Schedule> {
               children: [
                 Stack(
                   children: [
-                    Image.asset(
-                      'assets/images/progress.png',
+                    Image.network(
+                      argument,
                       width: double.infinity,
                       height: 300,
                       fit: BoxFit.cover,
@@ -78,54 +78,55 @@ class _ScheduleState extends State<Schedule> {
                           ),
                         ),
                       ),
-                      buildDateSelector(),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                child: const Row(
-                                  children: [
-                                    Icon(
-                                      Icons.access_time_outlined,
-                                      size: 30,
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      "Time",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: HorizontalCalendar(),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              child: const Row(
+                                children: [
+                                  Icon(
+                                    Icons.access_time_outlined,
+                                    size: 30,
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    "Time",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
                               ),
                             ),
-                            Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ElevatedButton(
-                                    onPressed: () async {
-                                      final TimeOfDay? timeOfDay =
-                                          await showTimePicker(
-                                        context: context,
-                                        initialTime: selectTime,
-                                        initialEntryMode:
-                                            TimePickerEntryMode.dial,
-                                      );
-                                      if (timeOfDay == null) return;
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: ElevatedButton(
+                                  onPressed: () async {
+                                    final TimeOfDay? timeOfDay =
+                                        await showTimePicker(
+                                      context: context,
+                                      initialTime: selectTime,
+                                      initialEntryMode:
+                                          TimePickerEntryMode.dial,
+                                    );
+                                    if (timeOfDay == null) return;
 
-                                      setState(() {
-                                        selectTime = timeOfDay;
-                                      });
-                                    },
-                                    child: Text(
-                                        "${selectTime.hour.toString().padLeft(2, '0')} : ${selectTime.minute.toString().padLeft(2, '')}")))
-                          ],
-                        ),
+                                    setState(() {
+                                      selectTime = timeOfDay;
+                                    });
+                                  },
+                                  child: Text(
+                                      "${selectTime.hour.toString().padLeft(2, '0')} : ${selectTime.minute.toString().padLeft(2, '')}")))
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -206,11 +207,4 @@ class _ScheduleState extends State<Schedule> {
               ],
             )));
   }
-}
-
-Widget buildDateSelector() {
-  return const Padding(
-    padding: EdgeInsets.all(8.0),
-    child: HorizontalCalendar(),
-  );
 }

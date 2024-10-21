@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness_app/features/app/screens/app_layout/app_layout.dart';
@@ -15,6 +16,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+  AwesomeNotifications().initialize
+    (null,
+      [
+        NotificationChannel(
+          channelKey: "basic key",
+          channelName: "schedule channel",
+          channelDescription: "notifications for schedule exercises",
+          playSound: true,
+          channelShowBadge: true,
+        )
+      ],
+      debug: true
   );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
