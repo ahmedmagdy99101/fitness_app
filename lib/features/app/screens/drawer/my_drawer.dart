@@ -18,29 +18,31 @@ class MyDrawer extends StatelessWidget {
       backgroundColor: Colors.white,
       child: ListView(
         children: [
-          const DrawerHeader(
+          DrawerHeader(
               child: Column(
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 30,
                 backgroundImage: AssetImage(
                   'assets/images/avatar.png',
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
-                "Salma Ahmed",
-                style: TextStyle(
+                FirebaseAuth.instance.currentUser!.displayName!.isEmpty
+                    ? 'new user'
+                    : FirebaseAuth.instance.currentUser!.displayName!,
+                style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 2,
               ),
-              Text(
+              const Text(
                 "Beginner",
                 style: TextStyle(
                     color: Color(0xFF303841),
@@ -58,9 +60,7 @@ class MyDrawer extends StatelessWidget {
                   builder: (BuildContext context) => const MyProgress()));
             },
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const Divider(),
           // BuildDrawerItemWidget(
           //   itemName: 'Plans',
           //   itemIcon: 'assets/icons/plans_icon.png',

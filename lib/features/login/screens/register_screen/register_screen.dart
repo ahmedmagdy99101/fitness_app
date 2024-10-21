@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/features/login/screens/login_screen/login_screen.dart';
@@ -139,13 +141,20 @@ class SignupScreen extends StatelessWidget {
                                 'gender': 'Male',
                                 'goal': 'Weight loss',
                                 'level': 'Beginner',
-                                'height': '180',
-                                'weight': '80',
-                                'progress-sleep': 0,
-                                'progress-calories': 0,
-                                'progress-exercise': 0,
-                                'progress-walk': 0,
-                                'progress-water': 0,
+                                'height':
+                                    '${generateRandomNumber(min: 150, max: 190)}',
+                                'weight':
+                                    '${generateRandomNumber(min: 40, max: 150)}',
+                                'progress-sleep':
+                                    generateRandomNumber(min: 0, max: 8),
+                                'progress-calories':
+                                    generateRandomNumber(min: 50, max: 2200),
+                                'progress-exercise':
+                                    generateRandomNumber(min: 0, max: 15),
+                                'progress-walk':
+                                    generateRandomNumber(min: 0, max: 6000),
+                                'progress-water':
+                                    generateRandomNumber(min: 0, max: 12),
                                 'uid': FirebaseAuth.instance.currentUser!.uid
                               });
                               FirebaseAuth.instance.currentUser
@@ -194,7 +203,37 @@ class SignupScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () async {
                             try {
-                              await signinWithGoogle();
+                              await signinWithGoogle().then((value) {
+                                FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(email)
+                                    .set({
+                                  'full-name': name,
+                                  'phone': phone,
+                                  'email': email,
+                                  'password': password,
+                                  'gender': 'Male',
+                                  'goal': 'Weight loss',
+                                  'level': 'Beginner',
+                                  'height':
+                                      '${generateRandomNumber(min: 150, max: 190)}',
+                                  'weight':
+                                      '${generateRandomNumber(min: 40, max: 150)}',
+                                  'progress-sleep':
+                                      generateRandomNumber(min: 0, max: 8),
+                                  'progress-calories':
+                                      generateRandomNumber(min: 50, max: 2200),
+                                  'progress-exercise':
+                                      generateRandomNumber(min: 0, max: 15),
+                                  'progress-walk':
+                                      generateRandomNumber(min: 0, max: 6000),
+                                  'progress-water':
+                                      generateRandomNumber(min: 0, max: 12),
+                                  'uid': FirebaseAuth.instance.currentUser!.uid
+                                });
+                                FirebaseAuth.instance.currentUser
+                                    ?.updateDisplayName(name);
+                              });
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -254,6 +293,14 @@ class SignupScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  int generateRandomNumber({int min = 0, int max = 100}) {
+    final random = Random();
+    return min +
+        random.nextInt(max -
+            min +
+            1); // Generates a random number between min and max (inclusive)
   }
 
   void showSnackBarMessage(BuildContext context, String msg) {
