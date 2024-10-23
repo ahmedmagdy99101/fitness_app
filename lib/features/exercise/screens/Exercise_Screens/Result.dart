@@ -2,6 +2,7 @@ import 'package:fitness_app/features/exercise/widgets/bulidElevatedButton.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/bulidAppBar.dart';
 import '../../widgets/bulidResultCard.dart';
+import 'Full Exercise.dart';
 
 final date = DateTime.now();
 
@@ -10,8 +11,13 @@ class Result_Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var argument = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
-      appBar: buildAppBar("Result"),
+      appBar: buildAppBar("Result",
+      () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseScreen()));
+      },
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -23,7 +29,7 @@ class Result_Screen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 const Text("Workout", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                 const SizedBox(height: 10,),
-                const Text("Exercises with Sitting Dumbbells", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                Text("${argument["title"]}", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                 const SizedBox(height: 10,),
                 Text("Completed on ${date.day}/${date.month}/${date.year}"),
                 const SizedBox(height: 10,),
@@ -39,15 +45,15 @@ class Result_Screen extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    bulidResultCard("Total time", "00:45 min",),
+                    bulidResultCard("Total time", "${argument['time']} min",),
                     const SizedBox(width: 10,),
-                    bulidResultCard("Total weight", "59kg"),
+                    bulidResultCard("Total weight", "59 kg"),
                   ],
                 ),
                 const SizedBox(width: 10,),
                 Column(
                   children: [
-                    bulidResultCard("Total calories", "120 kcal",),
+                    bulidResultCard("Total calories", "${argument['calories']} kcal",),
                     const SizedBox(width: 10,),
                     bulidResultCard("Heart rate", "115 bmp"),
                   ],

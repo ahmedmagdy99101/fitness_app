@@ -53,7 +53,7 @@ class Exercise_Card extends StatelessWidget {
                         child: Row(
                           children: [
                             const Icon(Icons.local_fire_department),
-                            Text("$calories"),
+                            Text("$calories kcal"),
                             const SizedBox(
                               width: 5,
                             ),
@@ -62,7 +62,7 @@ class Exercise_Card extends StatelessWidget {
                               width: 5,
                             ),
                             const Icon(Icons.timer),
-                            Text("$time")
+                            Text("$time minutes")
                           ],
                         ),
                       ),

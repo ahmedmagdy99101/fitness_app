@@ -35,6 +35,8 @@ List<QueryDocumentSnapshot> data = [];
 
 bool isLoading = true;
 
+TabController? tabController;
+
 class ExerciseScreen extends StatefulWidget {
    const ExerciseScreen({super.key});
 
@@ -64,7 +66,9 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar("FULL EXERCISE"),
+      appBar: buildAppBar("FULL EXERCISE",
+      () {},
+      ),
 
       body: DefaultTabController(
         length: 4,
@@ -83,16 +87,27 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(10),
               ),
-
+              isScrollable: true,
               automaticIndicatorColorAdjustment: true,
               tabs: const [
-                Tab(text: 'Cardio'),
-                Tab(text: 'Legs'),
-                Tab(text: 'Back'),
-                Tab(text: 'Chest',)
+                Tab(text: 'Strength'),
+                Tab(text: 'Full body'),
+                Tab(text: 'Cardio & Core'),
+                Tab(text: 'Cardio',)
               ],
             ),
-            buildExerciseList(context)
+            Expanded(
+              child: TabBarView(
+                controller: tabController,
+                  children:
+                  [
+                    buildExerciseList(context),
+                    buildExerciseList(context),
+                    buildExerciseList(context),
+                    buildExerciseList(context)
+                  ]
+              ),
+            )
           ],
         ),
       ),
@@ -102,44 +117,40 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
 
 Widget buildExerciseList(BuildContext context) {
   return isLoading == true ?
-  Expanded(
-    child: Center(
-      child: LoadingAnimationWidget.waveDots(
-          color: Colors.black,
-          size: 50),
-    ),
+  Center(
+    child: LoadingAnimationWidget.waveDots(
+        color: Colors.black,
+        size: 50),
   )
-  : Expanded(
-    child: ListView.separated(
-        itemCount: data.length,
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider(
-            height: 1,
-            color: Colors.grey,
-          );
+  : ListView.separated(
+      itemCount: data.length,
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          height: 1,
+          color: Colors.grey,
+        );
+      },
+      itemBuilder: (context, index) => Exercise_Card(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseDetails_Screen(), settings:
+          RouteSettings(arguments:{
+            'image' : data[index]["image"],
+            'title' : data[index]["title"],
+            'calories' :  data[index]["calories"],
+            'time' : data[index]["duration"],
+            'level' : data[index]["level"],
+            'category' : data[index]['category'],
+            'description' : data[index]['description'],
+            'index' : index
+          })));
         },
-        itemBuilder: (context, index) => Exercise_Card(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseDetails_Screen(), settings:
-            RouteSettings(arguments:{
-              'image' : data[index]["image"],
-              'title' : data[index]["title"],
-              'calories' :  data[index]["calories"],
-              'time' : data[index]["duration"],
-              'level' : data[index]["level"],
-              'category' : data[index]['category'],
-              'description' : data[index]['description'],
-              'index' : index
-            })));
-          },
-              image: data[index]["image"],
-              title: data[index]["title"],
-              level: data[index]["level"],
-              time:  data[index]["duration"],
-              calories: data[index]["calories"],
-              category: data[index]['category'],
-              description: data[index]['description'],
-        ),
-    ),
+            image: data[index]["image"],
+            title: data[index]["title"],
+            level: data[index]["level"],
+            time:  data[index]["duration"],
+            calories: data[index]["calories"],
+            category: data[index]['category'],
+            description: data[index]['description'],
+      ),
   );
 }

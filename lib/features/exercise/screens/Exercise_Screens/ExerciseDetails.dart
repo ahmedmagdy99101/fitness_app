@@ -55,7 +55,7 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                             children: [
                               const Icon(Icons.local_fire_department),
                               const SizedBox(width: 4),
-                              Text('${argument['calories']}'),
+                              Text('${argument['calories']} kcal'),
                             ],
                           ),
                         ),
@@ -70,7 +70,7 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                             children: [
                               const Icon(Icons.timer),
                               const SizedBox(width: 4),
-                              Text('${argument['time']}'),
+                              Text('${argument['time']} minutes'),
                             ],
                           ),
                         ),
@@ -142,7 +142,13 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                   "START NOW",
                   (){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const StartTraining_Screen(), settings:
-                    RouteSettings(arguments: {'image' : argument['image'], 'title' : argument['title']})));
+                    RouteSettings(arguments: {
+                      'image' : argument['image'],
+                      'title' : argument['title'],
+                      'time' : argument["time"],
+                      'calories' : argument['calories'],
+                      'index' : argument['index']
+                    })));
                   })
             ],
           ),
@@ -168,7 +174,7 @@ Widget buildExerciseList(BuildContext context) {
             return Exercise_Card(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseDetails_Screen(), settings:
-                RouteSettings(arguments:{'image' : data[index]["image"], 'title' : data[index]["title"], 'calories' :  data[index]["calories"], 'time' : data[index]["duration"], 'level' : data[index]["level"], 'category' : data[index]['category'], 'description' : data[index]['description']})));
+                RouteSettings(arguments:{'image' : data[index]["image"], 'title' : data[index]["title"], 'calories' :  data[index]["calories"], 'time' : data[index]["duration"], 'level' : data[index]["level"], 'category' : data[index]['category'], 'description' : data[index]['description'], 'index':index})));
               },
               image: data[index]["image"],
               title: data[index]["title"],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-AppBar buildAppBar(String title) {
+AppBar buildAppBar(String title, VoidCallback onPressed) {
   return AppBar(
     title: Text(
       title,
@@ -12,6 +12,6 @@ AppBar buildAppBar(String title) {
     ),
     centerTitle: true,
     // leading: const Icon(Icons.arrow_back),
-    leading: IconButton(onPressed: () => {}, icon: const Icon(Icons.arrow_back_ios)),
+    leading: IconButton(onPressed: onPressed, icon: const Icon(Icons.arrow_back_ios)),
   );
 }

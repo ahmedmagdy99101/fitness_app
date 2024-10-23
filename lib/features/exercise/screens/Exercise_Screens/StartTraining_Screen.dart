@@ -4,9 +4,11 @@ import 'package:fitness_app/features/exercise/widgets/bulidElevatedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
 import '../../widgets/bulidTimer.dart';
-import 'ExerciseDetails.dart';
+import 'Full Exercise.dart';
 
 CountDownController controller = CountDownController();
+int totalTime = 0;
+int totalCalories = 0;
 
 class StartTraining_Screen extends StatefulWidget {
   const StartTraining_Screen({super.key});
@@ -16,9 +18,11 @@ class StartTraining_Screen extends StatefulWidget {
 }
 
 class _StartTraining_ScreenState extends State<StartTraining_Screen> {
+
   @override
   Widget build(BuildContext context) {
     var argument = ModalRoute.of(context)!.settings.arguments as Map;
+    int index = argument['index'];
     return Scaffold(
       body: SingleChildScrollView(
         controller: ScrollController(),
@@ -57,7 +61,7 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
                 children: [
                 Column(
                   children: [
-                    bulidTimer(controller),
+                    bulidTimer(controller,int.parse(argument['time'])),
                     const SizedBox(height: 20,),
                     SizedBox(
                       child: ElevatedButton(
@@ -68,6 +72,8 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
                           onPressed: () {
                             setState(() {
                              controller.resume();
+                             totalTime += int.parse(argument['time']);
+                             totalCalories += int.parse(argument['calories']);
                             });
                           },
                           child: const Row(
@@ -123,8 +129,19 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                       ),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseDetails_Screen(), settings:
-                        RouteSettings(arguments:{'title' : "Exercises With Sitting Dumbbells", 'calories' : 125, 'time' : 5, 'level' : 'Beginner'})));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const StartTraining_Screen(),
+                          settings: RouteSettings(
+                            arguments: {
+                              'image': data[nextTraning(index)]['image'],
+                              'title': data[nextTraning(index)]['title'],
+                              'time': data[nextTraning(index)]['duration'],
+                              'calories': data[nextTraning(index)]['calories'],
+                              'level': data[nextTraning(index)]['level'],
+                              'index': nextTraning(index)
+                            }
+                          )
+                            ));
+
                       },
                       child: const Row(
                         children: [
@@ -151,17 +168,23 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
             ),
             Exercise_Card(
                 onTap: (){},
-                image: "assets/images/image_5.png",
-                title: "PUSH-UPS",
-                time: "10 MIN",
-                calories: "100 KCAL",
-                level: "Beginner",
+                image: data[nextTraning(index)]['image'],
+                title: data[nextTraning(index)]['title'],
+                time: data[nextTraning(index)]['duration'],
+                calories: data[nextTraning(index)]['calories'],
+                level: data[nextTraning(index)]['level'],
             ),
             bulidElevatedButton(
                 "FINISH",
                 (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Result_Screen(), settings:
-                  RouteSettings(arguments: {'image' : argument['image'], 'title' : argument['title']})));
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => const Result_Screen(), settings:
+                   RouteSettings(arguments: {
+                     'title' : argument['title'],
+                     'time' : totalTime,
+                     'calories' : totalCalories
+                   })));
+                   totalTime = 0;
+                   totalCalories = 0;
                 })
           ],
         ),
@@ -170,5 +193,12 @@ class _StartTraining_ScreenState extends State<StartTraining_Screen> {
   }
 }
 
-
-
+int nextTraning(int num){
+  int index = num;
+  if (index < data.length-1){
+    return index + 1;
+  }
+  else {
+    return index = 0;
+  }
+}

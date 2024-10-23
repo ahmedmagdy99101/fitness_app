@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
 
-Widget bulidTimer(CountDownController controller){
+Widget bulidTimer(CountDownController controller, int time){
   return  NeonCircularTimer(
     width: 120,
-    duration: 40,
+    duration: time,
     autoStart: false,
     controller: controller,
     isTimerTextShown: true,
