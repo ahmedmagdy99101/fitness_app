@@ -4,7 +4,6 @@ import 'package:fitness_app/features/exercise/widgets/bulidElevatedButton.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/bulidAppBar.dart';
 import '../../widgets/bulidResultCard.dart';
-import 'Full Exercise.dart';
 
 final date = DateTime.now();
 
