@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class WorkoutWidget extends StatelessWidget {
-  const WorkoutWidget({super.key});
+  final List<Workout> workouts;
+
+  const WorkoutWidget({Key? key, required this.workouts}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,60 +12,77 @@ class WorkoutWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) =>
-              workoutCard(),
-          itemCount: 10,
+              workoutCard(workouts[index]),
+          itemCount: workouts.length,
         ),
       ),
     );
   }
 
-  Widget workoutCard() =>
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget workoutCard(Workout workout) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Image.asset(
+          workout.imagePath,
+          height: 200,
+          width: double.infinity,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Text(
+        workout.name,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      Row(
         children: [
-          ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: Image.asset(
-                "assets/images/workout.png",
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.fill,
-              )),
-          const Text(
-            'Green beans, tomatoes, eggs',
-            style: TextStyle(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+          const Icon(
+            Icons.local_fire_department_outlined,
+            color: Colors.blueAccent,
+            size: 20,
           ),
-          const Row(
-            children: [
-              Icon(
-                Icons.local_fire_department_outlined,
-                color: Colors.blueAccent,
-                size: 20,
-              ),
-              Text(
-                '135 kcal',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
-              ),
-              Text('  |  '),
-              Icon(
-                Icons.access_time,
-                color: Colors.blueAccent,
-                size: 20,
-              ),
-              Text(
-                ' 30 min',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                ),
-              ),
-            ],
+          Text(
+            workout.calories,
+            style: const TextStyle(color: Colors.grey, fontSize: 14),
           ),
-          const SizedBox(
-            height: 40,
-          )
+          const Text('  |  '),
+          const Icon(
+            Icons.access_time,
+            color: Colors.blueAccent,
+            size: 14,
+          ),
+          Text(
+            workout.time,
+            style: const TextStyle(
+              color: Colors.grey,
+              fontSize: 14,
+            ),
+          ),
         ],
-      );
+      ),
+      const SizedBox(
+        height: 40,
+      ),
+    ],
+  );
+}
 
+
+class Workout {
+  final String imagePath;
+  final String name;
+  final String calories;
+  final String time;
+
+  Workout({
+    required this.imagePath,
+    required this.name,
+    required this.calories,
+    required this.time,
+  });
 }

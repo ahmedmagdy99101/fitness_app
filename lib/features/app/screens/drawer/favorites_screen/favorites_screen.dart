@@ -14,6 +14,48 @@ class MyFavouritesScreen extends StatefulWidget {
 }
 
 class _MyFavouritesScreenState extends State<MyFavouritesScreen> {
+
+
+  List<Meal> meals = [
+  Meal(
+  imagePath: 'assets/images/m1.jpeg',
+  name: 'Green beans,tomatoes,eggs',
+  calories: '135 kcal',
+  time: '30 min',
+  ),
+  Meal(
+  imagePath: 'assets/images/m2.jpeg',
+  name: 'Healthy balanced vegetarian food',
+  calories: '250 kcal',
+  time: '45 min',
+  ),
+  Meal(
+  imagePath: 'assets/images/m3.jpeg',
+  name: 'Ketogenic/paleo diet.fried eggs, salmon',
+  calories: '80 kcal',
+  time: '15 min',
+  )];
+  List<Workout> workouts = [
+    Workout(
+      imagePath: 'assets/images/w1.jpeg',
+      name: 'Full Shot Woman Stretching Arm',
+      calories: '200 kcal',
+      time: '45 min',
+    ),
+    Workout(
+      imagePath: 'assets/images/w2.jpeg',
+      name: 'Athlete Practicing Claps hands Arm Balance',
+      calories: '300 kcal',
+      time: '30 min',
+    ),
+    Workout(
+      imagePath: 'assets/images/w3.jpeg',
+      name: 'Athlete Practicing Monochrome',
+      calories: '250 kcal',
+      time: '60 min',
+    ),
+    // Add more workouts here...
+  ];
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -126,9 +168,9 @@ class _MyFavouritesScreenState extends State<MyFavouritesScreen> {
                   builder: (context, state) {
                     if (context.read<MyFavouritesCubit>().selectedCategory ==
                         'Workout') {
-                      return const WorkoutWidget();
+                      return  WorkoutWidget(workouts: workouts,);
                     } else {
-                      return const MealWidget();
+                      return  MealWidget(meals: meals);
                     }
                   },
                 ),
