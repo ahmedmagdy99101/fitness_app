@@ -160,7 +160,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                 color: Color(0xFF00ADB5),
                                               ),
                                               Text(
-                                                " ${meal['duration']}  |  ",
+                                                " ${meal['duration']} min  |  ",
                                                 style: const TextStyle(
                                                   color: Color(0xFF303841),
                                                   fontSize: 12,
@@ -173,7 +173,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                 color: Color(0xFF00ADB5),
                                               ),
                                               Text(
-                                                " ${meal['calories']}",
+                                                " ${meal['calories']} kcal",
                                                 style: const TextStyle(
                                                   color: Color(0xFF303841),
                                                   fontSize: 12,
@@ -283,7 +283,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                 color: Color(0xFF00ADB5),
                                               ),
                                               Text(
-                                                " ${meal['duration']}  |  ",
+                                                " ${meal['duration']} min  |  ",
                                                 style: const TextStyle(
                                                   color: Color(0xFF303841),
                                                   fontSize: 12,
@@ -296,7 +296,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                 color: Color(0xFF00ADB5),
                                               ),
                                               Text(
-                                                " ${meal['calories']}",
+                                                " ${meal['calories']} kcal",
                                                 style: const TextStyle(
                                                   color: Color(0xFF303841),
                                                   fontSize: 12,
@@ -406,7 +406,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                 color: Color(0xFF00ADB5),
                                               ),
                                               Text(
-                                                " ${meal['duration']}  |  ",
+                                                " ${meal['duration']} min |  ",
                                                 style: const TextStyle(
                                                   color: Color(0xFF303841),
                                                   fontSize: 12,
@@ -419,7 +419,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                 color: Color(0xFF00ADB5),
                                               ),
                                               Text(
-                                                " ${meal['calories']}",
+                                                " ${meal['calories']} kcal",
                                                 style: const TextStyle(
                                                   color: Color(0xFF303841),
                                                   fontSize: 12,

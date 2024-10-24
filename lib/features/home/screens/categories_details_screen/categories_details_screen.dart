@@ -130,7 +130,7 @@ class CategoriesDetailsScreen extends StatelessWidget {
                             color: Color(0xFF00ADB5),
                           ),
                           Text(
-                            " ${exercise['duration']}",
+                            " ${exercise['duration']} min",
                             // Exercise duration
                             style: const TextStyle(
                               color: Color(0xFF303841),
