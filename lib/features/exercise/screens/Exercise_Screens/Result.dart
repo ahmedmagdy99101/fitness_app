@@ -26,6 +26,12 @@ class Result_Screen extends StatelessWidget {
             .get(),
 
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot<Object?>> snapshot) {
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Shimmer loading placeholder while data is being fetched
+            return Center(child: const CircularProgressIndicator());
+          }
+
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
