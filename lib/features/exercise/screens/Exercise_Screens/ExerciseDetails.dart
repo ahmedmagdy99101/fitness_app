@@ -112,29 +112,7 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
                     ),
                     const SizedBox(height: 10),
                     const Text("Exercise Program", textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                    const SizedBox(height: 5,),
-                    TabBar(
-                      labelColor: Colors.white,
-                      unselectedLabelColor: Colors.black,
-                      splashBorderRadius: BorderRadius.circular(10),
-                      labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-                      // indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      dividerColor: Colors.white,
-                      indicator: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-
-                      automaticIndicatorColorAdjustment: true,
-                      tabs: const [
-                        Tab(text: 'Cardio'),
-                        Tab(text: 'Legs'),
-                        Tab(text: 'Back'),
-                        Tab(text: 'Chest',)
-                      ],
-                    ),
-                    buildExerciseList(context),
+                    buildExerciseList(),
                   ],
                 ),
               ),
@@ -158,9 +136,9 @@ class _ExerciseDetails_ScreenState extends State<ExerciseDetails_Screen> {
   }
 }
 
-Widget buildExerciseList(BuildContext context) {
+Widget buildExerciseList() {
   return SizedBox(
-      height: 360,
+      height: 400,
       width: 450,
       child: ListView.separated(
           itemCount: data.length,

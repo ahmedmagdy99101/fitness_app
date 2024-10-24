@@ -182,8 +182,8 @@ class _ScheduleState extends State<Schedule> {
                               id: 10,
                               channelKey: "basic key",
                               actionType: ActionType.Default,
-                              title: 'Hello World!',
-                              body: 'This is my first notification!',
+                              title: 'Are you ready?',
+                              body: "Did you forget to exercise today? Let's start now!",
                             ),
                             schedule: NotificationCalendar(
                               day: scheduleTime.day,
