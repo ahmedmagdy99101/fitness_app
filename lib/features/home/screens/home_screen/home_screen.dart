@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../app/cubit/app_cubit/app_cubit.dart';
+import '../../../meals/screens/meals_details_screen/meal_plan_details.dart';
 import '../../cubit/home_cubit/home_cubit.dart';
 import '../categories_details_screen/categories_details_screen.dart';
 import '../categories_screen/categories_screen.dart';
@@ -79,11 +80,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.white, fontSize: 16),
                               ),
                               Text(
-                                FirebaseAuth.instance.currentUser!.displayName!
-                                        .isEmpty
+                                (FirebaseAuth.instance.currentUser!
+                                            .displayName ==
+                                        null)
                                     ? 'new user'
-                                    : FirebaseAuth
-                                        .instance.currentUser!.displayName!,
+                                    : FirebaseAuth.instance.currentUser!
+                                            .displayName!.isEmpty
+                                        ? 'new user'
+                                        : FirebaseAuth
+                                            .instance.currentUser!.displayName!,
                                 style: TextStyle(
                                     color: Colors.grey[100], fontSize: 14),
                               ),
@@ -465,7 +470,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Color(0xFF00ADB5),
                                       ),
                                       Text(
-                                        " ${exercise['duration']}",
+                                        " ${exercise['duration']} min",
                                         // Exercise duration
                                         style: const TextStyle(
                                           color: Color(0xFF303841),
@@ -609,81 +614,91 @@ class _HomeScreenState extends State<HomeScreen> {
                             final meal =
                                 meals[index].data() as Map<String, dynamic>;
 
-                            return Container(
-                              margin: const EdgeInsets.only(bottom: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Use CachedNetworkImage for image loading with caching
-                                  CachedNetworkImage(
-                                    imageUrl: meal['image'],
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      width: double.infinity,
-                                      height: 190,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    placeholder: (context, url) =>
-                                        Shimmer.fromColors(
-                                      baseColor: Colors.grey[300]!,
-                                      highlightColor: Colors.grey[100]!,
-                                      child: Container(
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        MealPlanDetailsScreen(
+                                          mealData: meal,
+                                        )));
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Use CachedNetworkImage for image loading with caching
+                                    CachedNetworkImage(
+                                      imageUrl: meal['image'],
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
                                         width: double.infinity,
                                         height: 190,
                                         decoration: BoxDecoration(
-                                          color: Colors.white,
                                           borderRadius:
                                               BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
+                                      ),
+                                      placeholder: (context, url) =>
+                                          Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 190,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      meal['title'], // Meal title
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    meal['title'], // Meal title
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
+                                    const SizedBox(height: 5),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "${meal['category']}  |  ",
+                                          // Meal category
+                                          style: const TextStyle(
+                                            color: Color(0xFF303841),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        const Icon(
+                                          Icons.local_fire_department,
+                                          size: 12,
+                                          color: Color(0xFF00ADB5),
+                                        ),
+                                        Text(
+                                          " ${meal['calories']}",
+                                          // Calories info
+                                          style: const TextStyle(
+                                            color: Color(0xFF303841),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "${meal['category']}  |  ",
-                                        // Meal category
-                                        style: const TextStyle(
-                                          color: Color(0xFF303841),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      const Icon(
-                                        Icons.local_fire_department,
-                                        size: 12,
-                                        color: Color(0xFF00ADB5),
-                                      ),
-                                      Text(
-                                        " ${meal['calories']}",
-                                        // Calories info
-                                        style: const TextStyle(
-                                          color: Color(0xFF303841),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -768,7 +783,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           width: 13,
                                         ),
                                         Text(
-                                          '  ${exercise['calories']}  |  ',
+                                          '  ${exercise['calories']} kcal  |  ',
                                           style: const TextStyle(
                                               color: Color(0xFF3A4750),
                                               fontSize: 12,
@@ -779,7 +794,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           width: 13,
                                         ),
                                         Text(
-                                          ' ${exercise['duration']}',
+                                          ' ${exercise['duration']} min',
                                           style: const TextStyle(
                                               color: Color(0xFF3A4750),
                                               fontSize: 12,
