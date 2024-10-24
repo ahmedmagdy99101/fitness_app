@@ -4,7 +4,6 @@ import 'package:fitness_app/features/exercise/widgets/bulidElevatedButton.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/bulidAppBar.dart';
 import '../../widgets/bulidResultCard.dart';
-import 'Full Exercise.dart';
 
 final date = DateTime.now();
 
@@ -17,7 +16,7 @@ class Result_Screen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar("Result",
       () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseScreen()));
+        Navigator.pop(context);
       },
       ),
       body: FutureBuilder<DocumentSnapshot>(
@@ -27,6 +26,12 @@ class Result_Screen extends StatelessWidget {
             .get(),
 
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot<Object?>> snapshot) {
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Shimmer loading placeholder while data is being fetched
+            return Center(child: const CircularProgressIndicator());
+          }
+
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(

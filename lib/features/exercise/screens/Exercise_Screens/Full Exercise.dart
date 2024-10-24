@@ -1,9 +1,36 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/Exercise_Card.dart';
 import '../../widgets/bulidAppBar.dart';
 import 'ExerciseDetails.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  AwesomeNotifications().initialize
+    (null,
+      [
+        NotificationChannel(
+          channelKey: "basic key",
+          channelName: "schedule channel",
+          channelDescription: "notifications for schedule exercise",
+          playSound: true,
+          channelShowBadge: true,
+        )
+      ],
+      debug: true
+  );
+
+  runApp (
+       const MaterialApp(
+         debugShowCheckedModeBanner: false,
+        home: ExerciseScreen(),
+      )
+  );
+}
 
 List<QueryDocumentSnapshot> data = [];
 
@@ -43,7 +70,9 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar("FULL EXERCISE",
-      () {},
+      () {
+        Navigator.pop(context);
+      },
       ),
 
       body: DefaultTabController(
