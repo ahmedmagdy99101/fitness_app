@@ -52,37 +52,3 @@ class AppNotifications {
     }
   }
 }
-
-// import 'package:firebase_messaging/firebase_messaging.dart';
-// import 'package:flutter/material.dart';
-//
-// class AppNotifications {
-//   final _firebaseMessaging = FirebaseMessaging.instance;
-//
-//   Future<void> init() async {
-//     _firebaseMessaging.requestPermission();
-//     final userFirebaseIdToken = await _firebaseMessaging.getToken();
-//     debugPrint("userFirebaseIdToken: $userFirebaseIdToken ");
-//     initAllNotificationsMessages();
-//   }
-//
-//   Future initAllNotificationsMessages() async {
-//     await FirebaseMessaging.instance
-//         .setForegroundNotificationPresentationOptions(
-//       alert: true,
-//       badge: true,
-//       sound: true,
-//     );
-//     FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
-//     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
-//     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
-//   }
-//
-//   Future<void> handleBackgroundMessage(RemoteMessage message) async {
-//     debugPrint("Title: ${message.notification?.title} ");
-//     debugPrint("Body: ${message.notification?.body} ");
-//     debugPrint("Payload: ${message.data} ");
-//   }
-//
-//   void handleMessage(RemoteMessage? message) {}
-// }

@@ -132,63 +132,63 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text("Select your Goal".toUpperCase(),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: "Bebas",
-                      )),
-                  BlocBuilder<HomeCubit, HomeState>(
-                    builder: (context, state) {
-                      final cubit = HomeCubit.get(context);
-                      return SizedBox(
-                        height: 70,
-                        child: ListView.separated(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                cubit.selectGoal(index);
-                              },
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 200),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10,
-                                  horizontal: 20,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: cubit.selectedGoal == index
-                                      ? Colors.black
-                                      : Colors.grey[300]!,
-                                ),
-                                child: Text(
-                                  cubit.goalsLabels[index],
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: cubit.selectedGoal == index
-                                        ? Colors.white
-                                        : const Color(0xFF303841),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(
-                              width: 10,
-                            );
-                          },
-                          itemCount: 4,
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  // Text("Select your Goal".toUpperCase(),
+                  //     style: const TextStyle(
+                  //       fontSize: 18,
+                  //       fontWeight: FontWeight.normal,
+                  //       fontFamily: "Bebas",
+                  //     )),
+                  // BlocBuilder<HomeCubit, HomeState>(
+                  //   builder: (context, state) {
+                  //     final cubit = HomeCubit.get(context);
+                  //     return SizedBox(
+                  //       height: 70,
+                  //       child: ListView.separated(
+                  //         padding: const EdgeInsets.symmetric(vertical: 14),
+                  //         scrollDirection: Axis.horizontal,
+                  //         itemBuilder: (context, index) {
+                  //           return InkWell(
+                  //             onTap: () {
+                  //               cubit.selectGoal(index);
+                  //             },
+                  //             child: AnimatedContainer(
+                  //               duration: const Duration(milliseconds: 200),
+                  //               padding: const EdgeInsets.symmetric(
+                  //                 vertical: 10,
+                  //                 horizontal: 20,
+                  //               ),
+                  //               decoration: BoxDecoration(
+                  //                 borderRadius: BorderRadius.circular(8),
+                  //                 color: cubit.selectedGoal == index
+                  //                     ? Colors.black
+                  //                     : Colors.grey[300]!,
+                  //               ),
+                  //               child: Text(
+                  //                 cubit.goalsLabels[index],
+                  //                 style: TextStyle(
+                  //                   fontSize: 14,
+                  //                   fontWeight: FontWeight.w500,
+                  //                   color: cubit.selectedGoal == index
+                  //                       ? Colors.white
+                  //                       : const Color(0xFF303841),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           );
+                  //         },
+                  //         separatorBuilder: (context, index) {
+                  //           return const SizedBox(
+                  //             width: 10,
+                  //           );
+                  //         },
+                  //         itemCount: 4,
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

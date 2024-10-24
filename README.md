@@ -1,6 +1,6 @@
 # **Fitness Tracker App**
 
-![Project Logo](./assets/images/app_logo.png)
+![Project Logo](./assets/images/cover.png)
 
 ### 🚀 **Overview**
 
@@ -11,8 +11,4 @@ more. With an intuitive user interface, the app allows users to set goals, track
 detailed analytics of their fitness journey.
 
 
----
 
-### 🧹 **App Cover**
-
-![Project Logo](./assets/images/cover.png)
