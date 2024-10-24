@@ -7,31 +7,9 @@ import '../../widgets/bulidAppBar.dart';
 import 'ExerciseDetails.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  AwesomeNotifications().initialize
-    (null,
-      [
-        NotificationChannel(
-          channelKey: "basic key",
-          channelName: "schedule channel",
-          channelDescription: "notifications for schedule exercise",
-          playSound: true,
-          channelShowBadge: true,
-        )
-      ],
-      debug: true
-  );
-
-  runApp (
-       MaterialApp(
-        home: ExerciseScreen(),
-      )
-  );
-}
-
 List<QueryDocumentSnapshot> data = [];
+
+List<String> tabList = ['Strength', 'Full body', 'Stretch', 'Cardio & Core', 'Cardio', 'Core', 'Gym', 'Yoga'];
 
 bool isLoading = true;
 
@@ -71,41 +49,53 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
       ),
 
       body: DefaultTabController(
-        length: 4,
+        length: 8,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TabBar(
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.black,
-              splashBorderRadius: BorderRadius.circular(10),
-              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-              // indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
-              indicatorSize: TabBarIndicatorSize.tab,
-              dividerColor: Colors.white,
-              indicator: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: TabBar(
+                tabAlignment: TabAlignment.start,
+                controller: tabController,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.black,
+                //splashBorderRadius: BorderRadius.circular(10),
+                labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelPadding: const EdgeInsets.symmetric(horizontal: 20),
+                dividerColor: Colors.white,
+                indicator: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                isScrollable: true,
+                automaticIndicatorColorAdjustment: true,
+                tabs:  [
+                  Tab(text: tabList[0],),
+                  Tab(text: tabList[1],),
+                  Tab(text: tabList[2],),
+                  Tab(text: tabList[3],),
+                  Tab(text: tabList[4],),
+                  Tab(text: tabList[5],),
+                  Tab(text: tabList[6],),
+                  Tab(text: tabList[7],)
+                ],
               ),
-              isScrollable: true,
-              automaticIndicatorColorAdjustment: true,
-              tabs: const [
-                Tab(text: 'Strength'),
-                Tab(text: 'Full body'),
-                Tab(text: 'Cardio & Core'),
-                Tab(text: 'Cardio',)
-              ],
             ),
             Expanded(
               child: TabBarView(
                 controller: tabController,
-                  children:
-                  [
-                    buildExerciseList(context),
-                    buildExerciseList(context),
-                    buildExerciseList(context),
-                    buildExerciseList(context)
-                  ]
+                children: [
+                  buildExerciseList(tabList[0]),
+                  buildExerciseList(tabList[1]),
+                  buildExerciseList(tabList[2]),
+                  buildExerciseList(tabList[3]),
+                  buildExerciseList(tabList[4]),
+                  buildExerciseList(tabList[5]),
+                  buildExerciseList(tabList[6]),
+                  buildExerciseList(tabList[7]),
+                ],
               ),
             )
           ],
@@ -115,42 +105,49 @@ class _MealPlanScreenState extends State<ExerciseScreen> {
   }
 }
 
-Widget buildExerciseList(BuildContext context) {
-  return isLoading == true ?
-  Center(
-    child: LoadingAnimationWidget.waveDots(
-        color: Colors.black,
-        size: 50),
-  )
-  : ListView.separated(
-      itemCount: data.length,
-      separatorBuilder: (BuildContext context, int index) {
-        return const Divider(
-          height: 1,
-          color: Colors.grey,
-        );
+Widget buildExerciseList(String tab) {
+  List selectedList = [];
+  if (isLoading == true){
+    return Center(
+      child: LoadingAnimationWidget.waveDots(
+          color: Colors.black,
+          size: 50),
+    );
+  }
+  for (int i=0; i<data.length; i++){
+    if (tab == data[i]['category']){
+      selectedList.add(data[i]);
+    }
+  }
+  return ListView.separated(
+    itemCount: selectedList.length,
+    separatorBuilder: (BuildContext context, int index) {
+      return const Divider(
+        height: 1,
+        color: Colors.grey,
+      );
+    },
+    itemBuilder: (context, index) => Exercise_Card(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseDetails_Screen(), settings:
+        RouteSettings(arguments:{
+          'image' : selectedList[index]["image"],
+          'title' : selectedList[index]["title"],
+          'calories' :  selectedList[index]["calories"],
+          'time' : selectedList[index]["duration"],
+          'level' : selectedList[index]["level"],
+          'category' : selectedList[index]['category'],
+          'description' : selectedList[index]['description'],
+          'index' : index
+        })));
       },
-      itemBuilder: (context, index) => Exercise_Card(
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseDetails_Screen(), settings:
-          RouteSettings(arguments:{
-            'image' : data[index]["image"],
-            'title' : data[index]["title"],
-            'calories' :  data[index]["calories"],
-            'time' : data[index]["duration"],
-            'level' : data[index]["level"],
-            'category' : data[index]['category'],
-            'description' : data[index]['description'],
-            'index' : index
-          })));
-        },
-            image: data[index]["image"],
-            title: data[index]["title"],
-            level: data[index]["level"],
-            time:  data[index]["duration"],
-            calories: data[index]["calories"],
-            category: data[index]['category'],
-            description: data[index]['description'],
-      ),
+      image: selectedList[index]["image"],
+      title: selectedList[index]["title"],
+      level: selectedList[index]["level"],
+      time:  selectedList[index]["duration"],
+      calories: selectedList[index]["calories"],
+      category: selectedList[index]['category'],
+      description: selectedList[index]['description'],
+    ),
   );
 }
