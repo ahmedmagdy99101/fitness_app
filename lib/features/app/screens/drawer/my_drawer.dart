@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/features/app/screens/drawer/training_screen/training_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../my_progress.dart';
 import '../../../../shared/app_colors.dart';
 import '../../../home/screens/categories_screen/categories_screen.dart';
 import '../../../login/screens/login_screen/login_screen.dart';
 import 'app_setting_screen/app_setting_screen.dart';
 import 'favorites_screen/favorites_screen.dart';
+import 'myprogress_screen/my_progress.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
