@@ -17,7 +17,7 @@ class Result_Screen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar("Result",
       () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseScreen()));
+        Navigator.pop(context);
       },
       ),
       body: FutureBuilder<DocumentSnapshot>(
